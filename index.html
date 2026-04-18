@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exos Code Labs Studio | Software Engineering & Systems</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --bg: #030305;
+            --card-bg: rgba(20, 20, 25, 0.8);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f0f0f0;
+            --text-dim: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-main); 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* --- Fondo Tecnológico --- */
+        .grid-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .blur-orb {
+            position: fixed; width: 500px; height: 500px; border-radius: 50%;
+            filter: blur(150px); z-index: -1; opacity: 0.15;
+        }
+        .orb-1 { background: var(--secondary); top: -10%; left: -10%; }
+        .orb-2 { background: var(--primary); bottom: -10%; right: -10%; }
+
+        /* --- Navegación --- */
+        nav {
+            padding: 1.5rem 8%; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.6rem; font-weight: 700; }
+        .logo span { color: var(--primary); text-shadow: 0 0 10px rgba(0, 242, 255, 0.5); }
+
+        /* --- Hero --- */
+        .hero { padding: 10rem 8% 6rem; text-align: center; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; line-height: 1.1; margin-bottom: 2rem; }
+        .hero h1 b { color: var(--primary); }
+        .hero p { max-width: 850px; margin: 0 auto; font-size: 1.2rem; color: var(--text-dim); }
+
+        /* --- Secciones de Contenido --- */
+        .section { padding: 6rem 8%; max-width: 1400px; margin: 0 auto; }
+        
+        /* Nuevo efecto de cuadros: Sin Tilt, solo Glow sutil */
+        .content-card {
+            background: var(--card-bg); border: 1px solid var(--border); border-radius: 30px;
+            padding: 3.5rem; margin-bottom: 3rem; transition: all 0.4s ease;
+            position: relative; overflow: hidden;
+        }
+        .content-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
+            background: rgba(25, 25, 35, 0.9);
+        }
+
+        h2 { font-size: 2.5rem; margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif; color: #fff; }
+        .tagline { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; display: block; margin-bottom: 1rem; }
+
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 3rem; }
+        .feature-item h4 { color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; }
+        .feature-item p { font-size: 0.95rem; color: var(--text-dim); }
+
+        /* --- Tabla Comparativa --- */
+        .table-container { overflow-x: auto; margin-top: 3rem; border-radius: 20px; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; background: rgba(255,255,255,0.01); }
+        th, td { padding: 25px; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: rgba(0, 242, 255, 0.05); color: var(--primary); font-size: 0.8rem; text-transform: uppercase; }
+        .highlight { color: var(--primary); font-weight: 800; font-size: 1.2rem; }
+
+        /* --- Portafolio (Trabajos Realizados) --- */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .portfolio-item { 
+            background: linear-gradient(145deg, #0a0a0c, #121217); padding: 2.5rem; 
+            border-radius: 25px; border: 1px solid var(--border); transition: 0.3s;
+        }
+        .portfolio-item:hover { border-color: var(--secondary); transform: scale(1.02); }
+        .portfolio-item a { color: var(--primary); text-decoration: none; font-size: 0.9rem; font-weight: 700; border-bottom: 1px solid transparent; transition: 0.3s; }
+        .portfolio-item a:hover { border-bottom-color: var(--primary); }
+
+        /* --- Formulario de Requerimientos --- */
+        .form-container { 
+            background: #0a0a0c; padding: 4rem; border-radius: 40px; 
+            border: 1px solid var(--border); max-width: 900px; margin: 4rem auto; 
+        }
+        .input-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary); }
+        input, textarea, select { 
+            width: 100%; padding: 18px; border-radius: 15px; border: 1px solid var(--border); 
+            background: rgba(255,255,255,0.03); color: #fff; font-size: 1rem; outline: none; transition: 0.3s;
+        }
+        input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(0, 242, 255, 0.1); }
+        
+        .btn-submit { 
+            width: 100%; padding: 20px; border-radius: 15px; border: none; 
+            background: var(--primary); color: #000; font-weight: 800; 
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-submit:hover { background: #fff; letter-spacing: 2px; }
+
+        /* --- WhatsApp Hub --- */
+        .wa-hub { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
+        .wa-card { 
+            background: #25d366; color: #fff; padding: 15px 25px; border-radius: 50px; 
+            text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); transform: translateX(150%); transition: 0.5s var(--ease);
+        }
+        .wa-hub:hover .wa-card { transform: translateX(0); }
+        .wa-main { 
+            width: 70px; height: 70px; background: #25d366; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        /* --- Footer --- */
+        footer { padding: 4rem; text-align: center; border-top: 1px solid var(--border); color: #333; }
+        .legal { font-weight: 700; letter-spacing: 2px; font-size: 0.8rem; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .section, .form-container { padding: 2rem 5%; }
+            .wa-card { transform: translateX(0); position: static; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+    <div class="blur-orb orb-1"></div>
+    <div class="blur-orb orb-2"></div>
+
+    <nav>
+        <div class="logo">EXOS <span>CODE LABS</span></div>
+        <div style="font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; color: var(--primary);">SYSTEMS & ARCHITECTURE</div>
+    </nav>
+
+    <header class="hero">
+        <span class="tagline">Ingeniería de Software de Élite</span>
+        <h1>Llevamos tu infraestructura al <b>siguiente nivel.</b></h1>
+        <p>Expertos en desarrollo de código puro, despliegue de servidores seguros y automatización de procesos empresariales.</p>
+    </header>
+
+    <section class="section">
+        <div class="content-card">
+            <span class="tagline">Servicio Especializado</span>
+            <h2>Desarrollo Web 100% Puro</h2>
+            <p>No usamos WordPress, Shopify ni constructores visuales que ralentizan tu negocio. Escribimos cada línea de código a mano para garantizar velocidad, seguridad y escalabilidad.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>Programación Nativa</h4>
+                    <p>Dominamos HTML5, CSS3 y JavaScript puro. Al finalizar el proyecto, te entregamos el código base completo; la propiedad intelectual es totalmente tuya.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Infraestructura Completa</h4>
+                    <p>Nos encargamos de todo: Compra y configuración de dominio (.com), integración de bases de datos de alto rendimiento y hosting de carga ultra-rápida.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Certificación SSL</h4>
+                    <p>Protegemos la integridad de tu sitio y la de tus usuarios con certificados de seguridad (SSL) gratuitos (gestionados por nosotros) o configuraciones pagas según tu necesidad.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Tiempos de Despliegue</h4>
+                    <p>Entregamos tu página web profesional en un promedio de 7 días hábiles, garantizando soporte técnico los 7 días de la semana y actualizaciones permanentes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-card">
+            <span class="tagline">Infraestructura Crítica</span>
+            <h2>Servidores de Alta Seguridad</h2>
+            <p>Centraliza tu operación. Configuramos servidores dedicados para que gestiones tu facturación e inventario desde cualquier dispositivo, en cualquier parte del mundo.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4>Windows Server Setup</h4>
+                    <p>Recomendamos el hardware ideal según tu volumen de datos, instalamos Windows Server y blindamos el acceso remoto para tu total tranquilidad.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Conectividad Simultánea</h4>
+                    <p>Nuestras configuraciones permiten más de 20 conexiones simultáneas sin pérdida de velocidad, asegurando que tu equipo administrativo trabaje sin interrupciones.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Sistemas a2softway</h4>
+                    <p>Si tu negocio opera con a2softway, la configuración, migración y optimización total del sistema en el servidor está incluida sin costo adicional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 style="text-align: center; margin-bottom: 3rem;">Nuestros Proyectos</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <span class="tagline">E-Commerce Automático</span>
+                <h4>Fanática Beauty</h4>
+                <p style="margin: 15px 0; color: #666; font-size: 0.9rem;">Sistema inteligente de verificación de pagos. Detecta automáticamente transferencias de <b>Cualquier Tipo de Moneda y/o Banco</b> (Nacionales, Internacionales, PayPal y más).</p>
+                <a href="https://www.fanaticadelabelleza.com" target="_blank">Visitar: fanaticadelabelleza.com</a>
+            </div>
+            <div class="portfolio-item">
+                <span class="tagline">Validación Beta</span>
+                <h4>VPM Beta System</h4>
+                <p style="margin: 15px 0; color: #666; font-size: 0.9rem;">Plataforma de prueba para la validación masiva de transacciones bancarias en entornos de alta demanda.</p>
+                <a href="https://vpm-beta.netlify.app/" target="_blank">Explorar Beta: vpm-beta.netlify.app</a>
+            </div>
+            <div class="portfolio-item">
+                <span class="tagline">Business Control</span>
+                <h4>Treinta Integration</h4>
+                <p style="margin: 15px 0; color: #666; font-size: 0.9rem;">Adaptación y optimización de herramientas de gestión para el control eficiente de inventarios y flujo de caja empresarial.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 style="text-align: center;">Por qué elegir Código Puro</h2>
+        <p style="text-align: center; color: var(--text-dim); margin-bottom: 4rem;">Ahorra hasta un 60% eliminando mensualidades de plugins y constructores visuales lentos.</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>TIPO DE PROYECTO</th>
+                        <th>INVERSIÓN WORDPRESS/SHOPY</th>
+                        <th>INVERSIÓN EXOS CODE LABS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Landing Page (Ventas)</td>
+                        <td>$300 - $800</td>
+                        <td class="highlight">$150</td>
+                    </tr>
+                    <tr>
+                        <td>Web Corporativa Profesional</td>
+                        <td>$800 - $3,000</td>
+                        <td class="highlight">$250 - $400</td>
+                    </tr>
+                    <tr>
+                        <td>Tienda Online Multi-moneda</td>
+                        <td>$1,500 - $5,000</td>
+                        <td class="highlight">$500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p style="margin-top: 1.5rem; font-size: 0.8rem; color: #555; text-align: center;">*Nuestros precios incluyen creación de código base (HTML/CSS/JS) y estructura de Base de Datos.</p>
+    </section>
+
+    <section class="section" id="requerimientos">
+        <div class="form-container">
+            <h2 style="text-align: center; font-size: 2rem;">¿Qué tienes en mente?</h2>
+            <p style="text-align: center; margin-bottom: 3rem; color: #666;">Completa los detalles de tu proyecto para recibir una propuesta técnica personalizada.</p>
+            <form>
+                <div class="input-group">
+                    <label>Nombre o Empresa</label>
+                    <input type="text" placeholder="Ej: Inversiones Globales C.A." required>
+                </div>
+                <div class="input-group">
+                    <label>Servicio de Interés</label>
+                    <select>
+                        <option>Página Web en Código Puro</option>
+                        <option>Configuración de Servidor Seguro / a2softway</option>
+                        <option>Aplicación / Automatización de Procesos</option>
+                        <option>Consultoría Integral</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label>Presupuesto Estimado (USD)</label>
+                    <input type="number" placeholder="Ej: 400" required>
+                </div>
+                <div class="input-group">
+                    <label>Detalla tu requerimiento (Lo que quieres lograr)</label>
+                    <textarea rows="5" placeholder="Cuéntanos sobre las funciones que necesitas, tipo de negocio y objetivos..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Requerimientos</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="wa-hub">
+        <a href="https://wa.me/584127336450" target="_blank" class="wa-card">
+            <div style="text-align: right;">Samuel A. <br><small>Lead Architect</small></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="25">
+        </a>
+        <a href="https://wa.me/584120690493" target="_blank" class="wa-card">
+            <div style="text-align: right;">José R. <br><small>Systems Engineer</small></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="25">
+        </a>
+        <div class="wa-main">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+        </div>
+    </div>
+
+    <footer>
+        <p class="legal">EXOS CODE LABS STUDIO. ALL RIGHTS RESERVED.</p>
+        <p style="font-size: 0.7rem; color: #222; margin-top: 15px;">Software and Digital Infrastructure Engineering Studio.</p>
+    </footer>
+
+</body>
+</html>
