@@ -8,10 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Premium Tech-Engineering */
-            --primary: #00E5FF; /* Cyan más sofisticado */
-            --secondary: #2962FF; /* Azul Cobalto corporativo */
-            --bg: #0A0F1C; /* Azul oscuro obsidiana, más elegante que el negro puro */
+            --primary: #00E5FF;
+            --secondary: #2962FF;
+            --bg: #0A0F1C;
             --card: rgba(15, 22, 36, 0.75);
             --border: rgba(255, 255, 255, 0.08);
             --text: #e2e8f0;
@@ -28,13 +27,11 @@
             line-height: 1.7;
         }
 
-        /* --- Fondo con Efectos Suaves --- */
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: radial-gradient(circle at 50% -10%, #151F32 0%, #0A0F1C 100%);
         }
 
-        /* --- Navegación --- */
         nav {
             padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -46,22 +43,19 @@
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
         .logo-text span { color: var(--primary); }
 
-        /* --- Hero --- */
         .hero { padding: clamp(6rem, 15vh, 10rem) 8% 4rem; text-align: center; }
         .hero h1 { font-size: clamp(2.5rem, 7vw, 4.8rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.8rem; letter-spacing: -1.5px; color: #fff; }
         .hero h1 b { color: var(--primary); text-shadow: 0 0 30px rgba(0, 229, 255, 0.25); }
         .hero p { max-width: 800px; margin: 0 auto 2.8rem; font-size: 1.2rem; color: #94a3b8; }
 
-        /* --- Secciones --- */
         .section { padding: 5rem 8%; max-width: 1300px; margin: 0 auto; }
         .section-title { margin-bottom: 3.5rem; text-align: center; }
         .section-title h2 { font-size: 2.8rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 1rem; color: #fff; }
         .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; font-size: 0.85rem; }
 
-        /* --- Grid de Servicios & Planes --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { 
-            background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2.8rem; 
+            background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; 
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
         }
         .card::before {
@@ -74,36 +68,28 @@
             background: rgba(20, 28, 45, 0.9);
         }
         .card:hover::before { opacity: 1; }
-        .card h3 { color: #fff; margin-bottom: 1.5rem; font-size: 1.6rem; font-family: 'Space Grotesk', sans-serif; }
+        .card h3 { color: #fff; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Space Grotesk', sans-serif; }
         .card ul { list-style: none; }
-        .card ul li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 1rem; color: #cbd5e1; }
+        .card ul li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 0.95rem; color: #cbd5e1; }
         .card ul li::before { content: "✓"; color: var(--primary); margin-right: 12px; font-weight: bold; font-size: 1.1rem; }
 
-        /* --- Pricing Specifics --- */
-        .price-tag { font-size: 2.5rem; color: var(--primary); font-weight: 800; margin-bottom: 1rem; display: block; }
-        .price-tag span { font-size: 1rem; color: #64748b; font-weight: 400; }
+        .price-tag { font-size: 2.2rem; color: var(--primary); font-weight: 800; margin-bottom: 0.5rem; display: block; }
+        .price-sub { font-size: 0.9rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 1.5rem; }
         .card.premium { border-color: rgba(0, 229, 255, 0.3); background: rgba(0, 229, 255, 0.03); }
 
-        /* --- Portfolio --- */
         .portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 2rem; }
         .work-box { 
             background: rgba(41, 98, 255, 0.05); border: 1px solid rgba(41, 98, 255, 0.2); 
-            padding: 2.5rem; border-radius: 20px; text-decoration: none; color: inherit; transition: 0.3s;
-            display: flex; flex-direction: column; justify-content: center;
+            border-radius: 20px; text-decoration: none; color: inherit; transition: 0.3s;
+            display: flex; flex-direction: column; overflow: hidden;
         }
         .work-box:hover { background: rgba(41, 98, 255, 0.1); border-color: var(--secondary); transform: scale(1.02); }
+        .work-content { padding: 2rem; }
+        .work-box img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid rgba(41, 98, 255, 0.2); transition: 0.5s; }
+        .work-box:hover img { transform: scale(1.05); }
         .work-box h4 { margin-bottom: 12px; font-size: 1.5rem; color: #fff; }
         .work-box span { color: var(--primary); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; }
 
-        /* --- Tabla Comparativa --- */
-        .comparison-wrapper { overflow-x: auto; margin-top: 3rem; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.3); scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
-        table { width: 100%; border-collapse: collapse; min-width: 750px; background: rgba(0,0,0,0.3); }
-        th, td { padding: 22px 25px; text-align: left; border-bottom: 1px solid var(--border); }
-        th { background: rgba(255,255,255,0.02); color: #94a3b8; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-        .exos-col { background: rgba(0, 229, 255, 0.04); font-weight: 700; color: #fff; border-left: 2px solid var(--primary); }
-        .competitor-col { color: #ef4444; font-weight: 600; text-decoration: line-through; opacity: 0.7; }
-
-        /* --- Formulario de Requerimientos --- */
         .form-container { 
             background: linear-gradient(160deg, rgba(15, 22, 36, 0.8) 0%, rgba(10, 15, 28, 0.9) 100%); 
             padding: 4rem 10%; border-radius: 35px; border: 1px solid var(--border); 
@@ -115,15 +101,16 @@
             width: 100%; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border); 
             background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem; transition: 0.3s; font-family: inherit;
         }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary); outline: none; background: rgba(0, 229, 255, 0.05); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1); }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary); outline: none; background: rgba(0, 229, 255, 0.05); }
+        
         .submit-btn { 
             background: linear-gradient(135deg, var(--primary), #00B8D4); color: #000; 
             padding: 20px; border-radius: 12px; border: none; font-size: 1.1rem;
-            font-weight: 800; cursor: pointer; text-transform: uppercase; width: 100%; transition: 0.3s; margin-top: 15px; letter-spacing: 1px;
+            font-weight: 800; cursor: pointer; text-transform: uppercase; width: 100%; transition: 0.3s; margin-top: 15px;
+            display: flex; justify-content: center; align-items: center; gap: 10px;
         }
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3); }
 
-        /* --- WhatsApp Hub --- */
         .wa-hub { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
         .wa-contact { 
             background: #25d366; color: #fff; padding: 12px 22px; border-radius: 50px; text-decoration: none; 
@@ -131,25 +118,21 @@
             transform: translateX(130%); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0;
         }
         .wa-hub:hover .wa-contact { transform: translateX(0); opacity: 1; }
-        .wa-main { width: 65px; height: 65px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); transition: 0.3s; }
-        .wa-main:hover { transform: scale(1.1); }
+        .wa-main { width: 65px; height: 65px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
 
-        /* --- Footer --- */
         footer { padding: 4rem 8%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; background: rgba(0,0,0,0.2); }
         .copyright { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #64748b; }
 
-        /* --- Animación de Aparición --- */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.9s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.9s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
             nav { padding: 1rem 5%; }
-            .logo-text { font-size: 1.1rem; }
-            .hero { padding-top: 7rem; padding-bottom: 3rem; }
+            .hero { padding-top: 7rem; }
             .section { padding: 3rem 5%; }
-            .form-container { padding: 2.5rem 2rem; margin: 2rem 0; }
-            .wa-contact { transform: translateX(0); position: static; opacity: 1; display: none; } /* En móviles es mejor mostrarlos directos o rediseñar el hub para evitar bloqueos */
-            .wa-hub:hover .wa-contact { display: flex; }
+            .form-container { padding: 2.5rem 2rem; }
+            .wa-contact { display: none; }
+            .wa-hub:hover .wa-contact { display: flex; transform: translateX(0); opacity: 1; }
         }
     </style>
 </head>
@@ -162,100 +145,72 @@
             <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png" alt="Exos Logo" class="logo-img">
             <div class="logo-text">EXOS <span>CODE LABS</span></div>
         </div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--primary); letter-spacing: 2px; border: 1px solid rgba(0, 229, 255, 0.3); padding: 6px 12px; border-radius: 6px; background: rgba(0, 229, 255, 0.05);">ENGINEERING STUDIO</div>
+        <div style="font-size: 0.7rem; font-weight: 800; color: var(--primary); letter-spacing: 2px; border: 1px solid rgba(0, 229, 255, 0.3); padding: 6px 12px; border-radius: 6px;">ENGINEERING STUDIO</div>
     </nav>
 
     <header class="hero reveal">
-        <h1>Ingeniería de Software para <b>Ecosistemas Escalables</b>.</h1>
-        <p>Transformamos requerimientos técnicos complejos en soluciones de alto rendimiento. Código nativo, infraestructura en servidores seguros y propiedad intelectual 100% tuya.</p>
+        <h1>Arquitectura Digital y <b>Servidores de Alto Rendimiento</b>.</h1>
+        <p>Expertos en ingeniería de software nativo y despliegue de infraestructuras seguras. Soluciones robustas diseñadas para dominar el mercado digital.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="#contacto" style="background: var(--primary); color: #000; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 800; letter-spacing: 1px; box-shadow: 0 10px 25px rgba(0, 229, 255, 0.2); transition: 0.3s;">INICIAR PROYECTO</a>
-            <a href="#proyectos" style="background: rgba(255,255,255,0.03); color: #fff; border: 1px solid var(--border); padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: 0.3s;">VER INFRAESTRUCTURAS</a>
+            <a href="#contacto" style="background: var(--primary); color: #000; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 800; transition: 0.3s;">SOLICITAR INGENIERÍA</a>
+            <a href="#planes" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border); padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 600;">VER PLANES</a>
         </div>
     </header>
 
-    <section class="section reveal">
-        <div class="section-title">
-            <p>Nuestra Ingeniería</p>
-            <h2>Desarrollo Integral y Servidores</h2>
-        </div>
-        
-        <div class="grid">
-            <div class="card">
-                <h3>Desarrollo Web Nativo</h3>
-                <ul>
-                    <li>Código puro y optimizado (HTML5, CSS3, JS).</li>
-                    <li>Arquitectura sin plantillas, máxima velocidad.</li>
-                    <li>Despliegue rápido en infraestructura propia.</li>
-                    <li>Certificados SSL y protocolos de seguridad.</li>
-                    <li>Propiedad absoluta del código fuente.</li>
-                </ul>
-            </div>
-
-            <div class="card premium">
-                <h3>Infraestructura de Servidores</h3>
-                <ul>
-                    <li>Configuración avanzada de Windows Server.</li>
-                    <li>Control total y centralizado de tu negocio.</li>
-                    <li>Gestión de +20 conexiones simultáneas sin latencia.</li>
-                    <li>Integración nativa y fluida con <b>a2softway</b>.</li>
-                    <li>Asesoría en hardware para escalabilidad.</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h3>Soluciones a la Medida</h3>
-                <ul>
-                    <li>Desarrollo de herramientas y visores lógicos.</li>
-                    <li>Carga masiva y procesamiento de inventarios.</li>
-                    <li>Sistemas de verificación y cruce de datos.</li>
-                    <li>Videos explicativos técnicos para tu personal.</li>
-                    <li>Despliegue de versiones BETA en tiempo récord.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
     <section class="section reveal" id="planes">
         <div class="section-title">
-            <p>Inversión Transparente</p>
-            <h2>Planes de Implementación</h2>
+            <p>Modelos de Inversión</p>
+            <h2>Planes y Soluciones de Ingeniería</h2>
         </div>
         
         <div class="grid">
-            <div class="card">
-                <span class="price-tag">$80 <span>/ Pago Único</span></span>
-                <h3>Starter Web</h3>
-                <ul>
-                    <li>Landing Page profesional y responsiva.</li>
-                    <li>Diseño UX/UI orientado a conversión.</li>
-                    <li>Integración de enlaces a redes y WhatsApp.</li>
-                    <li>Alojamiento básico configurado.</li>
-                    <li>Entrega rápida y sin dependencias.</li>
-                </ul>
-            </div>
-
             <div class="card premium">
-                <span class="price-tag">$400 <span>/ Pago Único</span></span>
-                <h3>E-Commerce & Retail</h3>
+                <span class="price-tag">$150 - $200</span>
+                <span class="price-sub">$150 Sistema Solo / $200 Full Hosting+Dominio</span>
+                <h3>E-Commerce & Management</h3>
                 <ul>
-                    <li>Tienda virtual o catálogo interactivo.</li>
-                    <li>Panel administrativo (Gestión de productos).</li>
-                    <li>Bases de datos en tiempo real.</li>
-                    <li>Integración de módulos de verificación.</li>
-                    <li>Propiedad del código al 100%.</li>
+                    <li>Página web corporativa de alto impacto.</li>
+                    <li>Carrito de compra y pasarela de pedidos.</li>
+                    <li>Sistema de Facturación integrada.</li>
+                    <li>Panel Administrativo de Control Total.</li>
+                    <li>Gestión de Clientes e Inventario real.</li>
+                </ul>
+            </div>
+
+            <div class="card premium" style="border-color: var(--secondary);">
+                <span class="price-tag">$500</span>
+                <span class="price-sub">Implementación Profesional</span>
+                <h3>Enterprise Server Pack</h3>
+                <ul>
+                    <li>Despliegue de Windows Server profesional.</li>
+                    <li>Control remoto desde cualquier parte del mundo.</li>
+                    <li>Configuración avanzada de seguridad y backups.</li>
+                    <li>Integración <b>a2softway</b> (bajo contrato).</li>
+                    <li>Optimización para +20 conexiones estables.</li>
                 </ul>
             </div>
 
             <div class="card">
-                <span class="price-tag">$1000+ <span>/ Proyecto</span></span>
-                <h3>Enterprise & Servidores</h3>
+                <span class="price-tag">$80</span>
+                <span class="price-sub">Pago Único</span>
+                <h3>Starter Landing Page</h3>
                 <ul>
-                    <li>Plataformas SaaS o sistemas ERP completos.</li>
-                    <li>Configuración de Servidores Windows físicos/nube.</li>
-                    <li>Integraciones complejas (Ej: a2softway).</li>
-                    <li>Arquitectura para redes de múltiples sucursales.</li>
-                    <li>Soporte de ingeniería dedicado.</li>
+                    <li>Landing Page de código puro (Ultra rápida).</li>
+                    <li>Optimización para dispositivos móviles.</li>
+                    <li>Botones de contacto y Redes Sociales.</li>
+                    <li>Ideal para presencia profesional inmediata.</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="price-tag">$30</span>
+                <span class="price-sub">Herramienta Logística</span>
+                <h3>VPM Multicurrency</h3>
+                <ul>
+                    <li>Validación de pagos multimonedas.</li>
+                    <li>Gestión dinámica de tasas de cambio.</li>
+                    <li>Interfaz minimalista de alta velocidad.</li>
+                    <li>Cruce de datos financieros precisos.</li>
                 </ul>
             </div>
         </div>
@@ -263,123 +218,113 @@
 
     <section class="section reveal" id="proyectos">
         <div class="section-title">
-            <p>Infraestructuras Desplegadas</p>
-            <h2>Casos de Éxito</h2>
+            <p>Portafolio de Infraestructura</p>
+            <h2>Casos de Éxito Reales</h2>
         </div>
         <div class="portfolio">
             <a href="https://www.fanaticadelabelleza.com" target="_blank" class="work-box">
-                <span>RETAIL & E-COMMERCE</span>
-                <h4>Fanática Beauty</h4>
-                <p style="font-size: 0.95rem; color: #94a3b8; margin-top: 10px;">Ecosistema semiautomático de verificación de pagos (multimoneda/multibanco) con sistema de notificaciones en tiempo real.</p>
+                <div class="work-content">
+                    <span>RETAIL FULL SYSTEM</span>
+                    <h4>Fanática Beauty Store</h4>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">E-commerce completo con gestión de inventario y facturación.</p>
+                </div>
             </a>
+            
             <a href="https://vpm-beta.netlify.app/" target="_blank" class="work-box">
-                <span>FINTECH / DATA PROCESSING</span>
-                <h4>VPM Beta System</h4>
-                <p style="font-size: 0.95rem; color: #94a3b8; margin-top: 10px;">Infraestructura de alta velocidad para la validación de transacciones y gestión de flujos de caja operativos.</p>
+                <div class="work-content">
+                    <span>FINTECH LOGISTICS</span>
+                    <h4>VPM Multi-Currency</h4>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Estructura de validación para flujos de caja en múltiples divisas.</p>
+                </div>
             </a>
-        </div>
-    </section>
 
-    <section class="section reveal">
-        <div class="section-title">
-            <p>Comparativa Técnica</p>
-            <h2>Exos Code Labs vs Plataformas Genéricas</h2>
+            <div class="work-box">
+                <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/conexiones-a-servido.png" alt="Servidor Barquisimeto">
+                <div class="work-content">
+                    <span>SERVER INFRASTRUCTURE</span>
+                    <h4>Tienda Electrónica Barquisimeto</h4>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Arquitectura de servidor centralizado para control remoto global de sucursales.</p>
+                </div>
+            </div>
         </div>
-        <div class="comparison-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tipo de Arquitectura</th>
-                        <th>Competencia (Treinta, WP, SaaS genéricos)</th>
-                        <th class="exos-col">EXOS CODE LABS (Desarrollo Nativo)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Presencia Web (Landing)</td>
-                        <td class="competitor-col">$300 - $800 + Mantenimiento</td>
-                        <td class="exos-col">Desde $80 (Sin mensualidades ocultas)</td>
-                    </tr>
-                    <tr>
-                        <td>Desarrollo Corporativo</td>
-                        <td class="competitor-col">$800 - $3,000 + Hosting costoso</td>
-                        <td class="exos-col">$250 - $400 (Optimizado para bajo consumo)</td>
-                    </tr>
-                    <tr>
-                        <td>Plataforma de Ventas</td>
-                        <td class="competitor-col">$1,500 - $5,000 + Comisiones por venta</td>
-                        <td class="exos-col">Desde $400 (Tus ganancias son 100% tuyas)</td>
-                    </tr>
-                    <tr>
-                        <td>Licenciamiento y Control</td>
-                        <td class="competitor-col">Alquiler de plataforma / Pagos recurrentes</td>
-                        <td class="exos-col">PAGO ÚNICO (El código y el sistema te pertenecen)</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #64748b; text-align: center;">*Plataformas cerradas limitan el crecimiento de tu empresa. Nosotros construimos cimientos técnicos que tú controlas y escalas a voluntad.</p>
     </section>
 
     <section class="section reveal" id="contacto">
         <div class="form-container">
-            <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2.2rem; font-family: 'Space Grotesk', sans-serif;">Estructura tu Próximo Proyecto</h2>
-            <form>
+            <h2 style="text-align: center; margin-bottom: 2.5rem; font-family: 'Space Grotesk', sans-serif;">Estructura tu Próximo Proyecto</h2>
+            <form id="wa-form">
                 <div class="form-group">
-                    <label>Nombre de la Empresa o Proyecto</label>
-                    <input type="text" placeholder="Ej: Inversiones Globales" required>
+                    <label>Nombre o Empresa</label>
+                    <input type="text" id="wa-nombre" placeholder="Nombre del solicitante" required>
                 </div>
                 <div class="form-group">
-                    <label>Área de Ingeniería Requerida</label>
-                    <select>
-                        <option>Desarrollo Web / E-Commerce Nativo</option>
-                        <option>Configuración de Servidor y Redes (a2softway)</option>
-                        <option>Desarrollo de Software / ERP a la Medida</option>
-                        <option>Auditoría Técnica o Requerimiento Especial</option>
+                    <label>Tipo de Requerimiento</label>
+                    <select id="wa-servicio" required>
+                        <option value="" disabled selected>Selecciona una solución...</option>
+                        <option value="Web Completa con Gestión ($150-$200)">Web Completa con Gestión ($150-$200)</option>
+                        <option value="Servidor Windows Server ($500)">Configuración de Servidor Windows ($500)</option>
+                        <option value="Sistema VPM Multimonedas ($30)">Sistema VPM Multimonedas ($30)</option>
+                        <option value="Landing Page Pro ($80)">Landing Page Pro ($80)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Especificaciones Técnicas</label>
-                    <textarea rows="5" placeholder="Describe la lógica operativa que necesitas, volúmenes de datos o metas de la infraestructura..."></textarea>
+                    <label>Detalles Técnicos / Ideas</label>
+                    <textarea id="wa-detalles" rows="4" placeholder="Cuéntanos qué necesitas resolver..." required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Desplegar Requerimiento</button>
+                <button type="submit" class="submit-btn">
+                    ENVIAR REQUERIMIENTO A WHATSAPP
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WA">
+                </button>
             </form>
         </div>
     </section>
 
     <div class="wa-hub">
         <a href="https://wa.me/584127336450" target="_blank" class="wa-contact">
-            <div style="text-align: right;">Samuel A. <br><small style="font-size: 0.65rem; opacity: 0.9;">Lead Architect</small></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp">
+            <div style="text-align: right;">Samuel A. <br><small>Lead Architect</small></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24">
         </a>
         <a href="https://wa.me/584120690493" target="_blank" class="wa-contact">
-            <div style="text-align: right;">José R. <br><small style="font-size: 0.65rem; opacity: 0.9;">Systems Engineer</small></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WhatsApp">
+            <div style="text-align: right;">José R. <br><small>Systems Engineer</small></div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24">
         </a>
         <div class="wa-main">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35" alt="WhatsApp Hub">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
         </div>
     </div>
 
     <footer>
-        <p class="copyright">EXOS CODE LABS STUDIO. ALL RIGHTS RESERVED.</p>
-        <p style="font-size: 0.8rem; color: #64748b; margin-top: 15px;">Engineering Software, High-Performance Systems & Secure Servers.</p>
+        <p class="copyright">EXOS CODE LABS STUDIO. ENGINEERING FUTURE SOLUTIONS.</p>
     </footer>
 
     <script>
-        // Animación suave de aparición al hacer scroll
-        const observerOptions = { threshold: 0.15 };
+        // Animaciones de entrada
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    // Opcional: dejar de observar una vez que ya apareció
-                    // observer.unobserve(entry.target); 
-                }
+                if (entry.isIntersecting) entry.target.classList.add('visible');
             });
-        }, observerOptions);
-
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // LÓGICA DE ENVÍO A WHATSAPP MEJORADA
+        document.getElementById('wa-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('wa-nombre').value;
+            const servicio = document.getElementById('wa-servicio').value;
+            const detalles = document.getElementById('wa-detalles').value;
+            const numero = "584127336450"; // Número de Samuel
+
+            // Formato de mensaje ultra profesional para WhatsApp
+            const texto = `*SOLICITUD DE INGENIERÍA - EXOS CODE LABS*%0A%0A` +
+                          `*Cliente:* ${nombre}%0A` +
+                          `*Servicio:* ${servicio}%0A` +
+                          `*Detalles:* ${detalles}%0A%0A` +
+                          `_Enviado desde el Portal Oficial de Exos Code Labs_`;
+
+            const url = `https://wa.me/${numero}?text=${texto}`;
+            window.open(url, '_blank');
+        });
     </script>
 </body>
 </html>
