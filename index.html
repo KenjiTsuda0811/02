@@ -3,143 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exos Code Labs Studio | Ingeniería de Software & Servidores</title>
+    <title>Exos Code Labs Studio | Agencia de Ingeniería Web</title>
     <link rel="icon" type="image/png" href="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- VARIABLES GLOBALES Y MODO OSCURO (DEFAULT) --- */
         :root {
             --primary: #00E5FF;
+            --primary-hover: #00B8D4;
             --secondary: #2962FF;
-            --bg: #0A0F1C;
-            --bg-gradient: radial-gradient(circle at 50% -10%, #151F32 0%, #0A0F1C 100%);
-            --card: rgba(15, 22, 36, 0.75);
-            --card-solid: #131b2f;
-            --border: rgba(255, 255, 255, 0.1);
-            --text: #e2e8f0;
-            --text-muted: #94a3b8;
-            --input-bg: rgba(0,0,0,0.5);
-            --soft-glow: 0 0 25px rgba(0, 229, 255, 0.12);
-            --success: #10b981;
-            --danger: #ef4444;
-            --form-accent: rgba(0, 229, 255, 0.05);
+            --bg-body: #050810;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #111A2D 0%, #050810 100%);
+            --card-bg: rgba(15, 22, 36, 0.6);
+            --card-solid: #0E1422;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --input-bg: rgba(0, 0, 0, 0.4);
+            --glow: 0 0 30px rgba(0, 229, 255, 0.08);
+            --accent-bg: rgba(0, 229, 255, 0.03);
+            --success: #10B981;
+            --danger: #EF4444;
         }
 
+        /* --- MODO CLARO CORPORATIVO --- */
         [data-theme="light"] {
-            --primary: #0088cc;
-            --secondary: #1e40af;
-            --bg: #f8fafc;
-            --bg-gradient: radial-gradient(circle at 50% -10%, #ffffff 0%, #f1f5f9 100%);
-            --card: #ffffff;
-            --card-solid: #ffffff;
-            --border: #cbd5e1;
-            --text: #0f172a;
+            --primary: #0077B6;
+            --primary-hover: #023E8A;
+            --secondary: #00B4D8;
+            --bg-body: #F4F7FA;
+            --bg-gradient: linear-gradient(180deg, #FFFFFF 0%, #F4F7FA 100%);
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --card-solid: #FFFFFF;
+            --border-color: #E2E8F0;
+            --text-main: #0F172A;
             --text-muted: #475569;
-            --input-bg: #ffffff;
-            --soft-glow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --form-accent: #f0f9ff;
+            --input-bg: #FFFFFF;
+            --glow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            --accent-bg: #F8FAFC;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.3s, color 0.3s, border-color 0.3s; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease; }
         
         body { 
-            background-color: var(--bg); 
-            color: var(--text); 
+            background-color: var(--bg-body); 
+            background-image: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main); 
             font-family: 'Plus Jakarta Sans', sans-serif; 
             overflow-x: hidden;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
-        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-gradient); }
-
-        /* --- Navegación --- */
+        /* --- NAVEGACIÓN --- */
         nav {
-            padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
-            background: rgba(var(--bg), 0.8);
+            padding: 1rem 6%; display: flex; justify-content: space-between; align-items: center;
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border-color);
+            background: rgba(var(--bg-body), 0.8);
         }
-        .logo-area { display: flex; align-items: center; gap: 12px; }
-        .logo-img { width: 45px; height: 45px; border-radius: 10px; box-shadow: var(--soft-glow); }
-        .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); }
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-img { width: 42px; height: 42px; border-radius: 8px; box-shadow: var(--glow); }
+        .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
         .logo-text span { color: var(--primary); }
         
-        .theme-toggle {
-            background: var(--card); border: 1px solid var(--border); padding: 8px 16px;
-            border-radius: 50px; cursor: pointer; color: var(--text); display: flex; align-items: center; gap: 8px;
-            font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
+        .theme-switch {
+            background: var(--card-solid); border: 1px solid var(--border-color); padding: 8px 16px;
+            border-radius: 50px; cursor: pointer; color: var(--text-main); font-size: 0.8rem; font-weight: 700;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; align-items: center; gap: 8px;
         }
+        .theme-switch:hover { border-color: var(--primary); }
 
-        /* --- Hero --- */
-        .hero { padding: clamp(5rem, 12vh, 8rem) 8% 3rem; text-align: center; }
-        .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1.5px; color: var(--text); }
-        .hero h1 b { color: var(--primary); text-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
-        .hero p { max-width: 850px; margin: 0 auto 2.5rem; font-size: 1.15rem; color: var(--text-muted); }
-
-        .section { padding: 4rem 8%; max-width: 1300px; margin: 0 auto; }
-        .section-title { margin-bottom: 3.5rem; text-align: center; }
-        .section-title h2 { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; color: var(--text); }
-        .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
-
-        /* --- Tarifas Dinámicas --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .pricing-card { 
-            background: var(--card-solid); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem 2rem; 
-            position: relative; display: flex; flex-direction: column; transition: 0.4s;
-        }
-        .pricing-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: var(--soft-glow); }
-        .pricing-card.popular { border: 2px solid var(--primary); }
+        /* --- HERO SECTION --- */
+        .hero { padding: clamp(6rem, 15vh, 10rem) 6% 4rem; text-align: center; max-width: 1000px; margin: 0 auto; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1.5px; font-family: 'Space Grotesk', sans-serif; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2.5rem; }
         
-        .price-old { font-size: 0.9rem; color: var(--danger); text-decoration: line-through; display: block; margin-bottom: 2px; font-weight: 600; }
-        .pricing-price { font-size: 2.8rem; color: var(--text); font-weight: 800; margin-bottom: 1rem; display: flex; align-items: baseline; gap: 5px; }
-        .pricing-price small { font-size: 1.2rem; color: var(--primary); }
-
-        .pricing-features { list-style: none; margin-bottom: 2rem; flex-grow: 1; }
-        .pricing-features li { margin-bottom: 12px; display: flex; align-items: center; font-size: 0.9rem; color: var(--text-muted); }
-        .pricing-features li::before { content: "✓"; margin-right: 10px; color: var(--primary); font-weight: 900; }
-
-        .btn-cotizar { 
-            width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--primary);
-            background: transparent; color: var(--text); font-weight: 800; cursor: pointer; text-decoration: none; text-align: center;
+        .btn-main {
+            display: inline-block; background: var(--primary); color: #FFF; padding: 16px 36px;
+            border-radius: 12px; font-weight: 800; text-decoration: none; font-size: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.2); transition: 0.3s; cursor: pointer; border: none;
         }
-        .btn-cotizar:hover, .btn-solid { background: var(--primary); color: #fff; }
+        [data-theme="light"] .btn-main { color: #FFF; box-shadow: 0 10px 25px rgba(0, 119, 182, 0.3); }
+        .btn-main:hover { transform: translateY(-3px); background: var(--primary-hover); }
 
-        /* --- Formulario de Agencia --- */
-        .form-split {
-            display: grid; grid-template-columns: 1fr 1.5fr; background: var(--card-solid);
-            border-radius: 24px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--soft-glow);
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 10px; }
+        .section-header p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+
+        /* --- PORTAFOLIO / RESULTADOS --- */
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; padding: 0 6%; max-width: 1300px; margin: 0 auto 6rem; }
+        .portfolio-card {
+            background: var(--card-solid); border: 1px solid var(--border-color); border-radius: 20px;
+            overflow: hidden; text-decoration: none; color: inherit; display: block; box-shadow: var(--glow);
+            transition: 0.4s;
         }
-        .form-contact-info { background: var(--form-accent); padding: 3rem; }
-        .form-contact-info h3 { font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif; }
-        .contact-item { margin-bottom: 20px; display: flex; flex-direction: column; }
-        .contact-item span { font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase; }
-        .contact-item p { font-size: 1rem; font-weight: 600; }
+        .portfolio-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .portfolio-img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid var(--border-color); }
+        .portfolio-info { padding: 2rem; }
+        .portfolio-info span { color: var(--primary); font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px; }
+        .portfolio-info h3 { font-size: 1.4rem; margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
+        .portfolio-info p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-        .form-main { padding: 3rem; }
+        /* --- TARIFAS DINÁMICAS --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; padding: 0 6%; max-width: 1400px; margin: 0 auto 6rem; }
+        .pricing-card {
+            background: var(--card-solid); border: 1px solid var(--border-color); border-radius: 24px; padding: 2.5rem;
+            position: relative; display: flex; flex-direction: column; box-shadow: var(--glow);
+        }
+        .pricing-card:hover { border-color: var(--primary); }
+        .pricing-card.popular { border: 2px solid var(--primary); transform: scale(1.02); background: var(--accent-bg); }
+        
+        .badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: var(--primary); color: #FFF; padding: 6px 20px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; }
+        [data-theme="dark"] .badge { color: #000; }
+
+        .price-header { border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 1.5rem; text-align: center; }
+        .price-title { font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 15px; }
+        .price-old { font-size: 1rem; color: var(--danger); text-decoration: line-through; display: block; font-weight: 600; opacity: 0.8; }
+        .price-new { font-size: 3.5rem; font-weight: 800; color: var(--text-main); line-height: 1; display: flex; justify-content: center; align-items: baseline; gap: 5px; }
+        .price-new small { font-size: 1.2rem; color: var(--primary); }
+        .price-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 15px; display: block; }
+
+        .price-features { list-style: none; flex-grow: 1; margin-bottom: 2rem; }
+        .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; }
+        .price-features li::before { content: "✔"; color: var(--primary); font-weight: 900; }
+
+        .btn-outline {
+            width: 100%; text-align: center; padding: 14px; border-radius: 12px; border: 1px solid var(--primary);
+            color: var(--text-main); font-weight: 700; text-decoration: none; display: block; transition: 0.3s;
+        }
+        .btn-outline:hover { background: var(--primary); color: #FFF; }
+
+        /* --- FORMULARIO DE CONTACTO --- */
+        .form-section { padding: 0 6% 6rem; max-width: 1200px; margin: 0 auto; }
+        .form-wrapper { display: grid; grid-template-columns: 1fr 1.5fr; background: var(--card-solid); border-radius: 24px; border: 1px solid var(--border-color); box-shadow: var(--glow); overflow: hidden; }
+        
+        .form-info { background: var(--accent-bg); padding: 3rem; border-right: 1px solid var(--border-color); }
+        .form-info h3 { font-size: 1.8rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 2rem; }
+        .info-box { margin-bottom: 1.5rem; }
+        .info-box span { display: block; font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .info-box p { font-size: 1rem; font-weight: 600; color: var(--text-main); }
+        .info-box small { font-size: 0.85rem; color: var(--text-muted); }
+
+        .form-inputs { padding: 3rem; }
         .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 0.9rem; font-weight: 700; color: var(--text-main); }
         .input-group input, .input-group select, .input-group textarea {
-            width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--border);
-            background: var(--input-bg); color: var(--text); font-family: inherit;
+            width: 100%; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color);
+            background: var(--input-bg); color: var(--text-main); font-family: inherit; font-size: 0.95rem; outline: none; transition: 0.3s;
         }
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1); }
 
-        /* --- Admin Modal --- */
-        .admin-panel {
+        /* --- PANEL DE ADMINISTRADOR --- */
+        .admin-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-            z-index: 2000; display: none; flex-direction: column; padding: 2rem; overflow-y: auto; backdrop-filter: blur(10px);
+            z-index: 3000; display: none; flex-direction: column; padding: 2rem; overflow-y: auto; backdrop-filter: blur(15px); color: #FFF;
         }
-        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-        .tab-btn { background: none; border: none; color: #fff; padding: 10px 20px; cursor: pointer; font-weight: 800; opacity: 0.5; }
-        .tab-btn.active { opacity: 1; border-bottom: 2px solid var(--primary); color: var(--primary); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; color: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: #00E5FF; color: #000; border-color: #00E5FF; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        .edit-card { background: #131b2f; padding: 20px; border-radius: 12px; border: 1px solid #333; margin-bottom: 15px; }
-        .edit-card input { width: 100%; margin-bottom: 10px; padding: 8px; background: #0a0f1c; color: #fff; border: 1px solid #444; }
+        .orders-table { width: 100%; border-collapse: collapse; background: #0E1422; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+        .orders-table th, .orders-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .orders-table th { background: rgba(0, 229, 255, 0.1); color: #00E5FF; }
 
-        footer { padding: 3rem; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; }
-        .copyright { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; font-weight: 800; letter-spacing: 1.5px; }
+        .plan-edit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .plan-edit-card { background: #0E1422; padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .plan-edit-card input, .plan-edit-card textarea { width: 100%; margin-bottom: 10px; padding: 10px; background: #050810; border: 1px solid #333; color: #fff; border-radius: 5px; font-family: inherit; }
+        .plan-edit-card label { font-size: 0.8rem; color: #00E5FF; display: block; margin-bottom: 5px; }
 
-        @media (max-width: 900px) { .form-split { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
+        footer { padding: 3rem 6%; text-align: center; border-top: 1px solid var(--border-color); }
+        .copyright { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; font-weight: 700; letter-spacing: 1px; }
+
+        @media (max-width: 900px) {
+            .form-wrapper { grid-template-columns: 1fr; }
+            .form-info { border-right: none; border-bottom: 1px solid var(--border-color); }
+        }
     </style>
 </head>
 <body>
@@ -151,111 +194,154 @@
             <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png" alt="Exos Logo" class="logo-img">
             <div class="logo-text">EXOS <span>CODE LABS</span></div>
         </div>
-        <button class="theme-toggle" id="theme-switch">☀️ MODO CLARO</button>
+        <button class="theme-switch" id="btn-theme">☀️ MODO CLARO</button>
     </nav>
 
     <header class="hero">
-        <h1>Ingeniería Web de <b>Alto Nivel</b>.</h1>
-        <p>Desarrollamos ecosistemas digitales escalables: desde tiendas online semiautomatizadas hasta infraestructuras de servidores críticos. Tu visión técnica, ejecutada con precisión.</p>
+        <h1>Ingeniería de Software para <span>Ecosistemas Escalables</span></h1>
+        <p>Desarrollamos soluciones técnicas de alto impacto. Desde plataformas E-Commerce hasta infraestructuras de servidores dedicados con propiedad absoluta de código.</p>
+        <a href="#contacto" class="btn-main">INICIAR REQUERIMIENTO</a>
     </header>
 
-    <section class="section" id="planes">
-        <div class="section-title">
-            <p>Inversión Inteligente</p>
-            <h2>Soluciones de Ingeniería Web</h2>
-        </div>
-        <div class="pricing-grid" id="grid-planes">
+    <div class="section-header">
+        <p>Nuestra Experiencia</p>
+        <h2>Casos de Éxito e Infraestructura</h2>
+    </div>
+    <div class="portfolio-grid">
+        <a href="https://www.fanaticadelabelleza.com" target="_blank" class="portfolio-card">
+            <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/image_71889e.png" alt="Fanática Beauty" class="portfolio-img" onerror="this.src='https://via.placeholder.com/600x400/0A0F1C/00E5FF?text=Fanatica+Beauty'">
+            <div class="portfolio-info">
+                <span>E-Commerce Full Stack</span>
+                <h3>Fanática Beauty C.A.</h3>
+                <p>Desarrollo de ecosistema de ventas con gestión de inventario, pasarela de pago semiautomatizada y base de datos de productos integrados. (RIF: J502419187)</p>
             </div>
-        <p style="text-align: center; margin-top: 3rem; font-weight: 800; font-size: 1.1rem; color: var(--primary);">
-            PROPIEDAD ABSOLUTA DEL CÓDIGO FUENTE. SIN MENSUALIDADES.
-        </p>
-    </section>
+        </a>
+        <a href="https://vpm-beta.netlify.app/" target="_blank" class="portfolio-card">
+            <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/image_719027.png" alt="Sistema VPM" class="portfolio-img" onerror="this.src='https://via.placeholder.com/600x400/0A0F1C/00E5FF?text=VPM+Beta+System'">
+            <div class="portfolio-info">
+                <span>Logística Financiera</span>
+                <h3>VPM System (Beta)</h3>
+                <p>Arquitectura lógica para validación de transacciones multimonedas, cálculo de tasas en tiempo real y operativa de control diario (9:00 AM - 6:30 PM).</p>
+            </div>
+        </a>
+        <div class="portfolio-card" style="cursor: default;">
+            <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/conexiones-a-servido.png" alt="Servidor Barquisimeto" class="portfolio-img">
+            <div class="portfolio-info">
+                <span>Infraestructura de Red</span>
+                <h3>Servidor Central Barquisimeto</h3>
+                <p>Despliegue de Windows Server para control remoto global de sucursales comerciales. Gestión de conexiones concurrentes e integración experta con a2softway.</p>
+            </div>
+        </div>
+    </div>
 
-    <section class="section" id="contacto">
-        <div class="form-split">
-            <div class="form-contact-info">
-                <h3>Agencia de <br>Ingeniería Web</h3>
-                <div class="contact-item">
+    <div class="section-header" id="planes">
+        <p>Inversión Tecnológica</p>
+        <h2>Catálogo de Soluciones</h2>
+    </div>
+    <div class="pricing-grid" id="grid-precios">
+        <p style="text-align: center; width: 100%;">Conectando con base de datos de ingeniería...</p>
+    </div>
+
+    <div class="form-section" id="contacto">
+        <div class="form-wrapper">
+            <div class="form-info">
+                <h3>Agencia de<br>Ingeniería Web</h3>
+                
+                <div class="info-box">
                     <span>Lead Architect</span>
-                    <p>Samuel A. | +58 412-7336450</p>
+                    <p>Samuel A.</p>
+                    <small>+58 412-7336450</small>
                 </div>
-                <div class="contact-item">
+                
+                <div class="info-box">
                     <span>Systems Engineer</span>
-                    <p>José R. | +58 412-0690493</p>
+                    <p>José R.</p>
+                    <small>+58 412-0690493</small>
                 </div>
-                <div class="contact-item">
-                    <span>Ubicación</span>
-                    <p>Maracaibo, Venezuela</p>
-                </div>
-                <div style="margin-top: 3rem; border-top: 2px solid var(--primary); padding-top: 1.5rem;">
-                    <p style="font-size: 0.85rem; opacity: 0.8;"><b>Marcas & Sistemas:</b><br>Fanática Beauty C.A. (RIF J502419187)<br>VPM Logistics System<br>Sincronía ERP</p>
+                
+                <div class="info-box">
+                    <span>Ecosistemas Activos</span>
+                    <p>Fanática Beauty</p>
+                    <p>Sincronía ERP</p>
+                    <p>VPM Logistics</p>
                 </div>
             </div>
             
-            <div class="form-main">
-                <h3 style="margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif;">Iniciar Requerimiento Técnico</h3>
-                <form id="form-orden">
+            <div class="form-inputs">
+                <h3 style="font-size: 1.5rem; margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif;">Cotiza tu Proyecto</h3>
+                <form id="form-solicitud">
                     <div class="input-group">
-                        <label>Nombre o Razón Social</label>
-                        <input type="text" id="ord-nombre" required>
+                        <label>Nombre de la Empresa o Proyecto *</label>
+                        <input type="text" id="req-nombre" required placeholder="Ej: Inversiones Globales">
                     </div>
                     <div class="input-group">
-                        <label>WhatsApp de Contacto</label>
-                        <input type="text" id="ord-whatsapp" required>
+                        <label>WhatsApp de Contacto *</label>
+                        <input type="tel" id="req-tlf" required placeholder="+58 412 1234567">
                     </div>
                     <div class="input-group">
-                        <label>Servicio Requerido</label>
-                        <select id="ord-servicio" required>
-                            </select>
+                        <label>Servicio de Interés *</label>
+                        <select id="req-servicio" required>
+                            <option value="">Cargando servicios...</option>
+                        </select>
                     </div>
                     <div class="input-group">
-                        <label>Especificaciones del Proyecto</label>
-                        <textarea id="ord-detalles" rows="4" placeholder="Colores corporativos, funciones deseadas, integraciones con base de datos..." required></textarea>
+                        <label>Especificaciones Técnicas *</label>
+                        <textarea id="req-detalles" rows="4" required placeholder="Describe las funciones que necesitas, base de datos, páginas, colores corporativos..."></textarea>
                     </div>
-                    <button type="submit" class="btn-cotizar btn-solid" id="btn-envio">ENVIAR A WHATSAPP</button>
+                    <button type="submit" class="btn-main" id="btn-enviar" style="width: 100%; border-radius: 10px;">ENVIAR A WHATSAPP</button>
                 </form>
             </div>
         </div>
-    </section>
+    </div>
 
-    <div class="admin-panel" id="panel-admin">
-        <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:2rem;">
-            <h2 style="color:var(--primary); font-family: 'Space Grotesk', sans-serif;">EXOS GOD MODE</h2>
-            <button onclick="cerrarAdmin()" style="background:var(--danger); color:#fff; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">CERRAR</button>
+    <div class="admin-modal" id="modal-admin">
+        <div class="admin-header">
+            <h2 style="color: #00E5FF; font-family: 'Space Grotesk', sans-serif;">EXOS GOD MODE</h2>
+            <div style="display:flex; gap:10px;">
+                <button id="btn-logout" class="tab-btn" style="background: #EF4444; border:none; display:none;">CERRAR SESIÓN</button>
+                <button onclick="document.getElementById('modal-admin').style.display='none'" class="tab-btn">X CERRAR</button>
+            </div>
         </div>
 
-        <div id="admin-auth" style="max-width: 400px; margin: 4rem auto; text-align: center;">
-            <h3 style="margin-bottom: 20px;">Acceso Restringido</h3>
-            <input type="email" id="adm-email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:10px;">
-            <input type="password" id="adm-pass" placeholder="Password" style="width:100%; padding:12px; margin-bottom:20px;">
-            <button onclick="loginAdmin()" class="btn-cotizar btn-solid">AUTENTICAR</button>
+        <div id="admin-login" style="max-width: 400px; margin: 4rem auto; background: #0E1422; padding: 2rem; border-radius: 12px; border: 1px solid #333;">
+            <h3 style="margin-bottom:20px; text-align:center; color:#00E5FF;">Autenticación Exos</h3>
+            <input type="email" id="adm-email" placeholder="Correo" style="width:100%; padding:12px; margin-bottom:10px; background:#050810; border:1px solid #333; color:#fff; border-radius:6px;">
+            <input type="password" id="adm-pass" placeholder="Contraseña" style="width:100%; padding:12px; margin-bottom:20px; background:#050810; border:1px solid #333; color:#fff; border-radius:6px;">
+            <button id="btn-login" class="btn-main" style="width:100%; padding:12px; border-radius:6px;">INGRESAR AL SISTEMA</button>
+            <p id="adm-error" style="color:#EF4444; font-size:0.85rem; margin-top:10px; display:none; text-align:center;">Acceso denegado.</p>
         </div>
 
-        <div id="admin-dash" style="display:none;">
+        <div id="admin-dashboard" style="display:none;">
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="verTab('tab-req')">REQUERIMIENTOS</button>
-                <button class="tab-btn" onclick="verTab('tab-inv')">INVENTARIO DE PRECIOS</button>
+                <button class="tab-btn active" onclick="cambiarTabAdmin('tab-ordenes')">📥 Órdenes de Clientes</button>
+                <button class="tab-btn" onclick="cambiarTabAdmin('tab-planes')">⚙️ Editor de Precios y Planes</button>
             </div>
 
-            <div id="tab-req" class="tab-content active">
-                <div id="lista-ordenes"></div>
+            <div id="tab-ordenes" class="tab-content active" style="overflow-x: auto;">
+                <table class="orders-table">
+                    <thead><tr><th>Fecha</th><th>Cliente</th><th>Tlf</th><th>Servicio</th><th>Detalles</th></tr></thead>
+                    <tbody id="tabla-ordenes"><tr><td colspan="5">Cargando datos...</td></tr></tbody>
+                </table>
             </div>
 
-            <div id="tab-inv" class="tab-content">
-                <button onclick="guardarPlanes()" class="btn-cotizar btn-solid" style="margin-bottom:20px; width:auto; padding:10px 30px;">GUARDAR CAMBIOS EN VIVO</button>
-                <div id="editor-planes"></div>
+            <div id="tab-planes" class="tab-content">
+                <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                    <p style="font-size:0.9rem; color:#94A3B8;">Edita tu catálogo. Los cambios se reflejarán instantáneamente en la web.</p>
+                    <button onclick="guardarPlanes()" class="btn-main" style="padding:10px 20px;">💾 GUARDAR EN BASE DE DATOS</button>
+                </div>
+                <div class="plan-edit-grid" id="editor-planes"></div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p class="copyright" id="trigger-admin">EXOS CODE LABS STUDIO. ALL RIGHTS RESERVED. (RULES_UNTIL_2035)</p>
+        <p class="copyright" id="btn-secret-admin">EXOS CODE LABS STUDIO. ENGINEERING FUTURE SOLUTIONS.</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, push, onValue, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAFCd-j46phQc7Gng8ZxhfKTWpx-VDugps",
@@ -271,158 +357,208 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        // --- Manejo de Tema ---
-        const switchTheme = document.getElementById('theme-switch');
-        switchTheme.addEventListener('click', () => {
-            const current = document.documentElement.getAttribute('data-theme');
-            const target = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', target);
-            switchTheme.innerText = target === 'dark' ? '☀️ MODO CLARO' : '🌙 MODO OSCURO';
+        // --- SISTEMA MODO CLARO / OSCURO ---
+        const btnTheme = document.getElementById('btn-theme');
+        const docEl = document.documentElement;
+        
+        if(localStorage.getItem('exos-theme') === 'light') {
+            docEl.setAttribute('data-theme', 'light');
+            btnTheme.innerHTML = '🌙 MODO OSCURO';
+        }
+
+        btnTheme.addEventListener('click', () => {
+            if(docEl.getAttribute('data-theme') === 'dark') {
+                docEl.setAttribute('data-theme', 'light');
+                localStorage.setItem('exos-theme', 'light');
+                btnTheme.innerHTML = '🌙 MODO OSCURO';
+            } else {
+                docEl.setAttribute('data-theme', 'dark');
+                localStorage.setItem('exos-theme', 'dark');
+                btnTheme.innerHTML = '☀️ MODO CLARO';
+            }
         });
 
-        // --- Planes Dinámicos ---
-        const planesBase = [
-            { id: "1", nombre: "Landing Page Starter", ant: "180", hoy: "80", desc: "Diseño One-Page optimizado para conversiones.", caps: "Código puro,WhatsApp Directo,SEO Básico" },
-            { id: "2", nombre: "E-Commerce Profesional", ant: "350", hoy: "200", desc: "Tienda online completa con facturación.", caps: "Carrito de compras,Inventario,Dominio y Hosting", pop: true },
-            { id: "3", nombre: "Logística VPM Beta", ant: "60", hoy: "30", desc: "Sistema de verificación de pagos multimoneda.", caps: "Tasas en tiempo real,9AM a 6:30PM,Cruces de caja" },
-            { id: "4", nombre: "Enterprise Server", ant: "850", hoy: "500", desc: "Windows Server con control remoto global.", caps: "Integración a2softway,Multisucursal,Seguridad crítica" }
+        // --- CATÁLOGO DE PLANES POR DEFECTO ---
+        const planesDefault = [
+            { id: "1", titulo: "Landing Page Corporativa", desc: "Presencia digital rápida y profesional.", ant: "180", hoy: "80", pop: false, features: "Diseño One-Page responsivo,Integración WhatsApp/Redes,Código nativo ultrarrápido" },
+            { id: "2", titulo: "E-Commerce Full Stack", desc: "Gestión de ventas y catálogo completo.", ant: "350", hoy: "200", pop: true, features: "Carrito de Compras y Facturación,Panel de Administración Privado,Dominio y Hosting incluidos" },
+            { id: "3", titulo: "App Móvil Híbrida (Flutter)", desc: "Tu negocio en Android e iOS.", ant: "900", hoy: "600", pop: false, features: "Código base único (Flutter),Conexión a Base de Datos (Firebase),Escaneo de Códigos de Barra/Cámara" },
+            { id: "4", titulo: "Infraestructura VPM", desc: "Sistema lógico para transacciones.", ant: "60", hoy: "30", pop: false, features: "Multimonedas y Cálculo de Tasas,Cruce de caja diario rápido,Arquitectura ligera" },
+            { id: "5", titulo: "Enterprise Server", desc: "Servidores remotos dedicados.", ant: "800", hoy: "500", pop: false, features: "Windows Server Configurado,Control Multisucursal Remoto,Integración a2softway asegurada" }
         ];
 
-        onValue(ref(db, 'config_planes'), (snap) => {
-            const data = snap.exists() ? snap.val() : planesBase;
-            renderPlanes(data);
-            llenarSelect(data);
-            renderEditor(data);
-        });
+        let planesGlobales = [];
 
-        function renderPlanes(planes) {
-            const grid = document.getElementById('grid-planes');
+        // --- RENDERIZAR PLANES WEB Y SELECT ---
+        function renderizarWeb(planes) {
+            const grid = document.getElementById('grid-precios');
+            const select = document.getElementById('req-servicio');
             grid.innerHTML = '';
-            planes.forEach(p => {
-                const list = p.caps.split(',').map(c => `<li>${c}</li>`).join('');
+            select.innerHTML = '<option value="" disabled selected>Selecciona una solución de ingeniería...</option>';
+
+            planes.forEach((p) => {
+                const featureHTML = p.features.split(',').map(f => `<li>${f.trim()}</li>`).join('');
+                const popClass = p.pop ? 'popular' : '';
+                const popBadge = p.pop ? '<div class="badge">Más Solicitado</div>' : '';
+                const btnClass = p.pop ? 'btn-main' : 'btn-outline';
+
                 grid.innerHTML += `
-                    <div class="pricing-card ${p.pop ? 'popular' : ''}">
-                        <span class="price-old">$${p.ant}</span>
-                        <div class="pricing-price"><small>$</small>${p.hoy}</div>
-                        <h3 class="pricing-title">${p.nombre}</h3>
-                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">${p.desc}</p>
-                        <ul class="pricing-features">${list}</ul>
-                        <a href="#contacto" class="btn-cotizar">SOLICITAR</a>
+                    <div class="pricing-card ${popClass}">
+                        ${popBadge}
+                        <div class="price-header">
+                            <h3 class="price-title">${p.titulo}</h3>
+                            <span class="price-old">$${p.ant}</span>
+                            <div class="price-new"><small>$</small>${p.hoy}</div>
+                            <span class="price-desc">${p.desc}</span>
+                        </div>
+                        <ul class="price-features">${featureHTML}</ul>
+                        <a href="#contacto" class="${btnClass}" style="width:100%; border-radius:10px;">SELECCIONAR PLAN</a>
                     </div>
                 `;
+                select.innerHTML += `<option value="${p.titulo} ($${p.hoy})">${p.titulo} - $${p.hoy}</option>`;
             });
+            select.innerHTML += `<option value="Requerimiento a Medida / Auditoría">Otro Requerimiento Técnico a Medida</option>`;
         }
 
-        function llenarSelect(planes) {
-            const sel = document.getElementById('ord-servicio');
-            sel.innerHTML = '<option value="" disabled selected>Selecciona un servicio...</option>';
-            planes.forEach(p => {
-                sel.innerHTML += `<option value="${p.nombre} ($${p.hoy})">${p.nombre} - $${p.hoy}</option>`;
-            });
-            sel.innerHTML += `<option value="Sincronía ERP / Especial">Requerimiento Especial (Sincronía / Otros)</option>`;
-        }
+        onValue(ref(db, 'catalogo_planes'), (snapshot) => {
+            if(snapshot.exists()) {
+                planesGlobales = snapshot.val();
+            } else {
+                planesGlobales = planesDefault;
+                set(ref(db, 'catalogo_planes'), planesGlobales); // Guardar defaults si está vacío
+            }
+            renderizarWeb(planesGlobales);
+            if(document.getElementById('admin-dashboard').style.display === 'block') {
+                renderizarEditorAdmin(planesGlobales);
+            }
+        });
 
-        // --- Formulario ---
-        document.getElementById('form-orden').addEventListener('submit', async (e) => {
+        // --- ENVÍO DE FORMULARIO DE CLIENTE ---
+        document.getElementById('form-solicitud').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('btn-envio');
-            btn.innerText = 'PROCESANDO ORDEN...';
+            const btn = document.getElementById('btn-enviar');
+            btn.innerText = 'PROCESANDO SOLICITUD...';
 
             const payload = {
-                cliente: document.getElementById('ord-nombre').value,
-                whatsapp: document.getElementById('ord-whatsapp').value,
-                servicio: document.getElementById('ord-servicio').value,
-                detalles: document.getElementById('ord-detalles').value,
+                cliente: document.getElementById('req-nombre').value,
+                telefono: document.getElementById('req-tlf').value,
+                servicio: document.getElementById('req-servicio').value,
+                detalles: document.getElementById('req-detalles').value,
+                fecha: new Date().toLocaleString('es-VE'),
                 timestamp: serverTimestamp()
             };
 
-            await push(ref(db, 'ordenes_recibidas'), payload);
-            
-            const msg = `*EXOS CODE LABS - NUEVO REQUERIMIENTO*%0A%0A*Cliente:* ${payload.cliente}%0A*WhatsApp:* ${payload.whatsapp}%0A*Servicio:* ${payload.servicio}%0A*Detalles:* ${payload.detalles}`;
-            window.open(`https://wa.me/584127336450?text=${msg}`, '_blank');
-            
-            document.getElementById('form-orden').reset();
-            btn.innerText = 'ENVIAR A WHATSAPP';
-        });
-
-        // --- Admin God Mode ---
-        window.loginAdmin = () => {
-            const email = document.getElementById('adm-email').value;
-            const pass = document.getElementById('adm-pass').value;
-            signInWithEmailAndPassword(auth, email, pass).catch(() => alert('Credenciales de Arquitecto Inválidas.'));
-        };
-
-        onAuthStateChanged(auth, (user) => {
-            if(user) {
-                document.getElementById('admin-auth').style.display = 'none';
-                document.getElementById('admin-dash').style.display = 'block';
-                cargarOrdenesAdmin();
+            try {
+                await push(ref(db, 'ordenes_exos'), payload);
+                const txt = `*EXOS CODE LABS - NUEVA SOLICITUD*%0A%0A*Cliente:* ${payload.cliente}%0A*Contacto:* ${payload.telefono}%0A*Servicio:* ${payload.servicio}%0A*Especificaciones:* ${payload.detalles}`;
+                window.open(`https://wa.me/584127336450?text=${txt}`, '_blank');
+                document.getElementById('form-solicitud').reset();
+                btn.innerText = 'ENVIAR A WHATSAPP';
+            } catch (err) {
+                alert("Error de conexión. Abriendo WhatsApp manual.");
+                window.open(`https://wa.me/584127336450?text=Hola,%20deseo%20cotizar%20un%20proyecto.`, '_blank');
+                btn.innerText = 'ENVIAR A WHATSAPP';
             }
         });
 
-        function cargarOrdenesAdmin() {
-            onValue(ref(db, 'ordenes_recibidas'), (snap) => {
-                const div = document.getElementById('lista-ordenes');
-                div.innerHTML = '';
-                if(snap.exists()) {
-                    Object.values(snap.val()).reverse().forEach(o => {
-                        div.innerHTML += `
-                            <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; margin-bottom:10px; border-left:4px solid var(--primary);">
-                                <p><b>Cliente:</b> ${o.cliente} | <b>WhatsApp:</b> ${o.whatsapp}</p>
-                                <p style="color:var(--primary)"><b>Servicio:</b> ${o.servicio}</p>
-                                <p style="font-size:0.85rem; opacity:0.8;">${o.detalles}</p>
-                            </div>
-                        `;
-                    });
-                }
-            });
-        }
+        // --- ADMINISTRADOR (GOD MODE) ---
+        document.getElementById('btn-secret-admin').addEventListener('click', () => {
+            document.getElementById('modal-admin').style.display = 'flex';
+        });
 
-        function renderEditor(planes) {
-            const container = document.getElementById('editor-planes');
-            container.innerHTML = '';
-            planes.forEach((p, i) => {
-                container.innerHTML += `
-                    <div class="edit-card">
-                        <input type="text" id="tit-${i}" value="${p.nombre}" placeholder="Título">
-                        <div style="display:flex; gap:10px;">
-                            <input type="text" id="ant-${i}" value="${p.ant}" placeholder="Precio Antes">
-                            <input type="text" id="hoy-${i}" value="${p.hoy}" placeholder="Precio Hoy">
-                        </div>
-                        <input type="text" id="desc-${i}" value="${p.desc}" placeholder="Descripción corta">
-                        <textarea id="caps-${i}" style="width:100%; background:#0a0f1c; color:#fff; padding:10px;">${p.caps}</textarea>
-                    </div>
-                `;
-            });
-        }
-
-        window.guardarPlanes = () => {
-            const nuevosPlanes = [];
-            for(let i=0; i<4; i++) {
-                nuevosPlanes.push({
-                    id: String(i+1),
-                    nombre: document.getElementById(`tit-${i}`).value,
-                    ant: document.getElementById(`ant-${i}`).value,
-                    hoy: document.getElementById(`hoy-${i}`).value,
-                    desc: document.getElementById(`desc-${i}`).value,
-                    caps: document.getElementById(`caps-${i}`).value,
-                    pop: i === 1
-                });
-            }
-            set(ref(db, 'config_planes'), nuevosPlanes).then(() => alert('Precios actualizados en la Web.'));
-        };
-
-        window.verTab = (id) => {
+        window.cambiarTabAdmin = (tabId) => {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
             event.target.classList.add('active');
         };
 
-        document.getElementById('trigger-admin').addEventListener('click', () => {
-            document.getElementById('panel-admin').style.display = 'flex';
+        // Auth Logic
+        document.getElementById('btn-login').addEventListener('click', () => {
+            const e = document.getElementById('adm-email').value;
+            const p = document.getElementById('adm-pass').value;
+            document.getElementById('btn-login').innerText = "VERIFICANDO...";
+            signInWithEmailAndPassword(auth, e, p).catch(() => {
+                document.getElementById('adm-error').style.display = 'block';
+                document.getElementById('btn-login').innerText = "INGRESAR AL SISTEMA";
+            });
         });
-        window.cerrarAdmin = () => document.getElementById('panel-admin').style.display = 'none';
+
+        document.getElementById('btn-logout').addEventListener('click', () => signOut(auth));
+
+        onAuthStateChanged(auth, (user) => {
+            if(user) {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-dashboard').style.display = 'block';
+                document.getElementById('btn-logout').style.display = 'block';
+                cargarOrdenes();
+                renderizarEditorAdmin(planesGlobales);
+            } else {
+                document.getElementById('admin-login').style.display = 'block';
+                document.getElementById('admin-dashboard').style.display = 'none';
+                document.getElementById('btn-logout').style.display = 'none';
+                document.getElementById('btn-login').innerText = "INGRESAR AL SISTEMA";
+            }
+        });
+
+        function cargarOrdenes() {
+            onValue(ref(db, 'ordenes_exos'), (snap) => {
+                const tbody = document.getElementById('tabla-ordenes');
+                tbody.innerHTML = '';
+                if(snap.exists()) {
+                    Object.values(snap.val()).reverse().forEach(o => {
+                        tbody.innerHTML += `<tr>
+                            <td style="font-size:0.8rem; color:#94A3B8;">${o.fecha}</td>
+                            <td><b>${o.cliente}</b></td>
+                            <td>${o.telefono}</td>
+                            <td><span style="color:#00E5FF;">${o.servicio}</span></td>
+                            <td style="font-size:0.85rem; max-width:250px;">${o.detalles}</td>
+                        </tr>`;
+                    });
+                } else { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;">No hay órdenes registradas.</td></tr>'; }
+            });
+        }
+
+        // Editor de Planes
+        window.renderizarEditorAdmin = (planes) => {
+            const div = document.getElementById('editor-planes');
+            div.innerHTML = '';
+            planes.forEach((p, i) => {
+                div.innerHTML += `
+                    <div class="plan-edit-card">
+                        <label>Título del Plan</label><input type="text" id="ed-tit-${i}" value="${p.titulo}">
+                        <label>Descripción Corta</label><input type="text" id="ed-des-${i}" value="${p.desc}">
+                        <div style="display:flex; gap:10px;">
+                            <div style="flex:1"><label>Precio Antiguo ($)</label><input type="number" id="ed-ant-${i}" value="${p.ant}"></div>
+                            <div style="flex:1"><label>Precio Promoción ($)</label><input type="number" id="ed-hoy-${i}" value="${p.hoy}"></div>
+                        </div>
+                        <label>Características (Separa con comas)</label>
+                        <textarea id="ed-feat-${i}" rows="3">${p.features}</textarea>
+                        <label>Destacar Plan (Popular)</label>
+                        <select id="ed-pop-${i}" style="width:100%; padding:10px; background:#050810; color:#fff; border:1px solid #333; border-radius:5px;">
+                            <option value="true" ${p.pop ? 'selected' : ''}>SÍ, DESTACAR</option>
+                            <option value="false" ${!p.pop ? 'selected' : ''}>NO</option>
+                        </select>
+                    </div>
+                `;
+            });
+        };
+
+        window.guardarPlanes = () => {
+            const nuevos = planesGlobales.map((_, i) => ({
+                id: String(i+1),
+                titulo: document.getElementById(`ed-tit-${i}`).value,
+                desc: document.getElementById(`ed-des-${i}`).value,
+                ant: document.getElementById(`ed-ant-${i}`).value,
+                hoy: document.getElementById(`ed-hoy-${i}`).value,
+                features: document.getElementById(`ed-feat-${i}`).value,
+                pop: document.getElementById(`ed-pop-${i}`).value === 'true'
+            }));
+            
+            set(ref(db, 'catalogo_planes'), nuevos).then(() => {
+                alert('¡Base de datos actualizada con éxito!');
+            });
+        };
 
     </script>
 </body>
