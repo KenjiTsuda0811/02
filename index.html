@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exos Code Labs Studio</title>
+    <title>Exos Code Labs Studio | Ingeniería de Software y Servidores</title>
     <link rel="icon" type="image/png" href="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
@@ -27,11 +27,13 @@
             line-height: 1.7;
         }
 
+        /* --- Utilidades y Fondos --- */
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: radial-gradient(circle at 50% -10%, #151F32 0%, #0A0F1C 100%);
         }
 
+        /* --- Navegación --- */
         nav {
             padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -43,20 +45,24 @@
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
         .logo-text span { color: var(--primary); }
 
+        /* --- Hero --- */
         .hero { padding: clamp(6rem, 15vh, 10rem) 8% 4rem; text-align: center; }
         .hero h1 { font-size: clamp(2.5rem, 7vw, 4.8rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.8rem; letter-spacing: -1.5px; color: #fff; }
         .hero h1 b { color: var(--primary); text-shadow: 0 0 30px rgba(0, 229, 255, 0.25); }
         .hero p { max-width: 800px; margin: 0 auto 2.8rem; font-size: 1.2rem; color: #94a3b8; }
 
+        /* --- Secciones --- */
         .section { padding: 5rem 8%; max-width: 1300px; margin: 0 auto; }
         .section-title { margin-bottom: 3.5rem; text-align: center; }
         .section-title h2 { font-size: 2.8rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 1rem; color: #fff; }
         .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; font-size: 0.85rem; }
 
+        /* --- Grid & Cards --- */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .card { 
             background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; 
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
         }
         .card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
@@ -69,7 +75,7 @@
         }
         .card:hover::before { opacity: 1; }
         .card h3 { color: #fff; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Space Grotesk', sans-serif; }
-        .card ul { list-style: none; }
+        .card ul { list-style: none; flex-grow: 1; margin-bottom: 20px; }
         .card ul li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 0.95rem; color: #cbd5e1; }
         .card ul li::before { content: "✓"; color: var(--primary); margin-right: 12px; font-weight: bold; font-size: 1.1rem; }
 
@@ -77,6 +83,16 @@
         .price-sub { font-size: 0.9rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 1.5rem; }
         .card.premium { border-color: rgba(0, 229, 255, 0.3); background: rgba(0, 229, 255, 0.03); }
 
+        /* Botones Ver Ejemplo */
+        .btn-view {
+            display: inline-block; width: 100%; text-align: center; padding: 12px;
+            border: 1px solid var(--primary); border-radius: 8px; color: var(--primary);
+            text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+            background: rgba(0, 229, 255, 0.05);
+        }
+        .btn-view:hover { background: var(--primary); color: #000; box-shadow: var(--soft-glow); }
+
+        /* --- Portafolio --- */
         .portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 2rem; }
         .work-box { 
             background: rgba(41, 98, 255, 0.05); border: 1px solid rgba(41, 98, 255, 0.2); 
@@ -90,18 +106,22 @@
         .work-box h4 { margin-bottom: 12px; font-size: 1.5rem; color: #fff; }
         .work-box span { color: var(--primary); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; }
 
+        /* --- Formulario de Pedidos Mejorado --- */
         .form-container { 
             background: linear-gradient(160deg, rgba(15, 22, 36, 0.8) 0%, rgba(10, 15, 28, 0.9) 100%); 
             padding: 4rem 10%; border-radius: 35px; border: 1px solid var(--border); 
             max-width: 900px; margin: 4rem auto; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .form-group { margin-bottom: 24px; }
+        .form-group.full-width { grid-column: 1 / -1; }
         label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary); font-size: 0.95rem; letter-spacing: 0.5px; }
         input, textarea, select { 
             width: 100%; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border); 
             background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem; transition: 0.3s; font-family: inherit;
         }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary); outline: none; background: rgba(0, 229, 255, 0.05); }
+        input[type="file"] { padding: 12px; background: rgba(0, 229, 255, 0.05); color: #94a3b8; border: 1px dashed var(--primary); cursor: pointer; }
+        input:focus, textarea:focus, select:focus { border-color: var(--primary); outline: none; background: rgba(0, 229, 255, 0.05); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1); }
         
         .submit-btn { 
             background: linear-gradient(135deg, var(--primary), #00B8D4); color: #000; 
@@ -110,7 +130,24 @@
             display: flex; justify-content: center; align-items: center; gap: 10px;
         }
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3); }
+        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
 
+        /* --- Panel Secreto Administrativo --- */
+        .admin-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            z-index: 3000; display: none; flex-direction: column; padding: 2rem; overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+        .admin-header h2 { color: var(--primary); font-family: 'Space Grotesk', sans-serif; font-size: 2rem; }
+        .close-admin { background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .orders-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
+        .orders-table th, .orders-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        .orders-table th { background: rgba(0, 229, 255, 0.1); color: var(--primary); }
+        .orders-table td img { max-width: 60px; border-radius: 5px; }
+        .status-badge { background: #22c55e; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+
+        /* --- WhatsApp Hub --- */
         .wa-hub { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
         .wa-contact { 
             background: #25d366; color: #fff; padding: 12px 22px; border-radius: 50px; text-decoration: none; 
@@ -121,7 +158,8 @@
         .wa-main { width: 65px; height: 65px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
 
         footer { padding: 4rem 8%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; background: rgba(0,0,0,0.2); }
-        .copyright { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #64748b; }
+        .copyright { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #64748b; cursor: pointer; transition: 0.3s; }
+        .copyright:hover { color: var(--primary); }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.9s ease-out; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -130,7 +168,8 @@
             nav { padding: 1rem 5%; }
             .hero { padding-top: 7rem; }
             .section { padding: 3rem 5%; }
-            .form-container { padding: 2.5rem 2rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .form-container { padding: 2.5rem 1.5rem; }
             .wa-contact { display: none; }
             .wa-hub:hover .wa-contact { display: flex; transform: translateX(0); opacity: 1; }
         }
@@ -169,12 +208,12 @@
                 <span class="price-sub">$150 Sistema Solo / $200 Full Hosting+Dominio</span>
                 <h3>E-Commerce & Management</h3>
                 <ul>
-                    <li>Página web corporativa de alto impacto.</li>
-                    <li>Carrito de compra y pasarela de pedidos.</li>
-                    <li>Sistema de Facturación integrada.</li>
-                    <li>Panel Administrativo de Control Total.</li>
-                    <li>Gestión de Clientes e Inventario real.</li>
+                    <li>Página web corporativa completa.</li>
+                    <li>Carrito de compra y facturación.</li>
+                    <li>Panel Administrativo de Control.</li>
+                    <li>Gestión de Clientes e Inventario.</li>
                 </ul>
+                <a href="https://www.fanaticadelabelleza.com" target="_blank" class="btn-view">Ver Ejemplo (Fanática Beauty)</a>
             </div>
 
             <div class="card premium" style="border-color: var(--secondary);">
@@ -183,11 +222,11 @@
                 <h3>Enterprise Server Pack</h3>
                 <ul>
                     <li>Despliegue de Windows Server profesional.</li>
-                    <li>Control remoto desde cualquier parte del mundo.</li>
-                    <li>Configuración avanzada de seguridad y backups.</li>
+                    <li>Control remoto global.</li>
                     <li>Integración <b>a2softway</b> (bajo contrato).</li>
                     <li>Optimización para +20 conexiones estables.</li>
                 </ul>
+                <a href="#contacto" class="btn-view" style="border-color: var(--secondary); color: var(--secondary);">Solicitar Asesoría</a>
             </div>
 
             <div class="card">
@@ -195,11 +234,11 @@
                 <span class="price-sub">Pago Único</span>
                 <h3>Starter Landing Page</h3>
                 <ul>
-                    <li>Landing Page de código puro (Ultra rápida).</li>
+                    <li>Landing Page de código puro.</li>
                     <li>Optimización para dispositivos móviles.</li>
-                    <li>Botones de contacto y Redes Sociales.</li>
-                    <li>Ideal para presencia profesional inmediata.</li>
+                    <li>Botones de contacto directos.</li>
                 </ul>
+                <a href="#contacto" class="btn-view">Iniciar Proyecto</a>
             </div>
 
             <div class="card">
@@ -208,10 +247,10 @@
                 <h3>VPM Multicurrency</h3>
                 <ul>
                     <li>Validación de pagos multimonedas.</li>
-                    <li>Gestión dinámica de tasas de cambio.</li>
+                    <li>Gestión dinámica de tasas.</li>
                     <li>Interfaz minimalista de alta velocidad.</li>
-                    <li>Cruce de datos financieros precisos.</li>
                 </ul>
+                <a href="https://vpm-beta.netlify.app/" target="_blank" class="btn-view">Ver Ejemplo (VPM Beta)</a>
             </div>
         </div>
     </section>
@@ -251,33 +290,78 @@
 
     <section class="section reveal" id="contacto">
         <div class="form-container">
-            <h2 style="text-align: center; margin-bottom: 2.5rem; font-family: 'Space Grotesk', sans-serif;">Estructura tu Próximo Proyecto</h2>
-            <form id="wa-form">
-                <div class="form-group">
-                    <label>Nombre o Empresa</label>
-                    <input type="text" id="wa-nombre" placeholder="Nombre del solicitante" required>
+            <h2 style="text-align: center; margin-bottom: 2.5rem; font-family: 'Space Grotesk', sans-serif;">Formulario de Creación de Proyecto</h2>
+            <form id="exos-order-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre del Cliente o Empresa</label>
+                        <input type="text" id="frm-nombre" placeholder="Ej: Inversiones Globales" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Nombre de la Página / Proyecto</label>
+                        <input type="text" id="frm-proyecto" placeholder="Ej: mipagina.com" required>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Selecciona el Plan de Ingeniería</label>
+                        <select id="frm-plan" required>
+                            <option value="" disabled selected>Selecciona una solución...</option>
+                            <option value="E-Commerce ($150 - $200)">Web Completa E-Commerce ($150 - $200)</option>
+                            <option value="Servidor Windows ($500)">Configuración Servidor Windows ($500)</option>
+                            <option value="Sistema VPM ($30)">Sistema VPM Multimonedas ($30)</option>
+                            <option value="Landing Page ($80)">Landing Page Starter ($80)</option>
+                            <option value="Auditoría / Otro">Auditoría / Otro Requerimiento</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Paleta de Colores Deseada</label>
+                        <input type="text" id="frm-colores" placeholder="Ej: Azul oscuro, blanco y dorado" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Logo de la Empresa (Opcional)</label>
+                        <input type="file" id="frm-logo" accept="image/png, image/jpeg, image/webp">
+                        <small style="color: #64748b; font-size: 0.75rem; margin-top: 5px; display: block;">Formatos: PNG, JPG. Máx 2MB.</small>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Detalles y Necesidades Específicas</label>
+                        <textarea id="frm-detalles" rows="4" placeholder="Describe qué funciones especiales necesitas, páginas a incluir, integraciones..." required></textarea>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Tipo de Requerimiento</label>
-                    <select id="wa-servicio" required>
-                        <option value="" disabled selected>Selecciona una solución...</option>
-                        <option value="Web Completa con Gestión ($150-$200)">Web Completa con Gestión ($150-$200)</option>
-                        <option value="Servidor Windows Server ($500)">Configuración de Servidor Windows ($500)</option>
-                        <option value="Sistema VPM Multimonedas ($30)">Sistema VPM Multimonedas ($30)</option>
-                        <option value="Landing Page Pro ($80)">Landing Page Pro ($80)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Detalles Técnicos / Ideas</label>
-                    <textarea id="wa-detalles" rows="4" placeholder="Cuéntanos qué necesitas resolver..." required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">
-                    ENVIAR REQUERIMIENTO A WHATSAPP
+                
+                <button type="submit" id="btn-submit" class="submit-btn">
+                    <span>PROCESAR Y ENVIAR A WHATSAPP</span>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WA">
                 </button>
             </form>
         </div>
     </section>
+
+    <div class="admin-modal" id="admin-panel">
+        <div class="admin-header">
+            <h2>EXOS GOD MODE - Órdenes</h2>
+            <button class="close-admin" id="close-admin-btn">CERRAR PANEL</button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="orders-table" id="orders-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Cliente / Proyecto</th>
+                        <th>Plan</th>
+                        <th>Colores</th>
+                        <th>Logo</th>
+                        <th>Detalles</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-body">
+                    <tr><td colspan="7" style="text-align: center; color: #94a3b8;">Cargando base de datos segura...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <div class="wa-hub">
         <a href="https://wa.me/584127336450" target="_blank" class="wa-contact">
@@ -294,11 +378,160 @@
     </div>
 
     <footer>
-        <p class="copyright">EXOS CODE LABS STUDIO. ENGINEERING FUTURE SOLUTIONS.</p>
+        <p class="copyright" id="secret-trigger">EXOS CODE LABS STUDIO. ALL RIGHTS RESERVED.</p>
     </footer>
 
-    <script>
-        // Animaciones de entrada
+    <script type="module">
+        // Importación de SDKs Modulares de Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getStorage, ref as sRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+
+        // Configuración de tu proyecto (visor-fanatica)
+        const firebaseConfig = {
+            apiKey: "AIzaSyAFCd-j46phQc7Gng8ZxhfKTWpx-VDugps",
+            authDomain: "visor-fanatica.firebaseapp.com",
+            databaseURL: "https://visor-fanatica-default-rtdb.firebaseio.com",
+            projectId: "visor-fanatica",
+            storageBucket: "visor-fanatica.firebasestorage.app",
+            messagingSenderId: "792326084980",
+            appId: "1:792326084980:web:625135955f752101ee3421",
+            measurementId: "G-PT0HN92D5X"
+        };
+
+        // Inicializar Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const storage = getStorage(app);
+
+        // Referencias DOM
+        const orderForm = document.getElementById('exos-order-form');
+        const btnSubmit = document.getElementById('btn-submit');
+        
+        // --- LOGICA DEL FORMULARIO Y SUBIDA ---
+        orderForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = '<span>Procesando Infraestructura...</span>';
+
+            const nombre = document.getElementById('frm-nombre').value;
+            const proyecto = document.getElementById('frm-proyecto').value;
+            const plan = document.getElementById('frm-plan').value;
+            const colores = document.getElementById('frm-colores').value;
+            const detalles = document.getElementById('frm-detalles').value;
+            const logoFile = document.getElementById('frm-logo').files[0];
+
+            let logoUrl = "Sin Logo Adjunto";
+
+            try {
+                // Si el cliente adjunta un logo, lo subimos a Firebase Storage
+                // *Nota para Samuel: Asegúrate de que las reglas de Storage en Firebase permitan 'write'
+                if (logoFile) {
+                    btnSubmit.innerHTML = '<span>Subiendo Archivos Seguros...</span>';
+                    const storageRef = sRef(storage, 'logos_clientes/' + Date.now() + '_' + logoFile.name);
+                    const snapshot = await uploadBytes(storageRef, logoFile);
+                    logoUrl = await getDownloadURL(snapshot.ref);
+                }
+
+                // Guardar en Firebase Realtime Database
+                btnSubmit.innerHTML = '<span>Guardando en Base de Datos...</span>';
+                const ordenesRef = ref(db, 'ordenes_exos');
+                await push(ordenesRef, {
+                    cliente: nombre,
+                    proyecto: proyecto,
+                    plan: plan,
+                    colores: colores,
+                    detalles: detalles,
+                    logo_url: logoUrl,
+                    fecha: new Date().toLocaleString('es-VE'),
+                    timestamp: serverTimestamp()
+                });
+
+                // Crear mensaje de WhatsApp
+                const numeroWA = "584127336450"; // Número de Samuel
+                const textoWA = `*NUEVO PROYECTO EXOS CODE LABS*%0A%0A` +
+                                `*Cliente:* ${nombre}%0A` +
+                                `*Proyecto:* ${proyecto}%0A` +
+                                `*Plan Elegido:* ${plan}%0A` +
+                                `*Colores:* ${colores}%0A` +
+                                `*Detalles:* ${detalles}%0A%0A` +
+                                `_Orden Registrada Exitosamente en la Base de Datos_`;
+
+                // Redirigir a WhatsApp
+                window.open(`https://wa.me/${numeroWA}?text=${textoWA}`, '_blank');
+                
+                // Limpiar formulario
+                orderForm.reset();
+                btnSubmit.innerHTML = '<span>PROCESAR Y ENVIAR A WHATSAPP</span> <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24">';
+                btnSubmit.disabled = false;
+
+            } catch (error) {
+                console.error("Error al procesar la orden: ", error);
+                alert("Hubo un error de conexión con el servidor. Redirigiendo al chat manual.");
+                window.open(`https://wa.me/584127336450?text=Hola,%20tengo%20problemas%20con%20el%20formulario.`, '_blank');
+                btnSubmit.disabled = false;
+            }
+        });
+
+        // --- LÓGICA DEL PANEL SECRETO (GOD MODE) ---
+        const secretTrigger = document.getElementById('secret-trigger');
+        const adminPanel = document.getElementById('admin-panel');
+        const closeAdminBtn = document.getElementById('close-admin-btn');
+        const ordersBody = document.getElementById('orders-body');
+
+        // Contraseña simple de frontend (Puedes cambiar 'exos2026')
+        const SECRET_PIN = "exos2026";
+
+        secretTrigger.addEventListener('click', () => {
+            const pass = prompt("EXOS SECURE LOGIN\nIngrese credenciales de Arquitecto:");
+            if(pass === SECRET_PIN) {
+                adminPanel.style.display = 'flex';
+                cargarOrdenes();
+            } else if (pass !== null) {
+                alert("Acceso Denegado. IP Registrada.");
+            }
+        });
+
+        closeAdminBtn.addEventListener('click', () => {
+            adminPanel.style.display = 'none';
+        });
+
+        // Leer datos en tiempo real de Firebase
+        function cargarOrdenes() {
+            const ordenesRef = ref(db, 'ordenes_exos');
+            onValue(ordenesRef, (snapshot) => {
+                ordersBody.innerHTML = '';
+                const data = snapshot.val();
+                
+                if(data) {
+                    // Convertir objeto en array y revertir para ver lo más nuevo primero
+                    const ordenesArray = Object.values(data).reverse();
+                    
+                    ordenesArray.forEach(orden => {
+                        const tr = document.createElement('tr');
+                        
+                        let imgHTML = orden.logo_url !== "Sin Logo Adjunto" 
+                            ? `<a href="${orden.logo_url}" target="_blank"><img src="${orden.logo_url}" alt="Logo"></a>` 
+                            : `<span style="color:#64748b; font-size:0.8rem;">Sin Logo</span>`;
+
+                        tr.innerHTML = `
+                            <td style="font-size:0.8rem; color:#94a3b8;">${orden.fecha || 'N/A'}</td>
+                            <td><b>${orden.cliente}</b><br><small style="color:var(--primary)">${orden.proyecto}</small></td>
+                            <td>${orden.plan}</td>
+                            <td>${orden.colores}</td>
+                            <td>${imgHTML}</td>
+                            <td style="font-size:0.85rem; max-width: 250px;">${orden.detalles}</td>
+                            <td><span class="status-badge">Recibido</span></td>
+                        `;
+                        ordersBody.appendChild(tr);
+                    });
+                } else {
+                    ordersBody.innerHTML = '<tr><td colspan="7" style="text-align:center;">No hay órdenes registradas aún.</td></tr>';
+                }
+            });
+        }
+
+        // Animaciones visuales de la página
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -306,25 +539,6 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // LÓGICA DE ENVÍO A WHATSAPP MEJORADA
-        document.getElementById('wa-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nombre = document.getElementById('wa-nombre').value;
-            const servicio = document.getElementById('wa-servicio').value;
-            const detalles = document.getElementById('wa-detalles').value;
-            const numero = "584127336450"; // Número de Samuel
-
-            // Formato de mensaje ultra profesional para WhatsApp
-            const texto = `*SOLICITUD DE INGENIERÍA - EXOS CODE LABS*%0A%0A` +
-                          `*Cliente:* ${nombre}%0A` +
-                          `*Servicio:* ${servicio}%0A` +
-                          `*Detalles:* ${detalles}%0A%0A` +
-                          `_Enviado desde el Portal Oficial de Exos Code Labs_`;
-
-            const url = `https://wa.me/${numero}?text=${texto}`;
-            window.open(url, '_blank');
-        });
     </script>
 </body>
 </html>
