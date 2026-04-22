@@ -1,24 +1,47 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exos Code Labs Studio | Ingeniería de Software y Servidores</title>
+    <title>Exos Code Labs Studio | Ingeniería de Software</title>
     <link rel="icon" type="image/png" href="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- VARIABLES DE TEMA (MODO OSCURO POR DEFECTO) --- */
         :root {
             --primary: #00E5FF;
             --secondary: #2962FF;
             --bg: #0A0F1C;
+            --bg-gradient: radial-gradient(circle at 50% -10%, #151F32 0%, #0A0F1C 100%);
             --card: rgba(15, 22, 36, 0.75);
-            --border: rgba(255, 255, 255, 0.08);
+            --card-solid: #131b2f;
+            --border: rgba(255, 255, 255, 0.1);
             --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --input-bg: rgba(0,0,0,0.5);
             --soft-glow: 0 0 25px rgba(0, 229, 255, 0.12);
             --success: #10b981;
+            --danger: #ef4444;
+            --form-left: #cceeff; /* Para el modo claro */
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* --- VARIABLES DE MODO CLARO --- */
+        [data-theme="light"] {
+            --primary: #0088cc;
+            --secondary: #2962FF;
+            --bg: #f8fafc;
+            --bg-gradient: radial-gradient(circle at 50% -10%, #ffffff 0%, #f1f5f9 100%);
+            --card: #ffffff;
+            --card-solid: #ffffff;
+            --border: #cbd5e1;
+            --text: #0f172a;
+            --text-muted: #475569;
+            --input-bg: #f8fafc;
+            --soft-glow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --form-left: #e0f2fe;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s ease, border-color 0.4s ease; }
         
         body { 
             background-color: var(--bg); 
@@ -28,162 +51,137 @@
             line-height: 1.7;
         }
 
-        .bg-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
-            background: radial-gradient(circle at 50% -10%, #151F32 0%, #0A0F1C 100%);
-        }
+        .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-gradient); }
 
+        /* --- NAVEGACIÓN Y TOGGLE --- */
         nav {
-            padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
-            background: rgba(10, 15, 28, 0.85);
+            background: rgba(var(--bg), 0.85);
         }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-img { width: 45px; height: 45px; border-radius: 10px; box-shadow: var(--soft-glow); }
-        .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+        .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
         .logo-text span { color: var(--primary); }
-
-        .hero { padding: clamp(6rem, 15vh, 10rem) 8% 4rem; text-align: center; }
-        .hero h1 { font-size: clamp(2.5rem, 7vw, 4.8rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.8rem; letter-spacing: -1.5px; color: #fff; }
-        .hero h1 b { color: var(--primary); text-shadow: 0 0 30px rgba(0, 229, 255, 0.25); }
-        .hero p { max-width: 800px; margin: 0 auto 2.8rem; font-size: 1.2rem; color: #94a3b8; }
-
-        .section { padding: 5rem 8%; max-width: 1300px; margin: 0 auto; }
-        .section-title { margin-bottom: 3.5rem; text-align: center; }
-        .section-title h2 { font-size: 2.8rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 1rem; color: #fff; }
-        .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; font-size: 0.85rem; }
-
-        /* --- Nueva Estructura de Precios Profesionales --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: start; }
-        .pricing-card { 
-            background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 3rem 2rem; 
-            transition: all 0.4s ease; position: relative; display: flex; flex-direction: column;
-        }
-        .pricing-card:hover { transform: translateY(-10px); border-color: rgba(0, 229, 255, 0.3); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
         
-        .pricing-card.popular { 
-            background: linear-gradient(180deg, rgba(20, 28, 45, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
-            transform: scale(1.05);
-            z-index: 10;
+        .nav-controls { display: flex; align-items: center; gap: 15px; }
+        .theme-toggle {
+            background: var(--card); border: 1px solid var(--border); padding: 8px 12px;
+            border-radius: 50px; cursor: pointer; color: var(--text); display: flex; align-items: center; gap: 8px;
+            font-size: 0.8rem; font-weight: 600;
         }
-        .pricing-card.popular:hover { transform: scale(1.05) translateY(-10px); }
+        .theme-toggle:hover { border-color: var(--primary); }
+
+        /* --- HERO --- */
+        .hero { padding: clamp(5rem, 12vh, 8rem) 8% 3rem; text-align: center; }
+        .hero h1 { font-size: clamp(2.2rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1.5px; color: var(--text); }
+        .hero h1 b { color: var(--primary); }
+        .hero p { max-width: 800px; margin: 0 auto 2.5rem; font-size: 1.15rem; color: var(--text-muted); }
+
+        .section { padding: 4rem 8%; max-width: 1300px; margin: 0 auto; }
+        .section-title { margin-bottom: 3.5rem; text-align: center; }
+        .section-title h2 { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; color: var(--text); }
+        .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+
+        /* --- PRECIOS (TARJETAS DINÁMICAS) --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; align-items: stretch; }
+        .pricing-card { 
+            background: var(--card-solid); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; 
+            position: relative; display: flex; flex-direction: column; box-shadow: var(--soft-glow);
+        }
+        .pricing-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        
+        .pricing-card.popular { border: 2px solid var(--primary); transform: scale(1.03); z-index: 10; }
+        .pricing-card.popular:hover { transform: scale(1.03) translateY(-5px); }
         
         .badge-popular {
             position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            background: var(--primary); color: #000; padding: 6px 20px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+            background: var(--primary); color: #fff; padding: 5px 15px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
         }
 
-        .pricing-header { text-align: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
-        .pricing-title { font-size: 1.2rem; color: #94a3b8; font-weight: 600; margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
-        .pricing-card.popular .pricing-title { color: var(--primary); }
-        .pricing-price { font-size: 3rem; color: #fff; font-weight: 800; line-height: 1; }
-        .pricing-price span { font-size: 1rem; color: #64748b; font-weight: 400; }
+        .pricing-header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        .pricing-title { font-size: 1.2rem; color: var(--text); font-weight: 700; margin-bottom: 10px; }
         
-        .pricing-features { list-style: none; flex-grow: 1; margin-bottom: 2.5rem; }
-        .pricing-features li { margin-bottom: 15px; display: flex; align-items: flex-start; font-size: 0.95rem; color: #cbd5e1; }
-        .pricing-features li svg { width: 20px; height: 20px; fill: var(--success); margin-right: 12px; flex-shrink: 0; margin-top: 2px; }
+        .price-old { font-size: 1rem; color: var(--danger); text-decoration: line-through; margin-bottom: -5px; display: block; opacity: 0.8; }
+        .pricing-price { font-size: 2.8rem; color: var(--text); font-weight: 800; line-height: 1; display: flex; justify-content: center; align-items: baseline; gap: 5px; }
+        .pricing-price span { font-size: 1.5rem; color: var(--primary); }
+        .price-note { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 5px; }
         
-        .pricing-action { width: 100%; text-align: center; padding: 15px; border-radius: 12px; font-weight: 800; text-decoration: none; transition: 0.3s; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
-        .btn-outline { border: 1px solid var(--border); color: #fff; background: rgba(255,255,255,0.02); }
-        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
-        .btn-solid { background: var(--primary); color: #000; box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2); }
-        .btn-solid:hover { background: #00B8D4; transform: translateY(-2px); }
-
-        .maintenance-note {
-            background: rgba(41, 98, 255, 0.05); border-left: 4px solid var(--secondary);
-            padding: 1.5rem; border-radius: 0 12px 12px 0; margin-top: 3rem; font-size: 0.9rem; color: #94a3b8;
-        }
-
-        /* --- Portafolio --- */
-        .portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 2rem; }
-        .work-box { 
-            background: rgba(41, 98, 255, 0.05); border: 1px solid rgba(41, 98, 255, 0.2); 
-            border-radius: 20px; text-decoration: none; color: inherit; transition: 0.3s;
-            display: flex; flex-direction: column; overflow: hidden; position: relative;
-        }
-        .work-box:hover { background: rgba(41, 98, 255, 0.1); border-color: var(--secondary); transform: scale(1.02); }
-        .work-content { padding: 2rem; }
-        .work-box img { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid rgba(41, 98, 255, 0.2); transition: 0.5s; }
-        .work-box:hover img { transform: scale(1.05); }
-        .work-box h4 { margin-bottom: 12px; font-size: 1.5rem; color: #fff; }
-        .work-box span { color: var(--primary); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; }
-
-        /* --- Formulario --- */
-        .form-container { 
-            background: linear-gradient(160deg, rgba(15, 22, 36, 0.8) 0%, rgba(10, 15, 28, 0.9) 100%); 
-            padding: 4rem 10%; border-radius: 35px; border: 1px solid var(--border); 
-            max-width: 900px; margin: 4rem auto; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { margin-bottom: 24px; }
-        .form-group.full-width { grid-column: 1 / -1; }
-        label { display: block; margin-bottom: 10px; font-weight: 600; color: var(--primary); font-size: 0.95rem; letter-spacing: 0.5px; }
-        input, textarea, select { 
-            width: 100%; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--border); 
-            background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem; transition: 0.3s; font-family: inherit;
-        }
-        input:focus, textarea:focus, select:focus { border-color: var(--primary); outline: none; background: rgba(0, 229, 255, 0.05); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1); }
+        .pricing-features { list-style: none; flex-grow: 1; margin-bottom: 2rem; }
+        .pricing-features li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 0.9rem; color: var(--text-muted); }
+        .pricing-features li::before { content: "⚡"; margin-right: 8px; color: var(--primary); }
         
-        .submit-btn { 
-            background: linear-gradient(135deg, var(--primary), #00B8D4); color: #000; 
-            padding: 20px; border-radius: 12px; border: none; font-size: 1.1rem;
-            font-weight: 800; cursor: pointer; text-transform: uppercase; width: 100%; transition: 0.3s; margin-top: 15px;
-            display: flex; justify-content: center; align-items: center; gap: 10px;
+        .btn-action { 
+            width: 100%; text-align: center; padding: 12px; border-radius: 8px; font-weight: 700; 
+            text-decoration: none; cursor: pointer; display: block; border: 1px solid var(--primary);
+            background: transparent; color: var(--text);
         }
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3); }
+        .btn-action:hover { background: var(--primary); color: #fff; }
+        .btn-solid { background: var(--primary); color: #fff; }
 
-        /* --- Panel Secreto Administrativo (Firebase Auth) --- */
+        /* --- FORMULARIO SPLIT (TIPO AGENCIA) --- */
+        .form-wrapper {
+            display: grid; grid-template-columns: 1fr 1.5fr; background: var(--card-solid);
+            border-radius: 24px; overflow: hidden; border: 1px solid var(--border);
+            box-shadow: var(--soft-glow); max-width: 1100px; margin: 0 auto;
+        }
+        .form-info { background: var(--form-left); padding: 3rem; color: #0f172a; }
+        [data-theme="dark"] .form-info { background: rgba(0, 229, 255, 0.05); color: var(--text); }
+        
+        .form-info h3 { font-size: 1.8rem; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif; }
+        .form-info p { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; }
+        .form-info hr { border: none; height: 2px; background: var(--primary); width: 40px; margin: 2rem 0; }
+        .form-info h4 { margin-bottom: 1rem; font-size: 1.1rem; }
+        .services-list { list-style: none; }
+        .services-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.9rem; font-weight: 500; }
+        .services-list li::before { content: "➔"; margin-right: 10px; color: var(--primary); }
+
+        .form-body { padding: 3rem; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text); font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.95rem;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+        }
+
+        /* --- PANEL DE ADMINISTRADOR --- */
         .admin-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
             z-index: 3000; display: none; flex-direction: column; padding: 2rem; overflow-y: auto;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px); color: #fff;
         }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
-        .admin-header h2 { color: var(--primary); font-family: 'Space Grotesk', sans-serif; font-size: 2rem; }
-        .header-buttons { display: flex; gap: 15px; }
-        
-        .close-admin { background: #ef4444; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .logout-admin { background: #f59e0b; color: #000; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; display: none; }
-        
-        .admin-login-box { max-width: 400px; margin: 4rem auto; background: var(--card); padding: 3rem 2rem; border-radius: 20px; border: 1px solid var(--border); text-align: center; }
-        
-        .orders-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 12px; overflow: hidden; }
-        .orders-table th, .orders-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { background: rgba(255,255,255,0.1); border: none; padding: 10px 20px; color: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: var(--primary); color: #000; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Tabla de órdenes admin */
+        .orders-table { width: 100%; border-collapse: collapse; background: #131b2f; border-radius: 12px; overflow: hidden; }
+        .orders-table th, .orders-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .orders-table th { background: rgba(0, 229, 255, 0.1); color: var(--primary); }
-        .status-badge { background: #22c55e; color: #000; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        
+        /* Gestor de Planes Admin */
+        .plan-edit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .plan-edit-card { background: #131b2f; padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .plan-edit-card input, .plan-edit-card textarea { width: 100%; margin-bottom: 10px; padding: 10px; background: #0a0f1c; border: 1px solid #333; color: #fff; border-radius: 5px; }
 
-        /* --- WhatsApp Hub --- */
-        .wa-hub { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-        .wa-contact { 
-            background: #25d366; color: #fff; padding: 12px 22px; border-radius: 50px; text-decoration: none; 
-            font-weight: 700; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-            transform: translateX(130%); transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0;
-        }
-        .wa-hub:hover .wa-contact { transform: translateX(0); opacity: 1; }
-        .wa-main { width: 65px; height: 65px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4); }
+        .btn-admin-close { background: var(--danger); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        footer { padding: 4rem 8%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; background: rgba(0,0,0,0.2); }
-        .copyright { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: #64748b; cursor: pointer; transition: 0.3s; }
-        .copyright:hover { color: var(--primary); }
+        footer { padding: 3rem 8%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; }
+        .copyright { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: var(--text-muted); cursor: pointer; }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.9s ease-out; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        @media (max-width: 768px) {
-            nav { padding: 1rem 5%; }
+        @media (max-width: 900px) {
+            .form-wrapper { grid-template-columns: 1fr; }
             .pricing-card.popular { transform: none; }
-            .pricing-card.popular:hover { transform: translateY(-10px); }
-            .form-grid { grid-template-columns: 1fr; }
-            .wa-contact { display: none; }
-            .wa-hub:hover .wa-contact { display: flex; transform: translateX(0); opacity: 1; }
+            .pricing-card.popular:hover { transform: translateY(-5px); }
         }
-
-        /* Check Icon SVG */
-        .check-icon { display: inline-block; width: 20px; height: 20px; }
     </style>
 </head>
 <body>
@@ -195,224 +193,116 @@
             <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png" alt="Exos Logo" class="logo-img">
             <div class="logo-text">EXOS <span>CODE LABS</span></div>
         </div>
-        <div style="font-size: 0.7rem; font-weight: 800; color: var(--primary); letter-spacing: 2px; border: 1px solid rgba(0, 229, 255, 0.3); padding: 6px 12px; border-radius: 6px;">ENGINEERING STUDIO</div>
+        <div class="nav-controls">
+            <button class="theme-toggle" id="theme-btn">☀️ Modo Claro</button>
+        </div>
     </nav>
 
-    <header class="hero reveal">
-        <h1>Arquitectura Digital y <b>Servidores de Alto Rendimiento</b>.</h1>
-        <p>Expertos en ingeniería de software nativo y despliegue de infraestructuras seguras. Soluciones robustas diseñadas para dominar el mercado digital con tecnología propia.</p>
-        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="#contacto" class="submit-btn" style="width: auto; padding: 18px 40px; margin-top: 0;">SOLICITAR INGENIERÍA</a>
-            <a href="#planes" class="btn-outline" style="width: auto; padding: 18px 40px; display: flex; align-items: center; border-radius: 12px;">VER TARIFAS</a>
-        </div>
+    <header class="hero">
+        <h1>Ingeniería Web de <b>Alto Nivel</b>.</h1>
+        <p>Desarrollo de páginas web, tiendas online y servidores. Nos adaptamos a tus necesidades. Conoce nuestras opciones de diseño web para tu negocio.</p>
     </header>
 
-    <section class="section reveal" id="planes">
+    <section class="section" id="planes">
         <div class="section-title">
-            <p>Estructura de Inversión</p>
-            <h2>Desarrollo y Soluciones Nativas</h2>
+            <p>Cotiza tu Proyecto</p>
+            <h2>Precio de Diseño de Página Web</h2>
         </div>
         
-        <svg style="display: none;">
-            <symbol id="check" viewBox="0 0 24 24">
-                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </symbol>
-        </svg>
-
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-title">Landing Page Básica</h3>
-                    <div class="pricing-price">$80<span> USD</span></div>
-                </div>
-                <ul class="pricing-features">
-                    <li><svg><use href="#check"></use></svg> Diseño One-Page estructurado.</li>
-                    <li><svg><use href="#check"></use></svg> Enlaces directos a WhatsApp y Redes.</li>
-                    <li><svg><use href="#check"></use></svg> Código puro, rápido y optimizado.</li>
-                    <li><svg><use href="#check"></use></svg> Adaptable a cualquier dispositivo.</li>
-                </ul>
-                <a href="#contacto" class="pricing-action btn-outline">Iniciar Proyecto</a>
-            </div>
-
-            <div class="pricing-card popular">
-                <div class="badge-popular">Valor Ejecutivo</div>
-                <div class="pricing-header">
-                    <h3 class="pricing-title">E-Commerce Plus</h3>
-                    <div class="pricing-price">$200<span> USD</span></div>
-                </div>
-                <ul class="pricing-features">
-                    <li><svg><use href="#check"></use></svg> Tienda Online completa y escalable.</li>
-                    <li><svg><use href="#check"></use></svg> <b>Dominio y Hosting incluidos (1er Año).</b></li>
-                    <li><svg><use href="#check"></use></svg> Carrito de compra y facturación.</li>
-                    <li><svg><use href="#check"></use></svg> Panel Administrativo para inventario.</li>
-                    <li><svg><use href="#check"></use></svg> Gestión de perfiles de clientes.</li>
-                </ul>
-                <a href="#contacto" class="pricing-action btn-solid">Desarrollar Tienda</a>
-            </div>
-
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-title">Sistema VPM Beta</h3>
-                    <div class="pricing-price">$30<span> USD</span></div>
-                </div>
-                <ul class="pricing-features">
-                    <li><svg><use href="#check"></use></svg> Herramienta logística multimonedas.</li>
-                    <li><svg><use href="#check"></use></svg> Operativo Lunes a Domingo (9AM - 6:30PM).</li>
-                    <li><svg><use href="#check"></use></svg> Gestión dinámica de tasas de cambio.</li>
-                    <li><svg><use href="#check"></use></svg> Cálculos financieros precisos.</li>
-                </ul>
-                <a href="https://vpm-beta.netlify.app/" target="_blank" class="pricing-action btn-outline">Explorar Sistema VPM</a>
-            </div>
-
-            <div class="pricing-card">
-                <div class="pricing-header">
-                    <h3 class="pricing-title">Enterprise Server</h3>
-                    <div class="pricing-price">$500<span> USD</span></div>
-                </div>
-                <ul class="pricing-features">
-                    <li><svg><use href="#check"></use></svg> Configuración Windows Server dedicada.</li>
-                    <li><svg><use href="#check"></use></svg> Control remoto multisucursal global.</li>
-                    <li><svg><use href="#check"></use></svg> Integración experta con <b>a2softway</b>.</li>
-                    <li><svg><use href="#check"></use></svg> Políticas de respaldo y seguridad.</li>
-                </ul>
-                <a href="#contacto" class="pricing-action btn-outline">Solicitar Implementación</a>
-            </div>
+        <div class="pricing-grid" id="pricing-render-area">
+            <p style="text-align: center; width: 100%;">Cargando tarifas actualizadas...</p>
         </div>
-
-        <div class="maintenance-note reveal">
-            <strong style="color: #fff;">Transparencia de Costos Anuales:</strong> En proyectos web, consideramos vital la honestidad a largo plazo. Los costos de mantenimiento estándar incluyen la renovación de tu <b>Dominio .com</b> (Aprox. $15 - $20 USD anuales) y el servicio de <b>Hosting</b> en servidores de alto rendimiento. Nuestra arquitectura garantiza escalabilidad sin mensualidades ocultas por plugins o plataformas genéricas.
-        </div>
+        
+        <p style="text-align: center; margin-top: 2rem; color: var(--text); font-weight: bold; font-size: 1.1rem;">
+            Pago único y la página web es tuya, libre de mensualidades.
+        </p>
     </section>
 
-    <section class="section reveal" id="proyectos">
-        <div class="section-title">
-            <p>Portafolio de Infraestructura</p>
-            <h2>Casos de Éxito Reales</h2>
-        </div>
-        <div class="portfolio">
-            <a href="https://www.fanaticadelabelleza.com" target="_blank" class="work-box">
-                <div class="work-content">
-                    <span>RETAIL FULL SYSTEM</span>
-                    <h4>Fanática Beauty</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Página web completa de tienda con ecosistema semiautomático de verificación y control.</p>
-                </div>
-            </a>
+    <section class="section" id="contacto">
+        <div class="form-wrapper">
+            <div class="form-info">
+                <h3>Empresa De Diseño<br>De Páginas Web</h3>
+                <p>✉️ arquitectura@exoslabs.com</p>
+                <p>📞 0412 733-6450 (Samuel A.)</p>
+                <p>📞 0412 069-0493 (José R.)</p>
+                <hr>
+                <h4>SERVICIOS DE INGENIERÍA</h4>
+                <ul class="services-list">
+                    <li>Diseño Web Profesional Para Negocios</li>
+                    <li>Diseño Web Páginas Corporativas</li>
+                    <li>Diseño Web De Tiendas Online (E-commerce)</li>
+                    <li>Configuración de Servidores Windows</li>
+                    <li>Sistema de Verificación VPM Multimoneda</li>
+                    <li>Conexión de Bases de Datos y a2softway</li>
+                    <li>Páginas Web Para Bodegones y Restaurantes</li>
+                </ul>
+            </div>
             
-            <a href="https://vpm-beta.netlify.app/" target="_blank" class="work-box">
-                <div class="work-content">
-                    <span>FINTECH LOGISTICS</span>
-                    <h4>VPM Multi-Currency</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Estructura de validación para flujos de caja y operaciones diarias financieras.</p>
-                </div>
-            </a>
-
-            <div class="work-box" style="cursor: default;">
-                <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/conexiones-a-servido.png" alt="Servidor Barquisimeto">
-                <div class="work-content">
-                    <span>SERVER INFRASTRUCTURE</span>
-                    <h4>Tienda Electrónica Barquisimeto</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Ejemplo real de conexiones concurrentes a un servidor principal estructurado por nuestro equipo.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section reveal" id="contacto">
-        <div class="form-container">
-            <h2 style="text-align: center; margin-bottom: 2.5rem; font-family: 'Space Grotesk', sans-serif;">Formulario de Creación de Proyecto</h2>
-            <form id="exos-order-form">
-                <div class="form-grid">
+            <div class="form-body">
+                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Cotizar Proyecto O Servicio</h3>
+                <form id="exos-order-form">
                     <div class="form-group">
-                        <label>Nombre del Cliente o Empresa</label>
-                        <input type="text" id="frm-nombre" placeholder="Ej: Inversiones Globales" required>
+                        <label>Nombre / Empresa *</label>
+                        <input type="text" id="frm-nombre" required>
                     </div>
                     <div class="form-group">
-                        <label>Nombre de la Página / Proyecto</label>
-                        <input type="text" id="frm-proyecto" placeholder="Ej: mipagina.com" required>
+                        <label>Teléfono (WhatsApp) *</label>
+                        <input type="text" id="frm-tlf" required>
                     </div>
-                    
-                    <div class="form-group full-width">
-                        <label>Selecciona el Plan o Servicio Requerido</label>
+                    <div class="form-group">
+                        <label>Servicio de Interés *</label>
                         <select id="frm-plan" required>
-                            <option value="" disabled selected>Selecciona una solución de ingeniería...</option>
-                            <option value="Web Completa E-Commerce">Web Completa E-Commerce y Gestión Integral</option>
-                            <option value="Landing Page Profesional">Landing Page Profesional de Código Puro</option>
-                            <option value="Configuración de Servidor Windows">Configuración de Servidor Windows / a2softway</option>
-                            <option value="Despliegue de Sistema VPM">Despliegue de Sistema de Verificación VPM</option>
-                            <option value="Desarrollo de App Móvil (Android/iOS)">Desarrollo de App Móvil (Android/iOS con Flutter)</option>
-                            <option value="Integración de Base de Datos y APIs">Arquitectura de Base de Datos y APIs</option>
-                            <option value="Auditoría Técnica y Mantenimiento">Auditoría Técnica y Mantenimiento de Código</option>
-                            <option value="Otro Requerimiento Específico">Otro Requerimiento Específico a Medida</option>
+                            <option value="">Seleccione un plan o servicio...</option>
                         </select>
                     </div>
-
-                    <div class="form-group full-width">
-                        <label>Paleta de Colores Deseada</label>
-                        <input type="text" id="frm-colores" placeholder="Ej: Azul oscuro corporativo, blanco y acentos dorados" required>
+                    <div class="form-group">
+                        <label>Déjanos los detalles de tu proyecto *</label>
+                        <textarea id="frm-detalles" rows="4" placeholder="Colores, funciones, enlaces de referencia..." required></textarea>
                     </div>
-
-                    <div class="form-group full-width">
-                        <label>Detalles y Necesidades Específicas</label>
-                        <textarea id="frm-detalles" rows="4" placeholder="Describe qué funciones especiales necesitas, cómo operará el sistema, bases de datos a usar..." required></textarea>
-                    </div>
-                </div>
-                
-                <button type="submit" id="btn-submit" class="submit-btn">
-                    <span>PROCESAR Y ENVIAR A WHATSAPP</span>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24" alt="WA">
-                </button>
-            </form>
+                    <button type="submit" id="btn-submit" class="btn-action btn-solid" style="padding: 15px; font-size: 1.1rem;">ENVIAR COTIZACIÓN A WHATSAPP</button>
+                </form>
+            </div>
         </div>
     </section>
 
     <div class="admin-modal" id="admin-panel">
         <div class="admin-header">
-            <h2>EXOS GOD MODE - Panel Administrativo</h2>
-            <div class="header-buttons">
-                <button class="logout-admin" id="logout-btn">CERRAR SESIÓN</button>
-                <button class="close-admin" id="close-admin-btn">CERRAR PANEL</button>
+            <h2>EXOS GOD MODE</h2>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-admin-close" id="logout-btn" style="background:#f59e0b; display:none;">CERRAR SESIÓN</button>
+                <button class="btn-admin-close" id="close-admin-btn">X CERRAR</button>
             </div>
         </div>
 
-        <div class="admin-login-box" id="admin-login-section">
-            <h3 style="color:var(--primary); margin-bottom:20px;">Autenticación de Arquitecto</h3>
-            <input type="email" id="auth-email" placeholder="Correo Electrónico Exos" style="margin-bottom:15px; text-align:center;">
-            <input type="password" id="auth-pass" placeholder="Contraseña Segura" style="margin-bottom:20px; text-align:center;">
-            <button id="btn-login-auth" class="submit-btn" style="padding:15px;">INGRESAR AL SISTEMA</button>
-            <p id="auth-error" style="color:#ef4444; font-size:0.85rem; margin-top:15px; display:none;"></p>
+        <div id="admin-login-section" style="max-width: 400px; margin: 2rem auto; background: #131b2f; padding: 2rem; border-radius: 12px; text-align: center;">
+            <h3 style="color:var(--primary); margin-bottom:20px;">Autenticación Requerida</h3>
+            <input type="email" id="auth-email" placeholder="Correo" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none;">
+            <input type="password" id="auth-pass" placeholder="Contraseña" style="width:100%; padding:10px; margin-bottom:20px; border-radius:5px; border:none;">
+            <button id="btn-login-auth" class="btn-action btn-solid">ENTRAR</button>
+            <p id="auth-error" style="color:var(--danger); font-size:0.85rem; margin-top:10px; display:none;"></p>
         </div>
 
-        <div id="admin-dashboard-section" style="display:none; overflow-x: auto;">
-            <table class="orders-table" id="orders-table">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Cliente / Proyecto</th>
-                        <th>Servicio Solicitado</th>
-                        <th>Colores</th>
-                        <th>Detalles Operativos</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-body">
-                    <tr><td colspan="6" style="text-align: center; color: #94a3b8;">Sincronizando con base de datos principal...</td></tr>
-                </tbody>
-            </table>
-            <p style="text-align: right; font-size: 0.7rem; color: #64748b; margin-top: 10px;">Conexión Secure Token - Expiración de reglas de acceso: Año 2035.</p>
-        </div>
-    </div>
+        <div id="admin-dashboard-section" style="display:none;">
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-ordenes')">📥 Órdenes Recibidas</button>
+                <button class="tab-btn" onclick="switchTab('tab-planes')">⚙️ Gestionar Planes & Precios</button>
+            </div>
 
-    <div class="wa-hub">
-        <a href="https://wa.me/584127336450" target="_blank" class="wa-contact">
-            <div style="text-align: right;">Samuel A. <br><small>Lead Architect</small></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24">
-        </a>
-        <a href="https://wa.me/584120690493" target="_blank" class="wa-contact">
-            <div style="text-align: right;">José R. <br><small>Systems Engineer</small></div>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24">
-        </a>
-        <div class="wa-main">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35">
+            <div id="tab-ordenes" class="tab-content active">
+                <table class="orders-table">
+                    <thead><tr><th>Fecha</th><th>Cliente / Tlf</th><th>Servicio</th><th>Detalles</th></tr></thead>
+                    <tbody id="orders-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                </table>
+            </div>
+
+            <div id="tab-planes" class="tab-content">
+                <div style="margin-bottom: 15px; display: flex; justify-content: space-between;">
+                    <p style="color:var(--text-muted); font-size:0.9rem;">Modifica los textos, precios y características. Guarda para aplicar en la web en vivo.</p>
+                    <button id="btn-save-plans" class="btn-action btn-solid" style="width:auto; padding: 8px 20px;">💾 GUARDAR CAMBIOS</button>
+                </div>
+                <div class="plan-edit-grid" id="admin-plans-container">
+                    </div>
+            </div>
         </div>
     </div>
 
@@ -422,7 +312,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getDatabase, ref, push, onValue, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
@@ -432,148 +322,223 @@
             projectId: "visor-fanatica",
             storageBucket: "visor-fanatica.firebasestorage.app",
             messagingSenderId: "792326084980",
-            appId: "1:792326084980:web:625135955f752101ee3421",
-            measurementId: "G-PT0HN92D5X"
+            appId: "1:792326084980:web:625135955f752101ee3421"
         };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        // Envío Rápido a WhatsApp & BD (Sin imágenes)
-        const orderForm = document.getElementById('exos-order-form');
-        const btnSubmit = document.getElementById('btn-submit');
+        // --- SISTEMA DE TEMA (CLARO/OSCURO) ---
+        const themeBtn = document.getElementById('theme-btn');
+        const htmlDoc = document.documentElement;
         
-        orderForm.addEventListener('submit', async (e) => {
+        // Cargar preferencia guardada
+        if(localStorage.getItem('exos-theme') === 'light') {
+            htmlDoc.setAttribute('data-theme', 'light');
+            themeBtn.innerHTML = '🌙 Modo Oscuro';
+        }
+
+        themeBtn.addEventListener('click', () => {
+            if(htmlDoc.getAttribute('data-theme') === 'dark') {
+                htmlDoc.setAttribute('data-theme', 'light');
+                localStorage.setItem('exos-theme', 'light');
+                themeBtn.innerHTML = '🌙 Modo Oscuro';
+            } else {
+                htmlDoc.setAttribute('data-theme', 'dark');
+                localStorage.setItem('exos-theme', 'dark');
+                themeBtn.innerHTML = '☀️ Modo Claro';
+            }
+        });
+
+        // --- PLANES POR DEFECTO (Si la base de datos está vacía) ---
+        const planesDefault = [
+            { id: "p1", titulo: "Landing Page Informativa", desc: "Ideal si estás comenzando o para campañas publicitarias.", precioAntiguo: "180", precioNuevo: "80", features: "Diseño One-Page estructurado,Botones a WhatsApp y Redes,Código puro y ultrarrápido", popular: false, linkInfo: "#contacto" },
+            { id: "p2", titulo: "Tienda Online PYME", desc: "Landing Page para ventas en línea, gestión de inventario.", precioAntiguo: "300", precioNuevo: "180", features: "Tienda Online escalable,Carrito de compras directo,Dominio y Hosting incluidos", popular: true, linkInfo: "https://www.fanaticadelabelleza.com" },
+            { id: "p3", titulo: "Sistema VPM Multimoneda", desc: "Gestión de caja y cruce de tasas de cambio.", precioAntiguo: "50", precioNuevo: "30", features: "Herramienta logística financiera,Cálculos precisos al instante,Ligero y adaptable", popular: false, linkInfo: "https://vpm-beta.netlify.app/" },
+            { id: "p4", titulo: "Enterprise Server", desc: "Para empresas con múltiples sucursales.", precioAntiguo: "800", precioNuevo: "500", features: "Windows Server dedicado,Control remoto global,Integración a2softway experta", popular: false, linkInfo: "#contacto" }
+        ];
+
+        let planesActuales = [];
+
+        // --- RENDERIZADO DE PLANES EN LA WEB ---
+        const renderArea = document.getElementById('pricing-render-area');
+        const selectPlan = document.getElementById('frm-plan');
+
+        function renderizarPlanesWeb(planes) {
+            renderArea.innerHTML = '';
+            selectPlan.innerHTML = '<option value="">Seleccione un plan o servicio...</option>';
+            
+            planes.forEach(plan => {
+                // Generar HTML de la tarjeta
+                const featuresList = plan.features.split(',').map(f => `<li>${f.trim()}</li>`).join('');
+                const popClass = plan.popular ? 'popular' : '';
+                const badgeHtml = plan.popular ? `<div class="badge-popular">Más Pedida</div>` : '';
+                const btnClass = plan.popular ? 'btn-solid' : 'btn-action';
+                
+                const cardHTML = `
+                    <div class="pricing-card ${popClass}">
+                        ${badgeHtml}
+                        <div class="pricing-header">
+                            <h3 class="pricing-title">${plan.titulo}</h3>
+                            <span style="font-size: 0.85rem; color: var(--text-muted); display:block; margin-bottom:10px;">${plan.desc}</span>
+                            <span class="price-old">$${plan.precioAntiguo} Valor total</span>
+                            <div class="pricing-price"><span>$</span>${plan.precioNuevo}</div>
+                            <span class="price-note">Pago Único / Tasa Conveniente</span>
+                        </div>
+                        <ul class="pricing-features">${featuresList}</ul>
+                        <a href="${plan.linkInfo}" class="${btnClass} btn-action">VER O COTIZAR</a>
+                    </div>
+                `;
+                renderArea.innerHTML += cardHTML;
+
+                // Llenar el select del formulario
+                selectPlan.innerHTML += `<option value="${plan.titulo} ($${plan.precioNuevo})">${plan.titulo} - $${plan.precioNuevo}</option>`;
+            });
+            // Opción extra
+            selectPlan.innerHTML += `<option value="Requerimiento a Medida">Otro Requerimiento a Medida</option>`;
+        }
+
+        // Cargar planes de Firebase
+        onValue(ref(db, 'config_planes'), (snapshot) => {
+            if(snapshot.exists()) {
+                planesActuales = snapshot.val();
+                renderizarPlanesWeb(planesActuales);
+                renderizarAdminPlanes(planesActuales);
+            } else {
+                // Si no existen, guardar los por defecto y usarlos
+                set(ref(db, 'config_planes'), planesDefault);
+                planesActuales = planesDefault;
+                renderizarPlanesWeb(planesActuales);
+                renderizarAdminPlanes(planesActuales);
+            }
+        });
+
+        // --- ENVÍO DE FORMULARIO A WHATSAPP ---
+        document.getElementById('exos-order-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            btnSubmit.disabled = true;
-            btnSubmit.innerHTML = '<span>Generando Requerimiento...</span>';
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.innerText = 'PROCESANDO...';
 
             const nombre = document.getElementById('frm-nombre').value;
-            const proyecto = document.getElementById('frm-proyecto').value;
+            const tlf = document.getElementById('frm-tlf').value;
             const plan = document.getElementById('frm-plan').value;
-            const colores = document.getElementById('frm-colores').value;
             const detalles = document.getElementById('frm-detalles').value;
 
             try {
-                const ordenesRef = ref(db, 'ordenes_exos');
-                await push(ordenesRef, {
-                    cliente: nombre,
-                    proyecto: proyecto,
-                    plan: plan,
-                    colores: colores,
-                    detalles: detalles,
-                    fecha: new Date().toLocaleString('es-VE'),
-                    timestamp: serverTimestamp()
+                await push(ref(db, 'ordenes_exos'), {
+                    cliente: nombre, tlf: tlf, servicio: plan, detalles: detalles, 
+                    fecha: new Date().toLocaleString('es-VE'), timestamp: serverTimestamp()
                 });
 
-                const numeroWA = "584127336450";
-                const textoWA = `*NUEVA SOLICITUD DE INGENIERÍA - EXOS CODE LABS*%0A%0A` +
-                                `*Cliente:* ${nombre}%0A` +
-                                `*Proyecto:* ${proyecto}%0A` +
-                                `*Área de Desarrollo:* ${plan}%0A` +
-                                `*Paleta de Colores:* ${colores}%0A` +
-                                `*Detalles Técnicos:* ${detalles}%0A%0A` +
-                                `_Operación sincronizada exitosamente en el servidor de base de datos._`;
-
-                window.open(`https://wa.me/${numeroWA}?text=${textoWA}`, '_blank');
+                const textoWA = `*NUEVA COTIZACIÓN WEB*%0A%0A*Cliente:* ${nombre}%0A*Tlf:* ${tlf}%0A*Servicio:* ${plan}%0A*Detalles:* ${detalles}`;
+                window.open(`https://wa.me/584127336450?text=${textoWA}`, '_blank');
                 
-                orderForm.reset();
-                btnSubmit.innerHTML = '<span>PROCESAR Y ENVIAR A WHATSAPP</span> <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="24">';
-                btnSubmit.disabled = false;
-
-            } catch (error) {
-                console.error(error);
-                alert("Redirección directa de contingencia activada.");
-                window.open(`https://wa.me/584127336450?text=Hola,%20requiero%20asistencia%20técnica%20para%20iniciar%20un%20proyecto.`, '_blank');
-                btnSubmit.disabled = false;
-            }
+                document.getElementById('exos-order-form').reset();
+                btnSubmit.innerText = 'ENVIAR COTIZACIÓN A WHATSAPP';
+            } catch (err) { alert('Error. Usa el botón flotante.'); btnSubmit.innerText = 'ENVIAR COTIZACIÓN A WHATSAPP'; }
         });
 
-        // Autenticación God Mode
-        const secretTrigger = document.getElementById('secret-trigger');
-        const adminPanel = document.getElementById('admin-panel');
-        const closeAdminBtn = document.getElementById('close-admin-btn');
-        
-        const loginSection = document.getElementById('admin-login-section');
-        const dashboardSection = document.getElementById('admin-dashboard-section');
-        const btnLoginAuth = document.getElementById('btn-login-auth');
-        const authError = document.getElementById('auth-error');
-        const logoutBtn = document.getElementById('logout-btn');
-        const ordersBody = document.getElementById('orders-body');
+        // --- PANEL ADMINISTRATIVO Y FIREBASE AUTH ---
+        window.switchTab = function(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
 
-        secretTrigger.addEventListener('click', () => { adminPanel.style.display = 'flex'; });
-        closeAdminBtn.addEventListener('click', () => { adminPanel.style.display = 'none'; authError.style.display = 'none'; });
+        const adminPanel = document.getElementById('admin-panel');
+        document.getElementById('secret-trigger').addEventListener('click', () => adminPanel.style.display = 'flex');
+        document.getElementById('close-admin-btn').addEventListener('click', () => adminPanel.style.display = 'none');
+
+        const loginSec = document.getElementById('admin-login-section');
+        const dashSec = document.getElementById('admin-dashboard-section');
+        const btnLogin = document.getElementById('btn-login-auth');
+        const logoutBtn = document.getElementById('logout-btn');
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                loginSection.style.display = 'none';
-                dashboardSection.style.display = 'block';
-                logoutBtn.style.display = 'block';
-                cargarDatosEnTiempoReal();
+                loginSec.style.display = 'none'; dashSec.style.display = 'block'; logoutBtn.style.display = 'block';
+                cargarOrdenes();
             } else {
-                loginSection.style.display = 'block';
-                dashboardSection.style.display = 'none';
-                logoutBtn.style.display = 'none';
+                loginSec.style.display = 'block'; dashSec.style.display = 'none'; logoutBtn.style.display = 'none';
             }
         });
 
-        btnLoginAuth.addEventListener('click', () => {
-            const email = document.getElementById('auth-email').value;
-            const pass = document.getElementById('auth-pass').value;
-            
-            btnLoginAuth.innerHTML = "VERIFICANDO CREDENCIALES...";
-            
-            signInWithEmailAndPassword(auth, email, pass)
-                .then(() => {
-                    authError.style.display = 'none';
-                    btnLoginAuth.innerHTML = "INGRESAR AL SISTEMA";
-                    document.getElementById('auth-email').value = "";
-                    document.getElementById('auth-pass').value = "";
-                })
-                .catch(() => {
-                    btnLoginAuth.innerHTML = "INGRESAR AL SISTEMA";
-                    authError.style.display = 'block';
-                    authError.innerText = "Acceso Denegado. Credenciales inválidas.";
-                });
+        btnLogin.addEventListener('click', () => {
+            const e = document.getElementById('auth-email').value; const p = document.getElementById('auth-pass').value;
+            btnLogin.innerText = "VERIFICANDO...";
+            signInWithEmailAndPassword(auth, e, p).then(() => btnLogin.innerText = "ENTRAR")
+            .catch(() => { document.getElementById('auth-error').style.display='block'; document.getElementById('auth-error').innerText='Error de Auth'; btnLogin.innerText="ENTRAR"; });
         });
 
-        logoutBtn.addEventListener('click', () => {
-            signOut(auth);
-        });
+        logoutBtn.addEventListener('click', () => signOut(auth));
 
-        function cargarDatosEnTiempoReal() {
-            const ordenesRef = ref(db, 'ordenes_exos');
-            onValue(ordenesRef, (snapshot) => {
-                ordersBody.innerHTML = '';
-                const data = snapshot.val();
-                
-                if(data) {
-                    const ordenesArray = Object.values(data).reverse();
-                    ordenesArray.forEach(orden => {
-                        const tr = document.createElement('tr');
-                        tr.innerHTML = `
-                            <td style="font-size:0.8rem; color:#94a3b8;">${orden.fecha || 'N/A'}</td>
-                            <td><b>${orden.cliente}</b><br><small style="color:var(--primary)">${orden.proyecto}</small></td>
-                            <td><span style="color:#00B8D4; font-weight:600;">${orden.plan}</span></td>
-                            <td style="font-size:0.85rem;">${orden.colores}</td>
-                            <td style="font-size:0.85rem; max-width: 300px;">${orden.detalles}</td>
-                            <td><span class="status-badge">Recibido</span></td>
-                        `;
-                        ordersBody.appendChild(tr);
+        function cargarOrdenes() {
+            onValue(ref(db, 'ordenes_exos'), (snap) => {
+                const body = document.getElementById('orders-body');
+                body.innerHTML = '';
+                if(snap.exists()) {
+                    Object.values(snap.val()).reverse().forEach(o => {
+                        body.innerHTML += `<tr><td>${o.fecha}</td><td>${o.cliente}<br><small>${o.tlf}</small></td><td>${o.servicio}</td><td style="font-size:0.8rem">${o.detalles}</td></tr>`;
                     });
-                } else {
-                    ordersBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No hay requerimientos en la base de datos central.</td></tr>';
-                }
+                } else { body.innerHTML = '<tr><td colspan="4">Sin cotizaciones.</td></tr>'; }
             });
         }
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+        // Renderizar editor de planes
+        function renderizarAdminPlanes(planes) {
+            const container = document.getElementById('admin-plans-container');
+            container.innerHTML = '';
+            planes.forEach((p, index) => {
+                container.innerHTML += `
+                    <div class="plan-edit-card">
+                        <label style="font-size:0.8rem; color:var(--primary);">Título del Plan</label>
+                        <input type="text" id="edit-tit-${index}" value="${p.titulo}">
+                        
+                        <label style="font-size:0.8rem; color:var(--primary);">Descripción corta</label>
+                        <input type="text" id="edit-desc-${index}" value="${p.desc}">
+                        
+                        <div style="display:flex; gap:10px;">
+                            <div style="flex:1;"><label style="font-size:0.8rem; color:var(--primary);">Precio Anterior</label><input type="text" id="edit-old-${index}" value="${p.precioAntiguo}"></div>
+                            <div style="flex:1;"><label style="font-size:0.8rem; color:var(--primary);">Precio Promoción</label><input type="text" id="edit-new-${index}" value="${p.precioNuevo}"></div>
+                        </div>
+                        
+                        <label style="font-size:0.8rem; color:var(--primary);">Características (Separadas por coma)</label>
+                        <textarea id="edit-feat-${index}" rows="3">${p.features}</textarea>
+                        
+                        <label style="font-size:0.8rem; color:var(--primary);">Destacar como "Más Pedido"</label>
+                        <select id="edit-pop-${index}" style="width:100%; padding:10px; margin-bottom:10px; background:#0a0f1c; color:#fff;">
+                            <option value="true" ${p.popular ? 'selected' : ''}>SÍ, DESTACAR</option>
+                            <option value="false" ${!p.popular ? 'selected' : ''}>NO</option>
+                        </select>
+                    </div>
+                `;
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Guardar edición de planes
+        document.getElementById('btn-save-plans').addEventListener('click', () => {
+            const btn = document.getElementById('btn-save-plans');
+            btn.innerText = "GUARDANDO...";
+            let nuevosPlanes = [];
+            for(let i=0; i<planesActuales.length; i++) {
+                nuevosPlanes.push({
+                    id: planesActuales[i].id,
+                    titulo: document.getElementById(`edit-tit-${i}`).value,
+                    desc: document.getElementById(`edit-desc-${i}`).value,
+                    precioAntiguo: document.getElementById(`edit-old-${i}`).value,
+                    precioNuevo: document.getElementById(`edit-new-${i}`).value,
+                    features: document.getElementById(`edit-feat-${i}`).value,
+                    popular: document.getElementById(`edit-pop-${i}`).value === "true",
+                    linkInfo: planesActuales[i].linkInfo
+                });
+            }
+            set(ref(db, 'config_planes'), nuevosPlanes).then(() => {
+                btn.innerText = "¡GUARDADO! 💾";
+                setTimeout(() => btn.innerText = "💾 GUARDAR CAMBIOS", 2000);
+            });
+        });
 
     </script>
 </body>
