@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exos Code Labs Studio</title>
+    <title>Exos Code Labs Studio | Ingeniería de Software y Servidores</title>
     <link rel="icon" type="image/png" href="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
@@ -15,6 +15,7 @@
             --border: rgba(255, 255, 255, 0.08);
             --text: #e2e8f0;
             --soft-glow: 0 0 25px rgba(0, 229, 255, 0.12);
+            --success: #10b981;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,13 +28,11 @@
             line-height: 1.7;
         }
 
-        /* --- Utilidades y Fondos --- */
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
             background: radial-gradient(circle at 50% -10%, #151F32 0%, #0A0F1C 100%);
         }
 
-        /* --- Navegación --- */
         nav {
             padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
@@ -45,59 +44,66 @@
         .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
         .logo-text span { color: var(--primary); }
 
-        /* --- Hero --- */
         .hero { padding: clamp(6rem, 15vh, 10rem) 8% 4rem; text-align: center; }
         .hero h1 { font-size: clamp(2.5rem, 7vw, 4.8rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.8rem; letter-spacing: -1.5px; color: #fff; }
         .hero h1 b { color: var(--primary); text-shadow: 0 0 30px rgba(0, 229, 255, 0.25); }
         .hero p { max-width: 800px; margin: 0 auto 2.8rem; font-size: 1.2rem; color: #94a3b8; }
 
-        /* --- Secciones --- */
         .section { padding: 5rem 8%; max-width: 1300px; margin: 0 auto; }
         .section-title { margin-bottom: 3.5rem; text-align: center; }
         .section-title h2 { font-size: 2.8rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 1rem; color: #fff; }
         .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; font-size: 0.85rem; }
 
-        /* --- Grid & Cards --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .card { 
-            background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; 
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
-            display: flex; flex-direction: column;
+        /* --- Nueva Estructura de Precios Profesionales --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; align-items: start; }
+        .pricing-card { 
+            background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 3rem 2rem; 
+            transition: all 0.4s ease; position: relative; display: flex; flex-direction: column;
         }
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary)); opacity: 0; transition: 0.4s;
+        .pricing-card:hover { transform: translateY(-10px); border-color: rgba(0, 229, 255, 0.3); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5); }
+        
+        .pricing-card.popular { 
+            background: linear-gradient(180deg, rgba(20, 28, 45, 0.9) 0%, rgba(10, 15, 28, 0.95) 100%);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.1);
+            transform: scale(1.05);
+            z-index: 10;
         }
-        .card:hover { 
-            transform: translateY(-8px); border-color: rgba(0, 229, 255, 0.3); 
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.05);
-            background: rgba(20, 28, 45, 0.9);
+        .pricing-card.popular:hover { transform: scale(1.05) translateY(-10px); }
+        
+        .badge-popular {
+            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--primary); color: #000; padding: 6px 20px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
         }
-        .card:hover::before { opacity: 1; }
-        .card h3 { color: #fff; margin-bottom: 1.5rem; font-size: 1.5rem; font-family: 'Space Grotesk', sans-serif; }
-        .card ul { list-style: none; flex-grow: 1; margin-bottom: 20px; }
-        .card ul li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 0.95rem; color: #cbd5e1; }
-        .card ul li::before { content: "✓"; color: var(--primary); margin-right: 12px; font-weight: bold; font-size: 1.1rem; }
 
-        .price-tag { font-size: 2.2rem; color: var(--primary); font-weight: 800; margin-bottom: 0.5rem; display: block; }
-        .price-sub { font-size: 0.9rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 1.5rem; }
-        .card.premium { border-color: rgba(0, 229, 255, 0.3); background: rgba(0, 229, 255, 0.03); }
+        .pricing-header { text-align: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 2rem; }
+        .pricing-title { font-size: 1.2rem; color: #94a3b8; font-weight: 600; margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
+        .pricing-card.popular .pricing-title { color: var(--primary); }
+        .pricing-price { font-size: 3rem; color: #fff; font-weight: 800; line-height: 1; }
+        .pricing-price span { font-size: 1rem; color: #64748b; font-weight: 400; }
+        
+        .pricing-features { list-style: none; flex-grow: 1; margin-bottom: 2.5rem; }
+        .pricing-features li { margin-bottom: 15px; display: flex; align-items: flex-start; font-size: 0.95rem; color: #cbd5e1; }
+        .pricing-features li svg { width: 20px; height: 20px; fill: var(--success); margin-right: 12px; flex-shrink: 0; margin-top: 2px; }
+        
+        .pricing-action { width: 100%; text-align: center; padding: 15px; border-radius: 12px; font-weight: 800; text-decoration: none; transition: 0.3s; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+        .btn-outline { border: 1px solid var(--border); color: #fff; background: rgba(255,255,255,0.02); }
+        .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
+        .btn-solid { background: var(--primary); color: #000; box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2); }
+        .btn-solid:hover { background: #00B8D4; transform: translateY(-2px); }
 
-        /* Botones Ver Ejemplo */
-        .btn-view {
-            display: inline-block; width: 100%; text-align: center; padding: 12px;
-            border: 1px solid var(--primary); border-radius: 8px; color: var(--primary);
-            text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
-            background: rgba(0, 229, 255, 0.05);
+        .maintenance-note {
+            background: rgba(41, 98, 255, 0.05); border-left: 4px solid var(--secondary);
+            padding: 1.5rem; border-radius: 0 12px 12px 0; margin-top: 3rem; font-size: 0.9rem; color: #94a3b8;
         }
-        .btn-view:hover { background: var(--primary); color: #000; box-shadow: var(--soft-glow); }
 
         /* --- Portafolio --- */
         .portfolio { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 2rem; }
         .work-box { 
             background: rgba(41, 98, 255, 0.05); border: 1px solid rgba(41, 98, 255, 0.2); 
             border-radius: 20px; text-decoration: none; color: inherit; transition: 0.3s;
-            display: flex; flex-direction: column; overflow: hidden;
+            display: flex; flex-direction: column; overflow: hidden; position: relative;
         }
         .work-box:hover { background: rgba(41, 98, 255, 0.1); border-color: var(--secondary); transform: scale(1.02); }
         .work-content { padding: 2rem; }
@@ -106,7 +112,7 @@
         .work-box h4 { margin-bottom: 12px; font-size: 1.5rem; color: #fff; }
         .work-box span { color: var(--primary); font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; display: block; margin-bottom: 8px; }
 
-        /* --- Formulario de Pedidos Mejorado --- */
+        /* --- Formulario --- */
         .form-container { 
             background: linear-gradient(160deg, rgba(15, 22, 36, 0.8) 0%, rgba(10, 15, 28, 0.9) 100%); 
             padding: 4rem 10%; border-radius: 35px; border: 1px solid var(--border); 
@@ -129,7 +135,6 @@
             display: flex; justify-content: center; align-items: center; gap: 10px;
         }
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3); }
-        .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
 
         /* --- Panel Secreto Administrativo (Firebase Auth) --- */
         .admin-modal {
@@ -170,13 +175,15 @@
 
         @media (max-width: 768px) {
             nav { padding: 1rem 5%; }
-            .hero { padding-top: 7rem; }
-            .section { padding: 3rem 5%; }
+            .pricing-card.popular { transform: none; }
+            .pricing-card.popular:hover { transform: translateY(-10px); }
             .form-grid { grid-template-columns: 1fr; }
-            .form-container { padding: 2.5rem 1.5rem; }
             .wa-contact { display: none; }
             .wa-hub:hover .wa-contact { display: flex; transform: translateX(0); opacity: 1; }
         }
+
+        /* Check Icon SVG */
+        .check-icon { display: inline-block; width: 20px; height: 20px; }
     </style>
 </head>
 <body>
@@ -193,69 +200,87 @@
 
     <header class="hero reveal">
         <h1>Arquitectura Digital y <b>Servidores de Alto Rendimiento</b>.</h1>
-        <p>Expertos en ingeniería de software nativo y despliegue de infraestructuras seguras. Soluciones robustas diseñadas para dominar el mercado digital.</p>
+        <p>Expertos en ingeniería de software nativo y despliegue de infraestructuras seguras. Soluciones robustas diseñadas para dominar el mercado digital con tecnología propia.</p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-            <a href="#contacto" style="background: var(--primary); color: #000; padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 800; transition: 0.3s;">SOLICITAR INGENIERÍA</a>
-            <a href="#planes" style="background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--border); padding: 18px 40px; border-radius: 12px; text-decoration: none; font-weight: 600;">VER PLANES</a>
+            <a href="#contacto" class="submit-btn" style="width: auto; padding: 18px 40px; margin-top: 0;">SOLICITAR INGENIERÍA</a>
+            <a href="#planes" class="btn-outline" style="width: auto; padding: 18px 40px; display: flex; align-items: center; border-radius: 12px;">VER TARIFAS</a>
         </div>
     </header>
 
     <section class="section reveal" id="planes">
         <div class="section-title">
-            <p>Modelos de Inversión</p>
-            <h2>Planes y Soluciones de Ingeniería</h2>
+            <p>Estructura de Inversión</p>
+            <h2>Desarrollo y Soluciones Nativas</h2>
         </div>
         
-        <div class="grid">
-            <div class="card premium">
-                <span class="price-tag">$150 - $200</span>
-                <span class="price-sub">$150 Sistema Solo / $200 Full Hosting+Dominio</span>
-                <h3>E-Commerce & Management</h3>
-                <ul>
-                    <li>Página web corporativa completa.</li>
-                    <li>Carrito de compra y facturación.</li>
-                    <li>Panel Administrativo de Control.</li>
-                    <li>Gestión de Clientes e Inventario.</li>
+        <svg style="display: none;">
+            <symbol id="check" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </symbol>
+        </svg>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Landing Page Básica</h3>
+                    <div class="pricing-price">$80<span> USD</span></div>
+                </div>
+                <ul class="pricing-features">
+                    <li><svg><use href="#check"></use></svg> Diseño One-Page estructurado.</li>
+                    <li><svg><use href="#check"></use></svg> Enlaces directos a WhatsApp y Redes.</li>
+                    <li><svg><use href="#check"></use></svg> Código puro, rápido y optimizado.</li>
+                    <li><svg><use href="#check"></use></svg> Adaptable a cualquier dispositivo.</li>
                 </ul>
-                <a href="https://www.fanaticadelabelleza.com" target="_blank" class="btn-view">Ver Ejemplo (Fanática Beauty)</a>
+                <a href="#contacto" class="pricing-action btn-outline">Iniciar Proyecto</a>
             </div>
 
-            <div class="card premium" style="border-color: var(--secondary);">
-                <span class="price-tag">$500</span>
-                <span class="price-sub">Implementación Profesional</span>
-                <h3>Enterprise Server Pack</h3>
-                <ul>
-                    <li>Despliegue de Windows Server profesional.</li>
-                    <li>Control remoto global.</li>
-                    <li>Integración <b>a2softway</b> (bajo contrato).</li>
-                    <li>Optimización para +20 conexiones estables.</li>
+            <div class="pricing-card popular">
+                <div class="badge-popular">Valor Ejecutivo</div>
+                <div class="pricing-header">
+                    <h3 class="pricing-title">E-Commerce Plus</h3>
+                    <div class="pricing-price">$200<span> USD</span></div>
+                </div>
+                <ul class="pricing-features">
+                    <li><svg><use href="#check"></use></svg> Tienda Online completa y escalable.</li>
+                    <li><svg><use href="#check"></use></svg> <b>Dominio y Hosting incluidos (1er Año).</b></li>
+                    <li><svg><use href="#check"></use></svg> Carrito de compra y facturación.</li>
+                    <li><svg><use href="#check"></use></svg> Panel Administrativo para inventario.</li>
+                    <li><svg><use href="#check"></use></svg> Gestión de perfiles de clientes.</li>
                 </ul>
-                <a href="#contacto" class="btn-view" style="border-color: var(--secondary); color: var(--secondary);">Solicitar Asesoría</a>
+                <a href="#contacto" class="pricing-action btn-solid">Desarrollar Tienda</a>
             </div>
 
-            <div class="card">
-                <span class="price-tag">$80</span>
-                <span class="price-sub">Pago Único</span>
-                <h3>Starter Landing Page</h3>
-                <ul>
-                    <li>Landing Page de código puro.</li>
-                    <li>Optimización para dispositivos móviles.</li>
-                    <li>Botones de contacto directos.</li>
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Sistema VPM Beta</h3>
+                    <div class="pricing-price">$30<span> USD</span></div>
+                </div>
+                <ul class="pricing-features">
+                    <li><svg><use href="#check"></use></svg> Herramienta logística multimonedas.</li>
+                    <li><svg><use href="#check"></use></svg> Operativo Lunes a Domingo (9AM - 6:30PM).</li>
+                    <li><svg><use href="#check"></use></svg> Gestión dinámica de tasas de cambio.</li>
+                    <li><svg><use href="#check"></use></svg> Cálculos financieros precisos.</li>
                 </ul>
-                <a href="#contacto" class="btn-view">Iniciar Proyecto</a>
+                <a href="https://vpm-beta.netlify.app/" target="_blank" class="pricing-action btn-outline">Explorar Sistema VPM</a>
             </div>
 
-            <div class="card">
-                <span class="price-tag">$30</span>
-                <span class="price-sub">Herramienta Logística</span>
-                <h3>VPM Multicurrency</h3>
-                <ul>
-                    <li>Validación de pagos multimonedas.</li>
-                    <li>Gestión dinámica de tasas.</li>
-                    <li>Interfaz minimalista de alta velocidad.</li>
+            <div class="pricing-card">
+                <div class="pricing-header">
+                    <h3 class="pricing-title">Enterprise Server</h3>
+                    <div class="pricing-price">$500<span> USD</span></div>
+                </div>
+                <ul class="pricing-features">
+                    <li><svg><use href="#check"></use></svg> Configuración Windows Server dedicada.</li>
+                    <li><svg><use href="#check"></use></svg> Control remoto multisucursal global.</li>
+                    <li><svg><use href="#check"></use></svg> Integración experta con <b>a2softway</b>.</li>
+                    <li><svg><use href="#check"></use></svg> Políticas de respaldo y seguridad.</li>
                 </ul>
-                <a href="https://vpm-beta.netlify.app/" target="_blank" class="btn-view">Ver Ejemplo (VPM Beta)</a>
+                <a href="#contacto" class="pricing-action btn-outline">Solicitar Implementación</a>
             </div>
+        </div>
+
+        <div class="maintenance-note reveal">
+            <strong style="color: #fff;">Transparencia de Costos Anuales:</strong> En proyectos web, consideramos vital la honestidad a largo plazo. Los costos de mantenimiento estándar incluyen la renovación de tu <b>Dominio .com</b> (Aprox. $15 - $20 USD anuales) y el servicio de <b>Hosting</b> en servidores de alto rendimiento. Nuestra arquitectura garantiza escalabilidad sin mensualidades ocultas por plugins o plataformas genéricas.
         </div>
     </section>
 
@@ -268,8 +293,8 @@
             <a href="https://www.fanaticadelabelleza.com" target="_blank" class="work-box">
                 <div class="work-content">
                     <span>RETAIL FULL SYSTEM</span>
-                    <h4>Fanática Beauty Store</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">E-commerce completo con gestión de inventario y facturación.</p>
+                    <h4>Fanática Beauty</h4>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Página web completa de tienda con ecosistema semiautomático de verificación y control.</p>
                 </div>
             </a>
             
@@ -277,16 +302,16 @@
                 <div class="work-content">
                     <span>FINTECH LOGISTICS</span>
                     <h4>VPM Multi-Currency</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Estructura de validación para flujos de caja en múltiples divisas.</p>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Estructura de validación para flujos de caja y operaciones diarias financieras.</p>
                 </div>
             </a>
 
-            <div class="work-box">
+            <div class="work-box" style="cursor: default;">
                 <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/conexiones-a-servido.png" alt="Servidor Barquisimeto">
                 <div class="work-content">
                     <span>SERVER INFRASTRUCTURE</span>
                     <h4>Tienda Electrónica Barquisimeto</h4>
-                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Arquitectura de servidor centralizado para control remoto global de sucursales.</p>
+                    <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Ejemplo real de conexiones concurrentes a un servidor principal estructurado por nuestro equipo.</p>
                 </div>
             </div>
         </div>
@@ -310,14 +335,14 @@
                         <label>Selecciona el Plan o Servicio Requerido</label>
                         <select id="frm-plan" required>
                             <option value="" disabled selected>Selecciona una solución de ingeniería...</option>
-                            <option value="Web Completa E-Commerce">Web Completa E-Commerce y Gestión</option>
+                            <option value="Web Completa E-Commerce">Web Completa E-Commerce y Gestión Integral</option>
                             <option value="Landing Page Profesional">Landing Page Profesional de Código Puro</option>
-                            <option value="Configuración de Servidor Windows">Configuración de Servidor Windows a2softway</option>
-                            <option value="Despliegue de Sistema VPM">Despliegue de Sistema VPM Multimonedas</option>
-                            <option value="Desarrollo de App Móvil (Android/iOS)">Desarrollo de App Móvil (Android/iOS)</option>
-                            <option value="Integración de Base de Datos y APIs">Integración de Base de Datos y APIs</option>
-                            <option value="Auditoría Técnica y Mantenimiento">Auditoría Técnica y Mantenimiento</option>
-                            <option value="Otro Requerimiento Específico">Otro Requerimiento Específico</option>
+                            <option value="Configuración de Servidor Windows">Configuración de Servidor Windows / a2softway</option>
+                            <option value="Despliegue de Sistema VPM">Despliegue de Sistema de Verificación VPM</option>
+                            <option value="Desarrollo de App Móvil (Android/iOS)">Desarrollo de App Móvil (Android/iOS con Flutter)</option>
+                            <option value="Integración de Base de Datos y APIs">Arquitectura de Base de Datos y APIs</option>
+                            <option value="Auditoría Técnica y Mantenimiento">Auditoría Técnica y Mantenimiento de Código</option>
+                            <option value="Otro Requerimiento Específico">Otro Requerimiento Específico a Medida</option>
                         </select>
                     </div>
 
@@ -370,9 +395,10 @@
                     </tr>
                 </thead>
                 <tbody id="orders-body">
-                    <tr><td colspan="6" style="text-align: center; color: #94a3b8;">Cargando base de datos segura...</td></tr>
+                    <tr><td colspan="6" style="text-align: center; color: #94a3b8;">Sincronizando con base de datos principal...</td></tr>
                 </tbody>
             </table>
+            <p style="text-align: right; font-size: 0.7rem; color: #64748b; margin-top: 10px;">Conexión Secure Token - Expiración de reglas de acceso: Año 2035.</p>
         </div>
     </div>
 
@@ -397,10 +423,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-        // Importamos Firebase Auth para la seguridad
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        // Configuración de tu proyecto
         const firebaseConfig = {
             apiKey: "AIzaSyAFCd-j46phQc7Gng8ZxhfKTWpx-VDugps",
             authDomain: "visor-fanatica.firebaseapp.com",
@@ -416,15 +440,14 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        // Referencias DOM
+        // Envío Rápido a WhatsApp & BD (Sin imágenes)
         const orderForm = document.getElementById('exos-order-form');
         const btnSubmit = document.getElementById('btn-submit');
         
-        // --- LOGICA DE ENVIO DEL FORMULARIO ---
         orderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             btnSubmit.disabled = true;
-            btnSubmit.innerHTML = '<span>Guardando en Base de Datos...</span>';
+            btnSubmit.innerHTML = '<span>Generando Requerimiento...</span>';
 
             const nombre = document.getElementById('frm-nombre').value;
             const proyecto = document.getElementById('frm-proyecto').value;
@@ -433,7 +456,6 @@
             const detalles = document.getElementById('frm-detalles').value;
 
             try {
-                // Escribimos directo en la base de datos de manera limpia
                 const ordenesRef = ref(db, 'ordenes_exos');
                 await push(ordenesRef, {
                     cliente: nombre,
@@ -445,15 +467,14 @@
                     timestamp: serverTimestamp()
                 });
 
-                // Preparar mensaje rápido para WhatsApp
-                const numeroWA = "584127336450"; // Número de Samuel
-                const textoWA = `*NUEVO PROYECTO EXOS CODE LABS*%0A%0A` +
+                const numeroWA = "584127336450";
+                const textoWA = `*NUEVA SOLICITUD DE INGENIERÍA - EXOS CODE LABS*%0A%0A` +
                                 `*Cliente:* ${nombre}%0A` +
                                 `*Proyecto:* ${proyecto}%0A` +
-                                `*Servicio:* ${plan}%0A` +
-                                `*Colores:* ${colores}%0A` +
-                                `*Detalles:* ${detalles}%0A%0A` +
-                                `_Orden Registrada en la Base de Datos_`;
+                                `*Área de Desarrollo:* ${plan}%0A` +
+                                `*Paleta de Colores:* ${colores}%0A` +
+                                `*Detalles Técnicos:* ${detalles}%0A%0A` +
+                                `_Operación sincronizada exitosamente en el servidor de base de datos._`;
 
                 window.open(`https://wa.me/${numeroWA}?text=${textoWA}`, '_blank');
                 
@@ -463,13 +484,13 @@
 
             } catch (error) {
                 console.error(error);
-                alert("Error de conexión. Redirigiendo a chat manual.");
-                window.open(`https://wa.me/584127336450?text=Hola,%20solicito%20soporte%20con%20el%20formulario.`, '_blank');
+                alert("Redirección directa de contingencia activada.");
+                window.open(`https://wa.me/584127336450?text=Hola,%20requiero%20asistencia%20técnica%20para%20iniciar%20un%20proyecto.`, '_blank');
                 btnSubmit.disabled = false;
             }
         });
 
-        // --- LÓGICA DEL PANEL SECRETO (FIREBASE AUTH) ---
+        // Autenticación God Mode
         const secretTrigger = document.getElementById('secret-trigger');
         const adminPanel = document.getElementById('admin-panel');
         const closeAdminBtn = document.getElementById('close-admin-btn');
@@ -481,56 +502,47 @@
         const logoutBtn = document.getElementById('logout-btn');
         const ordersBody = document.getElementById('orders-body');
 
-        // Abrir y Cerrar Modal
         secretTrigger.addEventListener('click', () => { adminPanel.style.display = 'flex'; });
         closeAdminBtn.addEventListener('click', () => { adminPanel.style.display = 'none'; authError.style.display = 'none'; });
 
-        // Observador de estado de sesión
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                // Usuario autenticado, mostrar dashboard
                 loginSection.style.display = 'none';
                 dashboardSection.style.display = 'block';
                 logoutBtn.style.display = 'block';
-                cargarOrdenesSeguras();
+                cargarDatosEnTiempoReal();
             } else {
-                // No autenticado, mostrar login
                 loginSection.style.display = 'block';
                 dashboardSection.style.display = 'none';
                 logoutBtn.style.display = 'none';
             }
         });
 
-        // Inicio de sesión
         btnLoginAuth.addEventListener('click', () => {
             const email = document.getElementById('auth-email').value;
             const pass = document.getElementById('auth-pass').value;
             
-            btnLoginAuth.innerHTML = "VERIFICANDO...";
+            btnLoginAuth.innerHTML = "VERIFICANDO CREDENCIALES...";
             
             signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
+                .then(() => {
                     authError.style.display = 'none';
                     btnLoginAuth.innerHTML = "INGRESAR AL SISTEMA";
                     document.getElementById('auth-email').value = "";
                     document.getElementById('auth-pass').value = "";
                 })
-                .catch((error) => {
+                .catch(() => {
                     btnLoginAuth.innerHTML = "INGRESAR AL SISTEMA";
                     authError.style.display = 'block';
-                    authError.innerText = "Credenciales inválidas o sin permisos.";
+                    authError.innerText = "Acceso Denegado. Credenciales inválidas.";
                 });
         });
 
-        // Cerrar sesión
         logoutBtn.addEventListener('click', () => {
-            signOut(auth).then(() => {
-                ordersBody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #94a3b8;">Cargando base de datos segura...</td></tr>';
-            });
+            signOut(auth);
         });
 
-        // Leer datos solo si está autenticado
-        function cargarOrdenesSeguras() {
+        function cargarDatosEnTiempoReal() {
             const ordenesRef = ref(db, 'ordenes_exos');
             onValue(ordenesRef, (snapshot) => {
                 ordersBody.innerHTML = '';
@@ -546,12 +558,12 @@
                             <td><span style="color:#00B8D4; font-weight:600;">${orden.plan}</span></td>
                             <td style="font-size:0.85rem;">${orden.colores}</td>
                             <td style="font-size:0.85rem; max-width: 300px;">${orden.detalles}</td>
-                            <td><span class="status-badge">Registrado</span></td>
+                            <td><span class="status-badge">Recibido</span></td>
                         `;
                         ordersBody.appendChild(tr);
                     });
                 } else {
-                    ordersBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No hay requerimientos en la base de datos.</td></tr>';
+                    ordersBody.innerHTML = '<tr><td colspan="6" style="text-align:center;">No hay requerimientos en la base de datos central.</td></tr>';
                 }
             });
         }
