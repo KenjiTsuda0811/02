@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exos Code Labs Studio | Ingeniería de Software</title>
+    <title>Exos Code Labs Studio | Ingeniería de Software & Servidores</title>
     <link rel="icon" type="image/png" href="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- VARIABLES DE TEMA (MODO OSCURO POR DEFECTO) --- */
         :root {
             --primary: #00E5FF;
             --secondary: #2962FF;
@@ -22,13 +21,12 @@
             --soft-glow: 0 0 25px rgba(0, 229, 255, 0.12);
             --success: #10b981;
             --danger: #ef4444;
-            --form-left: #cceeff; /* Para el modo claro */
+            --form-accent: rgba(0, 229, 255, 0.05);
         }
 
-        /* --- VARIABLES DE MODO CLARO --- */
         [data-theme="light"] {
             --primary: #0088cc;
-            --secondary: #2962FF;
+            --secondary: #1e40af;
             --bg: #f8fafc;
             --bg-gradient: radial-gradient(circle at 50% -10%, #ffffff 0%, #f1f5f9 100%);
             --card: #ffffff;
@@ -36,12 +34,12 @@
             --border: #cbd5e1;
             --text: #0f172a;
             --text-muted: #475569;
-            --input-bg: #f8fafc;
+            --input-bg: #ffffff;
             --soft-glow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --form-left: #e0f2fe;
+            --form-accent: #f0f9ff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: background-color 0.4s ease, border-color 0.4s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.3s, color 0.3s, border-color 0.3s; }
         
         body { 
             background-color: var(--bg); 
@@ -53,135 +51,95 @@
 
         .bg-glow { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: var(--bg-gradient); }
 
-        /* --- NAVEGACIÓN Y TOGGLE --- */
+        /* --- Navegación --- */
         nav {
             padding: 1rem 8%; display: flex; justify-content: space-between; align-items: center;
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid var(--border);
-            background: rgba(var(--bg), 0.85);
+            background: rgba(var(--bg), 0.8);
         }
         .logo-area { display: flex; align-items: center; gap: 12px; }
         .logo-img { width: 45px; height: 45px; border-radius: 10px; box-shadow: var(--soft-glow); }
-        .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+        .logo-text { font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--text); }
         .logo-text span { color: var(--primary); }
         
-        .nav-controls { display: flex; align-items: center; gap: 15px; }
         .theme-toggle {
-            background: var(--card); border: 1px solid var(--border); padding: 8px 12px;
+            background: var(--card); border: 1px solid var(--border); padding: 8px 16px;
             border-radius: 50px; cursor: pointer; color: var(--text); display: flex; align-items: center; gap: 8px;
-            font-size: 0.8rem; font-weight: 600;
+            font-size: 0.8rem; font-weight: 800; text-transform: uppercase;
         }
-        .theme-toggle:hover { border-color: var(--primary); }
 
-        /* --- HERO --- */
+        /* --- Hero --- */
         .hero { padding: clamp(5rem, 12vh, 8rem) 8% 3rem; text-align: center; }
-        .hero h1 { font-size: clamp(2.2rem, 6vw, 4.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1.5px; color: var(--text); }
-        .hero h1 b { color: var(--primary); }
-        .hero p { max-width: 800px; margin: 0 auto 2.5rem; font-size: 1.15rem; color: var(--text-muted); }
+        .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -1.5px; color: var(--text); }
+        .hero h1 b { color: var(--primary); text-shadow: 0 0 20px rgba(0, 229, 255, 0.2); }
+        .hero p { max-width: 850px; margin: 0 auto 2.5rem; font-size: 1.15rem; color: var(--text-muted); }
 
         .section { padding: 4rem 8%; max-width: 1300px; margin: 0 auto; }
         .section-title { margin-bottom: 3.5rem; text-align: center; }
-        .section-title h2 { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; margin-bottom: 0.5rem; color: var(--text); }
-        .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; }
+        .section-title h2 { font-size: 2.5rem; font-family: 'Space Grotesk', sans-serif; color: var(--text); }
+        .section-title p { color: var(--primary); font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem; }
 
-        /* --- PRECIOS (TARJETAS DINÁMICAS) --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; align-items: stretch; }
+        /* --- Tarifas Dinámicas --- */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .pricing-card { 
-            background: var(--card-solid); border: 1px solid var(--border); border-radius: 20px; padding: 2.5rem 2rem; 
-            position: relative; display: flex; flex-direction: column; box-shadow: var(--soft-glow);
+            background: var(--card-solid); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem 2rem; 
+            position: relative; display: flex; flex-direction: column; transition: 0.4s;
         }
-        .pricing-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+        .pricing-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: var(--soft-glow); }
+        .pricing-card.popular { border: 2px solid var(--primary); }
         
-        .pricing-card.popular { border: 2px solid var(--primary); transform: scale(1.03); z-index: 10; }
-        .pricing-card.popular:hover { transform: scale(1.03) translateY(-5px); }
-        
-        .badge-popular {
-            position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            background: var(--primary); color: #fff; padding: 5px 15px; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
-        }
+        .price-old { font-size: 0.9rem; color: var(--danger); text-decoration: line-through; display: block; margin-bottom: 2px; font-weight: 600; }
+        .pricing-price { font-size: 2.8rem; color: var(--text); font-weight: 800; margin-bottom: 1rem; display: flex; align-items: baseline; gap: 5px; }
+        .pricing-price small { font-size: 1.2rem; color: var(--primary); }
 
-        .pricing-header { text-align: center; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
-        .pricing-title { font-size: 1.2rem; color: var(--text); font-weight: 700; margin-bottom: 10px; }
-        
-        .price-old { font-size: 1rem; color: var(--danger); text-decoration: line-through; margin-bottom: -5px; display: block; opacity: 0.8; }
-        .pricing-price { font-size: 2.8rem; color: var(--text); font-weight: 800; line-height: 1; display: flex; justify-content: center; align-items: baseline; gap: 5px; }
-        .pricing-price span { font-size: 1.5rem; color: var(--primary); }
-        .price-note { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 5px; }
-        
-        .pricing-features { list-style: none; flex-grow: 1; margin-bottom: 2rem; }
-        .pricing-features li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 0.9rem; color: var(--text-muted); }
-        .pricing-features li::before { content: "⚡"; margin-right: 8px; color: var(--primary); }
-        
-        .btn-action { 
-            width: 100%; text-align: center; padding: 12px; border-radius: 8px; font-weight: 700; 
-            text-decoration: none; cursor: pointer; display: block; border: 1px solid var(--primary);
-            background: transparent; color: var(--text);
-        }
-        .btn-action:hover { background: var(--primary); color: #fff; }
-        .btn-solid { background: var(--primary); color: #fff; }
+        .pricing-features { list-style: none; margin-bottom: 2rem; flex-grow: 1; }
+        .pricing-features li { margin-bottom: 12px; display: flex; align-items: center; font-size: 0.9rem; color: var(--text-muted); }
+        .pricing-features li::before { content: "✓"; margin-right: 10px; color: var(--primary); font-weight: 900; }
 
-        /* --- FORMULARIO SPLIT (TIPO AGENCIA) --- */
-        .form-wrapper {
+        .btn-cotizar { 
+            width: 100%; padding: 14px; border-radius: 10px; border: 1px solid var(--primary);
+            background: transparent; color: var(--text); font-weight: 800; cursor: pointer; text-decoration: none; text-align: center;
+        }
+        .btn-cotizar:hover, .btn-solid { background: var(--primary); color: #fff; }
+
+        /* --- Formulario de Agencia --- */
+        .form-split {
             display: grid; grid-template-columns: 1fr 1.5fr; background: var(--card-solid);
-            border-radius: 24px; overflow: hidden; border: 1px solid var(--border);
-            box-shadow: var(--soft-glow); max-width: 1100px; margin: 0 auto;
+            border-radius: 24px; overflow: hidden; border: 1px solid var(--border); box-shadow: var(--soft-glow);
         }
-        .form-info { background: var(--form-left); padding: 3rem; color: #0f172a; }
-        [data-theme="dark"] .form-info { background: rgba(0, 229, 255, 0.05); color: var(--text); }
-        
-        .form-info h3 { font-size: 1.8rem; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif; }
-        .form-info p { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.95rem; font-weight: 600; }
-        .form-info hr { border: none; height: 2px; background: var(--primary); width: 40px; margin: 2rem 0; }
-        .form-info h4 { margin-bottom: 1rem; font-size: 1.1rem; }
-        .services-list { list-style: none; }
-        .services-list li { margin-bottom: 10px; display: flex; align-items: center; font-size: 0.9rem; font-weight: 500; }
-        .services-list li::before { content: "➔"; margin-right: 10px; color: var(--primary); }
+        .form-contact-info { background: var(--form-accent); padding: 3rem; }
+        .form-contact-info h3 { font-size: 1.8rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif; }
+        .contact-item { margin-bottom: 20px; display: flex; flex-direction: column; }
+        .contact-item span { font-size: 0.75rem; color: var(--primary); font-weight: 800; text-transform: uppercase; }
+        .contact-item p { font-size: 1rem; font-weight: 600; }
 
-        .form-body { padding: 3rem; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text); font-size: 0.9rem; }
-        .form-group input, .form-group select, .form-group textarea {
+        .form-main { padding: 3rem; }
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
+        .input-group input, .input-group select, .input-group textarea {
             width: 100%; padding: 14px; border-radius: 8px; border: 1px solid var(--border);
-            background: var(--input-bg); color: var(--text); font-family: inherit; font-size: 0.95rem;
-        }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.1);
+            background: var(--input-bg); color: var(--text); font-family: inherit;
         }
 
-        /* --- PANEL DE ADMINISTRADOR --- */
-        .admin-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85);
-            z-index: 3000; display: none; flex-direction: column; padding: 2rem; overflow-y: auto;
-            backdrop-filter: blur(15px); color: #fff;
+        /* --- Admin Modal --- */
+        .admin-panel {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9);
+            z-index: 2000; display: none; flex-direction: column; padding: 2rem; overflow-y: auto; backdrop-filter: blur(10px);
         }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; }
-        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-        .tab-btn { background: rgba(255,255,255,0.1); border: none; padding: 10px 20px; color: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .tab-btn.active { background: var(--primary); color: #000; }
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .tab-btn { background: none; border: none; color: #fff; padding: 10px 20px; cursor: pointer; font-weight: 800; opacity: 0.5; }
+        .tab-btn.active { opacity: 1; border-bottom: 2px solid var(--primary); color: var(--primary); }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Tabla de órdenes admin */
-        .orders-table { width: 100%; border-collapse: collapse; background: #131b2f; border-radius: 12px; overflow: hidden; }
-        .orders-table th, .orders-table td { padding: 15px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .orders-table th { background: rgba(0, 229, 255, 0.1); color: var(--primary); }
-        
-        /* Gestor de Planes Admin */
-        .plan-edit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .plan-edit-card { background: #131b2f; padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); }
-        .plan-edit-card input, .plan-edit-card textarea { width: 100%; margin-bottom: 10px; padding: 10px; background: #0a0f1c; border: 1px solid #333; color: #fff; border-radius: 5px; }
+        .edit-card { background: #131b2f; padding: 20px; border-radius: 12px; border: 1px solid #333; margin-bottom: 15px; }
+        .edit-card input { width: 100%; margin-bottom: 10px; padding: 8px; background: #0a0f1c; color: #fff; border: 1px solid #444; }
 
-        .btn-admin-close { background: var(--danger); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        footer { padding: 3rem; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; }
+        .copyright { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; font-weight: 800; letter-spacing: 1.5px; }
 
-        footer { padding: 3rem 8%; text-align: center; border-top: 1px solid var(--border); margin-top: 4rem; }
-        .copyright { font-size: 0.9rem; font-weight: 800; letter-spacing: 2px; color: var(--text-muted); cursor: pointer; }
-
-        @media (max-width: 900px) {
-            .form-wrapper { grid-template-columns: 1fr; }
-            .pricing-card.popular { transform: none; }
-            .pricing-card.popular:hover { transform: translateY(-5px); }
-        }
+        @media (max-width: 900px) { .form-split { grid-template-columns: 1fr; } .hero h1 { font-size: 2.5rem; } }
     </style>
 </head>
 <body>
@@ -193,127 +151,111 @@
             <img src="https://exoslabs71.wordpress.com/wp-content/uploads/2026/04/gemini_generated_image_gl6g66gl6g66gl6g.png" alt="Exos Logo" class="logo-img">
             <div class="logo-text">EXOS <span>CODE LABS</span></div>
         </div>
-        <div class="nav-controls">
-            <button class="theme-toggle" id="theme-btn">☀️ Modo Claro</button>
-        </div>
+        <button class="theme-toggle" id="theme-switch">☀️ MODO CLARO</button>
     </nav>
 
     <header class="hero">
         <h1>Ingeniería Web de <b>Alto Nivel</b>.</h1>
-        <p>Desarrollo de páginas web, tiendas online y servidores. Nos adaptamos a tus necesidades. Conoce nuestras opciones de diseño web para tu negocio.</p>
+        <p>Desarrollamos ecosistemas digitales escalables: desde tiendas online semiautomatizadas hasta infraestructuras de servidores críticos. Tu visión técnica, ejecutada con precisión.</p>
     </header>
 
     <section class="section" id="planes">
         <div class="section-title">
-            <p>Cotiza tu Proyecto</p>
-            <h2>Precio de Diseño de Página Web</h2>
+            <p>Inversión Inteligente</p>
+            <h2>Soluciones de Ingeniería Web</h2>
         </div>
-        
-        <div class="pricing-grid" id="pricing-render-area">
-            <p style="text-align: center; width: 100%;">Cargando tarifas actualizadas...</p>
-        </div>
-        
-        <p style="text-align: center; margin-top: 2rem; color: var(--text); font-weight: bold; font-size: 1.1rem;">
-            Pago único y la página web es tuya, libre de mensualidades.
+        <div class="pricing-grid" id="grid-planes">
+            </div>
+        <p style="text-align: center; margin-top: 3rem; font-weight: 800; font-size: 1.1rem; color: var(--primary);">
+            PROPIEDAD ABSOLUTA DEL CÓDIGO FUENTE. SIN MENSUALIDADES.
         </p>
     </section>
 
     <section class="section" id="contacto">
-        <div class="form-wrapper">
-            <div class="form-info">
-                <h3>Empresa De Diseño<br>De Páginas Web</h3>
-                <p>✉️ arquitectura@exoslabs.com</p>
-                <p>📞 0412 733-6450 (Samuel A.)</p>
-                <p>📞 0412 069-0493 (José R.)</p>
-                <hr>
-                <h4>SERVICIOS DE INGENIERÍA</h4>
-                <ul class="services-list">
-                    <li>Diseño Web Profesional Para Negocios</li>
-                    <li>Diseño Web Páginas Corporativas</li>
-                    <li>Diseño Web De Tiendas Online (E-commerce)</li>
-                    <li>Configuración de Servidores Windows</li>
-                    <li>Sistema de Verificación VPM Multimoneda</li>
-                    <li>Conexión de Bases de Datos y a2softway</li>
-                    <li>Páginas Web Para Bodegones y Restaurantes</li>
-                </ul>
+        <div class="form-split">
+            <div class="form-contact-info">
+                <h3>Agencia de <br>Ingeniería Web</h3>
+                <div class="contact-item">
+                    <span>Lead Architect</span>
+                    <p>Samuel A. | +58 412-7336450</p>
+                </div>
+                <div class="contact-item">
+                    <span>Systems Engineer</span>
+                    <p>José R. | +58 412-0690493</p>
+                </div>
+                <div class="contact-item">
+                    <span>Ubicación</span>
+                    <p>Maracaibo, Venezuela</p>
+                </div>
+                <div style="margin-top: 3rem; border-top: 2px solid var(--primary); padding-top: 1.5rem;">
+                    <p style="font-size: 0.85rem; opacity: 0.8;"><b>Marcas & Sistemas:</b><br>Fanática Beauty C.A. (RIF J502419187)<br>VPM Logistics System<br>Sincronía ERP</p>
+                </div>
             </div>
             
-            <div class="form-body">
-                <h3 style="font-size: 1.5rem; margin-bottom: 1.5rem; font-family: 'Space Grotesk', sans-serif;">Cotizar Proyecto O Servicio</h3>
-                <form id="exos-order-form">
-                    <div class="form-group">
-                        <label>Nombre / Empresa *</label>
-                        <input type="text" id="frm-nombre" required>
+            <div class="form-main">
+                <h3 style="margin-bottom: 2rem; font-family: 'Space Grotesk', sans-serif;">Iniciar Requerimiento Técnico</h3>
+                <form id="form-orden">
+                    <div class="input-group">
+                        <label>Nombre o Razón Social</label>
+                        <input type="text" id="ord-nombre" required>
                     </div>
-                    <div class="form-group">
-                        <label>Teléfono (WhatsApp) *</label>
-                        <input type="text" id="frm-tlf" required>
+                    <div class="input-group">
+                        <label>WhatsApp de Contacto</label>
+                        <input type="text" id="ord-whatsapp" required>
                     </div>
-                    <div class="form-group">
-                        <label>Servicio de Interés *</label>
-                        <select id="frm-plan" required>
-                            <option value="">Seleccione un plan o servicio...</option>
-                        </select>
+                    <div class="input-group">
+                        <label>Servicio Requerido</label>
+                        <select id="ord-servicio" required>
+                            </select>
                     </div>
-                    <div class="form-group">
-                        <label>Déjanos los detalles de tu proyecto *</label>
-                        <textarea id="frm-detalles" rows="4" placeholder="Colores, funciones, enlaces de referencia..." required></textarea>
+                    <div class="input-group">
+                        <label>Especificaciones del Proyecto</label>
+                        <textarea id="ord-detalles" rows="4" placeholder="Colores corporativos, funciones deseadas, integraciones con base de datos..." required></textarea>
                     </div>
-                    <button type="submit" id="btn-submit" class="btn-action btn-solid" style="padding: 15px; font-size: 1.1rem;">ENVIAR COTIZACIÓN A WHATSAPP</button>
+                    <button type="submit" class="btn-cotizar btn-solid" id="btn-envio">ENVIAR A WHATSAPP</button>
                 </form>
             </div>
         </div>
     </section>
 
-    <div class="admin-modal" id="admin-panel">
-        <div class="admin-header">
-            <h2>EXOS GOD MODE</h2>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-admin-close" id="logout-btn" style="background:#f59e0b; display:none;">CERRAR SESIÓN</button>
-                <button class="btn-admin-close" id="close-admin-btn">X CERRAR</button>
-            </div>
+    <div class="admin-panel" id="panel-admin">
+        <div style="display:flex; justify-content: space-between; align-items:center; margin-bottom:2rem;">
+            <h2 style="color:var(--primary); font-family: 'Space Grotesk', sans-serif;">EXOS GOD MODE</h2>
+            <button onclick="cerrarAdmin()" style="background:var(--danger); color:#fff; border:none; padding:8px 15px; border-radius:8px; cursor:pointer;">CERRAR</button>
         </div>
 
-        <div id="admin-login-section" style="max-width: 400px; margin: 2rem auto; background: #131b2f; padding: 2rem; border-radius: 12px; text-align: center;">
-            <h3 style="color:var(--primary); margin-bottom:20px;">Autenticación Requerida</h3>
-            <input type="email" id="auth-email" placeholder="Correo" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px; border:none;">
-            <input type="password" id="auth-pass" placeholder="Contraseña" style="width:100%; padding:10px; margin-bottom:20px; border-radius:5px; border:none;">
-            <button id="btn-login-auth" class="btn-action btn-solid">ENTRAR</button>
-            <p id="auth-error" style="color:var(--danger); font-size:0.85rem; margin-top:10px; display:none;"></p>
+        <div id="admin-auth" style="max-width: 400px; margin: 4rem auto; text-align: center;">
+            <h3 style="margin-bottom: 20px;">Acceso Restringido</h3>
+            <input type="email" id="adm-email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:10px;">
+            <input type="password" id="adm-pass" placeholder="Password" style="width:100%; padding:12px; margin-bottom:20px;">
+            <button onclick="loginAdmin()" class="btn-cotizar btn-solid">AUTENTICAR</button>
         </div>
 
-        <div id="admin-dashboard-section" style="display:none;">
+        <div id="admin-dash" style="display:none;">
             <div class="admin-tabs">
-                <button class="tab-btn active" onclick="switchTab('tab-ordenes')">📥 Órdenes Recibidas</button>
-                <button class="tab-btn" onclick="switchTab('tab-planes')">⚙️ Gestionar Planes & Precios</button>
+                <button class="tab-btn active" onclick="verTab('tab-req')">REQUERIMIENTOS</button>
+                <button class="tab-btn" onclick="verTab('tab-inv')">INVENTARIO DE PRECIOS</button>
             </div>
 
-            <div id="tab-ordenes" class="tab-content active">
-                <table class="orders-table">
-                    <thead><tr><th>Fecha</th><th>Cliente / Tlf</th><th>Servicio</th><th>Detalles</th></tr></thead>
-                    <tbody id="orders-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
-                </table>
+            <div id="tab-req" class="tab-content active">
+                <div id="lista-ordenes"></div>
             </div>
 
-            <div id="tab-planes" class="tab-content">
-                <div style="margin-bottom: 15px; display: flex; justify-content: space-between;">
-                    <p style="color:var(--text-muted); font-size:0.9rem;">Modifica los textos, precios y características. Guarda para aplicar en la web en vivo.</p>
-                    <button id="btn-save-plans" class="btn-action btn-solid" style="width:auto; padding: 8px 20px;">💾 GUARDAR CAMBIOS</button>
-                </div>
-                <div class="plan-edit-grid" id="admin-plans-container">
-                    </div>
+            <div id="tab-inv" class="tab-content">
+                <button onclick="guardarPlanes()" class="btn-cotizar btn-solid" style="margin-bottom:20px; width:auto; padding:10px 30px;">GUARDAR CAMBIOS EN VIVO</button>
+                <div id="editor-planes"></div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p class="copyright" id="secret-trigger">EXOS CODE LABS STUDIO. ALL RIGHTS RESERVED.</p>
+        <p class="copyright" id="trigger-admin">EXOS CODE LABS STUDIO. ALL RIGHTS RESERVED. (RULES_UNTIL_2035)</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, push, onValue, set, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, set, push, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAFCd-j46phQc7Gng8ZxhfKTWpx-VDugps",
@@ -329,216 +271,158 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        // --- SISTEMA DE TEMA (CLARO/OSCURO) ---
-        const themeBtn = document.getElementById('theme-btn');
-        const htmlDoc = document.documentElement;
-        
-        // Cargar preferencia guardada
-        if(localStorage.getItem('exos-theme') === 'light') {
-            htmlDoc.setAttribute('data-theme', 'light');
-            themeBtn.innerHTML = '🌙 Modo Oscuro';
-        }
-
-        themeBtn.addEventListener('click', () => {
-            if(htmlDoc.getAttribute('data-theme') === 'dark') {
-                htmlDoc.setAttribute('data-theme', 'light');
-                localStorage.setItem('exos-theme', 'light');
-                themeBtn.innerHTML = '🌙 Modo Oscuro';
-            } else {
-                htmlDoc.setAttribute('data-theme', 'dark');
-                localStorage.setItem('exos-theme', 'dark');
-                themeBtn.innerHTML = '☀️ Modo Claro';
-            }
+        // --- Manejo de Tema ---
+        const switchTheme = document.getElementById('theme-switch');
+        switchTheme.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', target);
+            switchTheme.innerText = target === 'dark' ? '☀️ MODO CLARO' : '🌙 MODO OSCURO';
         });
 
-        // --- PLANES POR DEFECTO (Si la base de datos está vacía) ---
-        const planesDefault = [
-            { id: "p1", titulo: "Landing Page Informativa", desc: "Ideal si estás comenzando o para campañas publicitarias.", precioAntiguo: "180", precioNuevo: "80", features: "Diseño One-Page estructurado,Botones a WhatsApp y Redes,Código puro y ultrarrápido", popular: false, linkInfo: "#contacto" },
-            { id: "p2", titulo: "Tienda Online PYME", desc: "Landing Page para ventas en línea, gestión de inventario.", precioAntiguo: "300", precioNuevo: "180", features: "Tienda Online escalable,Carrito de compras directo,Dominio y Hosting incluidos", popular: true, linkInfo: "https://www.fanaticadelabelleza.com" },
-            { id: "p3", titulo: "Sistema VPM Multimoneda", desc: "Gestión de caja y cruce de tasas de cambio.", precioAntiguo: "50", precioNuevo: "30", features: "Herramienta logística financiera,Cálculos precisos al instante,Ligero y adaptable", popular: false, linkInfo: "https://vpm-beta.netlify.app/" },
-            { id: "p4", titulo: "Enterprise Server", desc: "Para empresas con múltiples sucursales.", precioAntiguo: "800", precioNuevo: "500", features: "Windows Server dedicado,Control remoto global,Integración a2softway experta", popular: false, linkInfo: "#contacto" }
+        // --- Planes Dinámicos ---
+        const planesBase = [
+            { id: "1", nombre: "Landing Page Starter", ant: "180", hoy: "80", desc: "Diseño One-Page optimizado para conversiones.", caps: "Código puro,WhatsApp Directo,SEO Básico" },
+            { id: "2", nombre: "E-Commerce Profesional", ant: "350", hoy: "200", desc: "Tienda online completa con facturación.", caps: "Carrito de compras,Inventario,Dominio y Hosting", pop: true },
+            { id: "3", nombre: "Logística VPM Beta", ant: "60", hoy: "30", desc: "Sistema de verificación de pagos multimoneda.", caps: "Tasas en tiempo real,9AM a 6:30PM,Cruces de caja" },
+            { id: "4", nombre: "Enterprise Server", ant: "850", hoy: "500", desc: "Windows Server con control remoto global.", caps: "Integración a2softway,Multisucursal,Seguridad crítica" }
         ];
 
-        let planesActuales = [];
+        onValue(ref(db, 'config_planes'), (snap) => {
+            const data = snap.exists() ? snap.val() : planesBase;
+            renderPlanes(data);
+            llenarSelect(data);
+            renderEditor(data);
+        });
 
-        // --- RENDERIZADO DE PLANES EN LA WEB ---
-        const renderArea = document.getElementById('pricing-render-area');
-        const selectPlan = document.getElementById('frm-plan');
-
-        function renderizarPlanesWeb(planes) {
-            renderArea.innerHTML = '';
-            selectPlan.innerHTML = '<option value="">Seleccione un plan o servicio...</option>';
-            
-            planes.forEach(plan => {
-                // Generar HTML de la tarjeta
-                const featuresList = plan.features.split(',').map(f => `<li>${f.trim()}</li>`).join('');
-                const popClass = plan.popular ? 'popular' : '';
-                const badgeHtml = plan.popular ? `<div class="badge-popular">Más Pedida</div>` : '';
-                const btnClass = plan.popular ? 'btn-solid' : 'btn-action';
-                
-                const cardHTML = `
-                    <div class="pricing-card ${popClass}">
-                        ${badgeHtml}
-                        <div class="pricing-header">
-                            <h3 class="pricing-title">${plan.titulo}</h3>
-                            <span style="font-size: 0.85rem; color: var(--text-muted); display:block; margin-bottom:10px;">${plan.desc}</span>
-                            <span class="price-old">$${plan.precioAntiguo} Valor total</span>
-                            <div class="pricing-price"><span>$</span>${plan.precioNuevo}</div>
-                            <span class="price-note">Pago Único / Tasa Conveniente</span>
-                        </div>
-                        <ul class="pricing-features">${featuresList}</ul>
-                        <a href="${plan.linkInfo}" class="${btnClass} btn-action">VER O COTIZAR</a>
+        function renderPlanes(planes) {
+            const grid = document.getElementById('grid-planes');
+            grid.innerHTML = '';
+            planes.forEach(p => {
+                const list = p.caps.split(',').map(c => `<li>${c}</li>`).join('');
+                grid.innerHTML += `
+                    <div class="pricing-card ${p.pop ? 'popular' : ''}">
+                        <span class="price-old">$${p.ant}</span>
+                        <div class="pricing-price"><small>$</small>${p.hoy}</div>
+                        <h3 class="pricing-title">${p.nombre}</h3>
+                        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.5rem;">${p.desc}</p>
+                        <ul class="pricing-features">${list}</ul>
+                        <a href="#contacto" class="btn-cotizar">SOLICITAR</a>
                     </div>
                 `;
-                renderArea.innerHTML += cardHTML;
-
-                // Llenar el select del formulario
-                selectPlan.innerHTML += `<option value="${plan.titulo} ($${plan.precioNuevo})">${plan.titulo} - $${plan.precioNuevo}</option>`;
             });
-            // Opción extra
-            selectPlan.innerHTML += `<option value="Requerimiento a Medida">Otro Requerimiento a Medida</option>`;
         }
 
-        // Cargar planes de Firebase
-        onValue(ref(db, 'config_planes'), (snapshot) => {
-            if(snapshot.exists()) {
-                planesActuales = snapshot.val();
-                renderizarPlanesWeb(planesActuales);
-                renderizarAdminPlanes(planesActuales);
-            } else {
-                // Si no existen, guardar los por defecto y usarlos
-                set(ref(db, 'config_planes'), planesDefault);
-                planesActuales = planesDefault;
-                renderizarPlanesWeb(planesActuales);
-                renderizarAdminPlanes(planesActuales);
-            }
-        });
+        function llenarSelect(planes) {
+            const sel = document.getElementById('ord-servicio');
+            sel.innerHTML = '<option value="" disabled selected>Selecciona un servicio...</option>';
+            planes.forEach(p => {
+                sel.innerHTML += `<option value="${p.nombre} ($${p.hoy})">${p.nombre} - $${p.hoy}</option>`;
+            });
+            sel.innerHTML += `<option value="Sincronía ERP / Especial">Requerimiento Especial (Sincronía / Otros)</option>`;
+        }
 
-        // --- ENVÍO DE FORMULARIO A WHATSAPP ---
-        document.getElementById('exos-order-form').addEventListener('submit', async (e) => {
+        // --- Formulario ---
+        document.getElementById('form-orden').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btnSubmit = document.getElementById('btn-submit');
-            btnSubmit.innerText = 'PROCESANDO...';
+            const btn = document.getElementById('btn-envio');
+            btn.innerText = 'PROCESANDO ORDEN...';
 
-            const nombre = document.getElementById('frm-nombre').value;
-            const tlf = document.getElementById('frm-tlf').value;
-            const plan = document.getElementById('frm-plan').value;
-            const detalles = document.getElementById('frm-detalles').value;
+            const payload = {
+                cliente: document.getElementById('ord-nombre').value,
+                whatsapp: document.getElementById('ord-whatsapp').value,
+                servicio: document.getElementById('ord-servicio').value,
+                detalles: document.getElementById('ord-detalles').value,
+                timestamp: serverTimestamp()
+            };
 
-            try {
-                await push(ref(db, 'ordenes_exos'), {
-                    cliente: nombre, tlf: tlf, servicio: plan, detalles: detalles, 
-                    fecha: new Date().toLocaleString('es-VE'), timestamp: serverTimestamp()
-                });
-
-                const textoWA = `*NUEVA COTIZACIÓN WEB*%0A%0A*Cliente:* ${nombre}%0A*Tlf:* ${tlf}%0A*Servicio:* ${plan}%0A*Detalles:* ${detalles}`;
-                window.open(`https://wa.me/584127336450?text=${textoWA}`, '_blank');
-                
-                document.getElementById('exos-order-form').reset();
-                btnSubmit.innerText = 'ENVIAR COTIZACIÓN A WHATSAPP';
-            } catch (err) { alert('Error. Usa el botón flotante.'); btnSubmit.innerText = 'ENVIAR COTIZACIÓN A WHATSAPP'; }
+            await push(ref(db, 'ordenes_recibidas'), payload);
+            
+            const msg = `*EXOS CODE LABS - NUEVO REQUERIMIENTO*%0A%0A*Cliente:* ${payload.cliente}%0A*WhatsApp:* ${payload.whatsapp}%0A*Servicio:* ${payload.servicio}%0A*Detalles:* ${payload.detalles}`;
+            window.open(`https://wa.me/584127336450?text=${msg}`, '_blank');
+            
+            document.getElementById('form-orden').reset();
+            btn.innerText = 'ENVIAR A WHATSAPP';
         });
 
-        // --- PANEL ADMINISTRATIVO Y FIREBASE AUTH ---
-        window.switchTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        const adminPanel = document.getElementById('admin-panel');
-        document.getElementById('secret-trigger').addEventListener('click', () => adminPanel.style.display = 'flex');
-        document.getElementById('close-admin-btn').addEventListener('click', () => adminPanel.style.display = 'none');
-
-        const loginSec = document.getElementById('admin-login-section');
-        const dashSec = document.getElementById('admin-dashboard-section');
-        const btnLogin = document.getElementById('btn-login-auth');
-        const logoutBtn = document.getElementById('logout-btn');
+        // --- Admin God Mode ---
+        window.loginAdmin = () => {
+            const email = document.getElementById('adm-email').value;
+            const pass = document.getElementById('adm-pass').value;
+            signInWithEmailAndPassword(auth, email, pass).catch(() => alert('Credenciales de Arquitecto Inválidas.'));
+        };
 
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                loginSec.style.display = 'none'; dashSec.style.display = 'block'; logoutBtn.style.display = 'block';
-                cargarOrdenes();
-            } else {
-                loginSec.style.display = 'block'; dashSec.style.display = 'none'; logoutBtn.style.display = 'none';
+            if(user) {
+                document.getElementById('admin-auth').style.display = 'none';
+                document.getElementById('admin-dash').style.display = 'block';
+                cargarOrdenesAdmin();
             }
         });
 
-        btnLogin.addEventListener('click', () => {
-            const e = document.getElementById('auth-email').value; const p = document.getElementById('auth-pass').value;
-            btnLogin.innerText = "VERIFICANDO...";
-            signInWithEmailAndPassword(auth, e, p).then(() => btnLogin.innerText = "ENTRAR")
-            .catch(() => { document.getElementById('auth-error').style.display='block'; document.getElementById('auth-error').innerText='Error de Auth'; btnLogin.innerText="ENTRAR"; });
-        });
-
-        logoutBtn.addEventListener('click', () => signOut(auth));
-
-        function cargarOrdenes() {
-            onValue(ref(db, 'ordenes_exos'), (snap) => {
-                const body = document.getElementById('orders-body');
-                body.innerHTML = '';
+        function cargarOrdenesAdmin() {
+            onValue(ref(db, 'ordenes_recibidas'), (snap) => {
+                const div = document.getElementById('lista-ordenes');
+                div.innerHTML = '';
                 if(snap.exists()) {
                     Object.values(snap.val()).reverse().forEach(o => {
-                        body.innerHTML += `<tr><td>${o.fecha}</td><td>${o.cliente}<br><small>${o.tlf}</small></td><td>${o.servicio}</td><td style="font-size:0.8rem">${o.detalles}</td></tr>`;
+                        div.innerHTML += `
+                            <div style="background:rgba(255,255,255,0.05); padding:15px; border-radius:10px; margin-bottom:10px; border-left:4px solid var(--primary);">
+                                <p><b>Cliente:</b> ${o.cliente} | <b>WhatsApp:</b> ${o.whatsapp}</p>
+                                <p style="color:var(--primary)"><b>Servicio:</b> ${o.servicio}</p>
+                                <p style="font-size:0.85rem; opacity:0.8;">${o.detalles}</p>
+                            </div>
+                        `;
                     });
-                } else { body.innerHTML = '<tr><td colspan="4">Sin cotizaciones.</td></tr>'; }
+                }
             });
         }
 
-        // Renderizar editor de planes
-        function renderizarAdminPlanes(planes) {
-            const container = document.getElementById('admin-plans-container');
+        function renderEditor(planes) {
+            const container = document.getElementById('editor-planes');
             container.innerHTML = '';
-            planes.forEach((p, index) => {
+            planes.forEach((p, i) => {
                 container.innerHTML += `
-                    <div class="plan-edit-card">
-                        <label style="font-size:0.8rem; color:var(--primary);">Título del Plan</label>
-                        <input type="text" id="edit-tit-${index}" value="${p.titulo}">
-                        
-                        <label style="font-size:0.8rem; color:var(--primary);">Descripción corta</label>
-                        <input type="text" id="edit-desc-${index}" value="${p.desc}">
-                        
+                    <div class="edit-card">
+                        <input type="text" id="tit-${i}" value="${p.nombre}" placeholder="Título">
                         <div style="display:flex; gap:10px;">
-                            <div style="flex:1;"><label style="font-size:0.8rem; color:var(--primary);">Precio Anterior</label><input type="text" id="edit-old-${index}" value="${p.precioAntiguo}"></div>
-                            <div style="flex:1;"><label style="font-size:0.8rem; color:var(--primary);">Precio Promoción</label><input type="text" id="edit-new-${index}" value="${p.precioNuevo}"></div>
+                            <input type="text" id="ant-${i}" value="${p.ant}" placeholder="Precio Antes">
+                            <input type="text" id="hoy-${i}" value="${p.hoy}" placeholder="Precio Hoy">
                         </div>
-                        
-                        <label style="font-size:0.8rem; color:var(--primary);">Características (Separadas por coma)</label>
-                        <textarea id="edit-feat-${index}" rows="3">${p.features}</textarea>
-                        
-                        <label style="font-size:0.8rem; color:var(--primary);">Destacar como "Más Pedido"</label>
-                        <select id="edit-pop-${index}" style="width:100%; padding:10px; margin-bottom:10px; background:#0a0f1c; color:#fff;">
-                            <option value="true" ${p.popular ? 'selected' : ''}>SÍ, DESTACAR</option>
-                            <option value="false" ${!p.popular ? 'selected' : ''}>NO</option>
-                        </select>
+                        <input type="text" id="desc-${i}" value="${p.desc}" placeholder="Descripción corta">
+                        <textarea id="caps-${i}" style="width:100%; background:#0a0f1c; color:#fff; padding:10px;">${p.caps}</textarea>
                     </div>
                 `;
             });
         }
 
-        // Guardar edición de planes
-        document.getElementById('btn-save-plans').addEventListener('click', () => {
-            const btn = document.getElementById('btn-save-plans');
-            btn.innerText = "GUARDANDO...";
-            let nuevosPlanes = [];
-            for(let i=0; i<planesActuales.length; i++) {
+        window.guardarPlanes = () => {
+            const nuevosPlanes = [];
+            for(let i=0; i<4; i++) {
                 nuevosPlanes.push({
-                    id: planesActuales[i].id,
-                    titulo: document.getElementById(`edit-tit-${i}`).value,
-                    desc: document.getElementById(`edit-desc-${i}`).value,
-                    precioAntiguo: document.getElementById(`edit-old-${i}`).value,
-                    precioNuevo: document.getElementById(`edit-new-${i}`).value,
-                    features: document.getElementById(`edit-feat-${i}`).value,
-                    popular: document.getElementById(`edit-pop-${i}`).value === "true",
-                    linkInfo: planesActuales[i].linkInfo
+                    id: String(i+1),
+                    nombre: document.getElementById(`tit-${i}`).value,
+                    ant: document.getElementById(`ant-${i}`).value,
+                    hoy: document.getElementById(`hoy-${i}`).value,
+                    desc: document.getElementById(`desc-${i}`).value,
+                    caps: document.getElementById(`caps-${i}`).value,
+                    pop: i === 1
                 });
             }
-            set(ref(db, 'config_planes'), nuevosPlanes).then(() => {
-                btn.innerText = "¡GUARDADO! 💾";
-                setTimeout(() => btn.innerText = "💾 GUARDAR CAMBIOS", 2000);
-            });
+            set(ref(db, 'config_planes'), nuevosPlanes).then(() => alert('Precios actualizados en la Web.'));
+        };
+
+        window.verTab = (id) => {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            event.target.classList.add('active');
+        };
+
+        document.getElementById('trigger-admin').addEventListener('click', () => {
+            document.getElementById('panel-admin').style.display = 'flex';
         });
+        window.cerrarAdmin = () => document.getElementById('panel-admin').style.display = 'none';
 
     </script>
 </body>
